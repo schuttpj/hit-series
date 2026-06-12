@@ -1,0 +1,113 @@
+html.hit-locked body {
+  overflow: hidden;
+}
+
+#hit-auth-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(8, 11, 24, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: Geist, 'Segoe UI', system-ui, Arial, sans-serif;
+  color: #e8ecf4;
+}
+
+.hit-auth-card {
+  width: min(420px, 100%);
+  background: #161c38;
+  border: 1px solid rgba(34, 198, 240, 0.28);
+  border-radius: 14px;
+  padding: 28px 30px 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.hit-auth-kicker {
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #22c6f0;
+  font-weight: 600;
+  margin-bottom: 0.55rem;
+}
+
+.hit-auth-card h1 {
+  margin: 0 0 0.55rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.hit-auth-card p {
+  margin: 0 0 1rem;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: rgba(232, 236, 244, 0.72);
+}
+
+.hit-auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 0.85rem;
+}
+
+.hit-auth-field label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(232, 236, 244, 0.55);
+  font-weight: 600;
+}
+
+.hit-auth-field input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: #10152e;
+  color: #e8ecf4;
+  padding: 11px 12px;
+  font: inherit;
+  font-size: 0.92rem;
+}
+
+.hit-auth-field input:focus {
+  outline: none;
+  border-color: rgba(34, 198, 240, 0.55);
+  box-shadow: 0 0 0 3px rgba(34, 198, 240, 0.12);
+}
+
+.hit-auth-error {
+  min-height: 1.1rem;
+  margin: 0 0 0.75rem;
+  font-size: 0.78rem;
+  color: #ff8a8a;
+}
+
+.hit-auth-submit {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background: #22c6f0;
+  color: #0a0f1f;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hit-auth-submit:hover {
+  opacity: 0.9;
+}
+
+.hit-auth-note {
+  margin-top: 0.95rem;
+  font-size: 0.7rem;
+  line-height: 1.55;
+  color: rgba(232, 236, 244, 0.35);
+}
