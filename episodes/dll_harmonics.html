@@ -242,7 +242,7 @@ body{margin:0;background:#10152e;color:#e8ecf4;
     <!-- Step 1: The hook -->
     <div class="xp-step" data-step="1">
       <div class="xp-kicker">Base case study &nbsp;·&nbsp; No filters applied &nbsp;·&nbsp; HIT shunt contribution</div>
-      <h2>How the HIT shunt cancels harmonic currents</h2>
+      <h2>How the HIT shunt is modelled cancelling harmonic currents</h2>
 
       <!-- Harmonic animation: Without HIT vs With HIT -->
       <canvas id="xp-harm-cv" width="720" height="230"
@@ -486,7 +486,7 @@ body{margin:0;background:#10152e;color:#e8ecf4;
         <div class="xi-pz">
           <div><span class="xi-pz-tag xi-tag-ep">Episode 1</span></div>
           <div class="xi-pz-title xi-cyn">Voltage Regulation</div>
-          <div class="xi-pz-body">HIT series path &nbsp;·&nbsp; ERCOT Voltage Ride-Through compliance &nbsp;·&nbsp; 25-second Model Qualification Test profile &nbsp;·&nbsp; Nodal Operating Guide &sect;2.15 Table A</div>
+          <div class="xi-pz-body">HIT series path &nbsp;·&nbsp; ERCOT voltage ride-through simulation study &nbsp;·&nbsp; 25-second Model Qualification Test profile &nbsp;·&nbsp; Nodal Operating Guide &sect;2.15 Table A</div>
         </div>
         <div class="xi-pz xi-pz-on">
           <div><span class="xi-pz-tag xi-tag-on">This demo</span></div>
@@ -741,11 +741,11 @@ body{margin:0;background:#10152e;color:#e8ecf4;
     /* 3 */
     { label: 'TDD with HIT',
       title: 'Active harmonic compensation',
-      body:  'The HIT shunt inverter connects in parallel with the facility load at the low-voltage bus. It continuously measures the load current, identifies the harmonic components, and injects a precisely timed cancellation current into the same node. Because the injected current is equal in magnitude and opposite in phase to the harmonics, the grid-side current is left carrying only the fundamental frequency component. Cases 2 through 4 achieve TDD below 5% at the Point of Common Coupling.' },
+      body:  'The HIT shunt inverter connects in parallel with the facility load at the low-voltage bus. In this simulation it measures the load current, identifies harmonic components, and injects a cancellation current into the same node. Cases 2 through 4 show TDD below 5% at the Point of Common Coupling against the IEEE 519-2022 limits applied in this study. Field validation is required before any compliance claim.' },
     /* 4 */
     { labels: ['TDD reduction','Shunt headroom'],
       title: 'Compensation depth and remaining capacity',
-      body:  'TDD reduction is the percentage decrease from the uncompensated to the compensated result — a direct measure of how effectively the shunt path suppresses harmonic injection into the grid. Shunt headroom is the inverter capacity that remains after handling harmonics. Cases 2 and 4 retain over 40%, meaning the same inverter can simultaneously provide reactive power support and power factor correction without exceeding its rated apparent-power capacity.' },
+      body:  'TDD reduction is the percentage decrease from the uncompensated to the compensated result in this simulation. Shunt headroom is the inverter capacity that remains after handling harmonics. Cases 2 and 4 retain over 40% in the model, indicating remaining apparent-power capacity for other shunt functions such as displacement power factor correction at the LV bus.' },
     /* 5 */
     { sel: '.sb-details',
       openDetails: true,
@@ -840,7 +840,7 @@ body{margin:0;background:#10152e;color:#e8ecf4;
       try{ Plotly.restyle(CID, {opacity: 0.92}, WITH_HIT_TR); }catch(e){}
       updateCallout(
         '③  After active compensation',
-        'Green bars show the result with the HIT shunt active. The shunt inverter cancels the harmonic components at the low-voltage bus by injecting equal and opposite currents — the grid sees only the fundamental frequency. All harmonic orders fall below their individual limits for Cases 2 through 4.',
+        'Green bars show the simulated result with the HIT shunt active. The model injects equal-and-opposite harmonic currents at the low-voltage bus. In this study, harmonic orders fall below their individual IEEE 519-2022 limits for Cases 2 through 4.',
         'Chart guide · 3 of 3'
       );
     }, 7200));

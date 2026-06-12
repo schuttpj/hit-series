@@ -26,6 +26,15 @@ Applied to `episode0_grid_codes.html` and future HIT Technology Series episodes.
 ## Factual claims
 
 - Every quantitative claim must trace to a file in `referencedocs/` or `gcc_compliance/`.
+
+## Technology claims (HIT vs grid-side compensation)
+
+- **HIT is series voltage injection** (DVR function), not shunt reactive compensation. Per `docs/energy_storage_architecture.md` §2: E-STATCOM performs shunt V/Q at the PCC; these are distinct functions.
+- **Do not claim** that HIT or HIT+BESS "replaces" STATCOM, E-STATCOM, or grid-side compensation infrastructure. HIT may reduce the need for discrete LV harmonic filters or PFC cubicles (per `referencedocs/HIT basis of design.md` §10.1.3); whether PCC-level shunt equipment is required is site-specific.
+- **HIT does not** provide transmission-system reactive support equivalent to E-STATCOM. **HIT cannot** inject active power on a phase whose source is disconnected without separate energy storage.
+- Frame outcomes as **simulation results**, **evaluated in study**, or **may** / **within ±20% range** — not proven, guaranteed, or compliance demonstrated unless citing an accepted interconnection filing.
+- Distinguish **facility LV bus** functions from **point of interconnection (PCC)** grid-support functions.
+
 - APR wording: **at least 90% of pre-fault active power**, never **full power draw**.
 - Incident examples: cite **NERC LLTF (2025)** for July 2024 Dominion-area disconnections; do not attribute to ESIG unless the full report states the event.
 - Illustrative chart tiers (e.g. 0.35 pu / 250 ms) must be labelled as representative of operator test profiles, not universal limits.

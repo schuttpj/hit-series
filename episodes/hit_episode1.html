@@ -558,12 +558,12 @@ body{
         <div class="xi-pz xi-pz-on">
           <span class="xi-pz-tag xi-tag-on">Episode 1 &nbsp;&middot;&nbsp; This demo</span>
           <div class="xi-pz-title">Voltage Regulation</div>
-          <div class="xi-pz-body">Series compensation: &#177;20% injection corrects grid sags and swells at 20 kHz. Keeps load voltage within ITIC tolerance envelope during ERCOT MQT events.</div>
+          <div class="xi-pz-body">Series compensation: &#177;20% injection corrects grid sags and swells at 20 kHz. In simulation, may bring load voltage toward nominal within the ITIC envelope for qualifying ERCOT MQT events inside the compensation range.</div>
         </div>
         <div class="xi-pz">
           <span class="xi-pz-tag xi-tag-ep">Episode 2 &nbsp;&middot;&nbsp; Available</span>
           <div class="xi-pz-title">Harmonic Cancellation</div>
-          <div class="xi-pz-body">Shunt compensation: HIT injects equal-and-opposite harmonic currents. Reduces TDD from 28% (six-pulse UPS) to &le;5% at the PCC &mdash; IEEE 519-2022 compliance demonstration.</div>
+          <div class="xi-pz-body">Shunt compensation: HIT injects equal-and-opposite harmonic currents. In simulation, TDD is reduced from 28% (six-pulse UPS) to &le;5% at the PCC for the cases shown &mdash; evaluated against IEEE 519-2022 limits.</div>
         </div>
         <div class="xi-pz xi-pz-dim">
           <span class="xi-pz-tag xi-tag-dim">Coming</span>
@@ -573,7 +573,7 @@ body{
         <div class="xi-pz xi-pz-dim">
           <span class="xi-pz-tag xi-tag-dim">Coming</span>
           <div class="xi-pz-title">Power Factor Correction</div>
-          <div class="xi-pz-body">Shunt VAR compensation: reactive power support at the PCC. Reduces grid-side reactive current demand and improves voltage stability margin during high-load events.</div>
+          <div class="xi-pz-body">Shunt VAR compensation at the facility LV bus (replaces discrete PFC cubicle per HIT basis of design). Distinct from shunt STATCOM or E-STATCOM reactive support at the point of interconnection.</div>
         </div>
       </div>
       <div class="xi-sources">Reference: ERCOT NOGRR-282 (April 2026) &nbsp;&middot;&nbsp; IEEE Std 1159-2019 ITIC &nbsp;&middot;&nbsp; ESIG Large Loads Task Force 2026 &nbsp;&middot;&nbsp; OEM Reference Design June 2026 v1</div>
@@ -723,7 +723,7 @@ body{
   <div class="design-band">
     <div class="db-grid">
       <div class="db-item">
-        <div class="db-head">Proven at design stage</div>
+        <div class="db-head">Assessed at design stage</div>
         <p>EirGrid requires the FRT/APR study before connection, based on site-specific controller settings, with re-assessment when settings change. ERCOT requires the Model Quality Test at the point of interconnection. The study examines the facility as designed.</p>
       </div>
       <div class="db-item">
@@ -850,7 +850,7 @@ body{
 <section class="sect">
   <div class="sect-label">The Technology</div>
   <h2>Active series compensation: the HIT between grid and load</h2>
-  <p class="sect-lede">The HIT (Hybrid Intelligent Transformer) sits in series between the grid supply and the data center load. Rather than passively passing grid voltage through to the load, it actively injects a correction voltage in series, reducing load-side voltage deviation within the limits of its ±20% duty-cycle range. Where source voltage is sufficient, this brings load voltage within the ITIC tolerance envelope. Where the source voltage is zero or the sag exceeds the compensation range, stored energy is required.</p>
+  <p class="sect-lede">The HIT (Hybrid Intelligent Transformer) sits in series between the grid supply and the data center load. Rather than passively passing grid voltage through to the load, it actively injects a correction voltage in series, reducing load-side voltage deviation within the limits of its ±20% duty-cycle range. Where source voltage is sufficient, this may bring load voltage toward the ITIC tolerance envelope. Where the source voltage is zero or the sag exceeds the compensation range, stored energy is required.</p>
   <div class="arch-wrap">
     <!-- HIT series-shunt topology: conventional transformer carries bulk power; additional series/shunt windings let partially-rated converters inject corrections only -->
     <svg viewBox="0 0 860 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:130px">
@@ -990,12 +990,12 @@ body{
 <section class="sect" id="scope">
   <div class="sect-label">Scope &amp; Limits</div>
   <h2>The 8 key MQT events: series compensation outcome</h2>
-  <p class="sect-lede">Of the eight key voltage events in the ERCOT Model Quality Test profile, series compensation resolves five. The remaining three require stored energy to close the gap, either because the source voltage is below the compensation threshold, or because the source voltage is zero.</p>
+  <p class="sect-lede">In this Reference Design simulation, five of the eight key voltage events in the ERCOT Model Quality Test profile fall within the ±20% series compensation range. The remaining three require stored energy to close the gap, either because the source voltage is below the compensation threshold, or because the source voltage is zero.</p>
 
   <div class="scope-tally">
     <div class="tally-card tally-ok">
       <div class="tally-num">5</div>
-      <div class="tally-lbl">Resolved by<br>series compensation</div>
+      <div class="tally-lbl">Within ±20% range<br>(simulation estimate)</div>
     </div>
     <div class="tally-card tally-partial">
       <div class="tally-num">2</div>
