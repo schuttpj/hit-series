@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grid Code Compliance and the Future of Data Centre Design · FoundDigital DS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#10152e;--dark:#0a0f1f;--cyan:#22c6f0;--white:#ffffff;
+  --grey:#f4f4f4;--muted:#a0a0a0;--red:#EF5350;--amber:#FF9800;--green:#4CAF50;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Geist',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--navy);color:var(--white);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  line-height:1.65;overflow-x:hidden;
+}
+
+
+}
+.series-nav .logo svg{display:block}
+.sep{color:rgba(255,255,255,0.18);font-size:1.1em}
+.series-title{color:var(--muted)}
+.ep-name{color:var(--white);font-weight:500}
+
+/* ── Hero ── */
+.hero{
+  min-height:88vh;display:flex;flex-direction:column;justify-content:center;
+  padding:110px 30px 80px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-250px;left:-200px;
+  width:800px;height:800px;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(34,198,240,0.07) 0%,transparent 68%);
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(transparent,var(--navy));pointer-events:none;
+}
+.hero-inner{max-width:1060px;margin:0 auto;width:100%}
+.hero-kicker{
+  font-size:0.76em;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1.1rem;font-weight:500;
+}
+.hero h1{
+  font-size:clamp(2.4rem,5.2vw,4.4rem);font-weight:500;line-height:1.08;
+  letter-spacing:-.02em;margin-bottom:1.1rem;
+}
+.hero-sub{
+  font-family:'Vollkorn',serif;font-style:italic;
+  font-size:clamp(1.05rem,1.8vw,1.35rem);
+  color:rgba(255,255,255,0.68);max-width:620px;margin-bottom:3rem;
+}
+.hero-diagram{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(34,198,240,0.12);
+  border-radius:1.2rem;padding:28px 24px 20px;overflow:hidden;
+}
+@keyframes draw-line{to{stroke-dashoffset:0}}
+.hero-draw{stroke-dasharray:600;stroke-dashoffset:600;animation:draw-line 1.6s ease-out forwards}
+.hero-draw.d2{animation-delay:.7s}
+.hero-draw.d3{animation-delay:1.5s}
+.hero-draw.d4{animation-delay:2.2s}
+@keyframes fade-in{to{opacity:1}}
+.hero-fade{opacity:0;animation:fade-in .8s ease-out forwards}
+.hero-fade.f2{animation-delay:1.3s}
+.hero-fade.f3{animation-delay:2.6s}
+
+/* ── Sections ── */
+.page-body{width:100%;max-width:1060px;margin:0 auto;padding:0 30px}
+.sect{padding:64px 0}
+.sect+.sect{border-top:1px solid rgba(34,198,240,0.08)}
+.sect-label{
+  display:inline-block;font-size:0.72em;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:.8rem;
+}
+.sect h2{
+  font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:500;line-height:1.2;
+  margin-bottom:1rem;letter-spacing:-.01em;
+}
+.sect-lede{font-size:1.02em;color:rgba(255,255,255,0.72);max-width:680px;margin-bottom:2.2rem}
+
+/* ── Two-column text + stat cards ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.col-text p{color:rgba(255,255,255,0.72);margin-bottom:.9rem}
+.col-text strong{color:var(--white)}
+.tag{
+  display:inline-block;
+  background:rgba(255,152,0,0.1);border:1px solid rgba(255,152,0,0.28);
+  border-radius:4px;padding:1px 7px;font-size:.78em;color:var(--amber);
+  font-weight:500;letter-spacing:.04em;margin-right:4px;
+}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1rem;padding:20px;transition:border-color .2s;
+}
+.stat-card:hover{border-color:rgba(34,198,240,0.28)}
+.stat-val{font-size:1.9rem;font-weight:500;color:var(--cyan);letter-spacing:-.02em;line-height:1;margin-bottom:5px}
+.stat-lbl{font-size:.8em;color:var(--muted);line-height:1.4}
+.stat-card.stat-then .stat-val{color:rgba(255,255,255,0.82)}
+
+/* ── Why-flow causal chain ── */
+.why-flow{margin-top:6px}
+.why-flow-title{
+  font-size:.72em;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:1.1rem;
+}
+.wf-step{
+  position:relative;padding:0 0 22px 34px;
+}
+.wf-step::before{
+  content:'';position:absolute;left:9px;top:22px;bottom:0;
+  width:1px;background:rgba(34,198,240,0.18);
+}
+.wf-step:last-of-type::before{display:none}
+.wf-dot{
+  position:absolute;left:0;top:2px;
+  width:19px;height:19px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.62rem;font-weight:600;
+  background:rgba(34,198,240,0.1);border:1px solid rgba(34,198,240,0.4);color:var(--cyan);
+}
+.wf-step.wf-event .wf-dot{
+  background:rgba(239,83,80,0.1);border-color:rgba(239,83,80,0.45);color:var(--red);
+}
+.wf-head{font-size:.88em;font-weight:500;color:var(--white);margin-bottom:4px}
+.wf-step p{font-size:.8em;color:rgba(255,255,255,0.6);line-height:1.6;margin:0}
+.wf-step p strong{color:rgba(255,255,255,0.85);font-weight:500}
+.wf-close{
+  border-left:3px solid var(--cyan);background:rgba(34,198,240,0.07);
+  padding:13px 16px;border-radius:0 .6rem .6rem 0;margin-top:4px;
+}
+.wf-close p{font-size:.84em;color:rgba(255,255,255,0.85);margin:0;line-height:1.55}
+
+/* ── Paradigm shift rows ── */
+.shift-list{display:flex;flex-direction:column;gap:14px;margin-bottom:2.2rem}
+.shift-row{
+  display:grid;grid-template-columns:175px 1fr 34px 1fr;gap:18px;align-items:stretch;
+}
+.shift-term{
+  display:flex;align-items:center;
+  font-size:.92em;font-weight:500;color:var(--white);line-height:1.35;
+}
+.shift-cell{
+  border-radius:.9rem;padding:15px 18px;position:relative;
+}
+.shift-then{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08)}
+.shift-now{background:rgba(34,198,240,0.05);border:1px solid rgba(34,198,240,0.22)}
+.shift-tag{
+  display:inline-block;font-size:.64em;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:600;margin-bottom:5px;
+}
+.shift-then .shift-tag{color:rgba(255,255,255,0.4)}
+.shift-now .shift-tag{color:var(--cyan)}
+.shift-cell p{font-size:.82em;line-height:1.55;margin:0}
+.shift-then p{color:rgba(255,255,255,0.55)}
+.shift-now p{color:rgba(255,255,255,0.82)}
+.shift-arrow{
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(34,198,240,0.55);font-size:1.15em;
+}
+
+/* ── Physics band ── */
+.physics-band{
+  display:grid;grid-template-columns:300px 1fr;gap:32px;align-items:center;
+  background:rgba(239,83,80,0.04);border:1px solid rgba(239,83,80,0.18);
+  border-radius:1.2rem;padding:26px 30px;
+}
+.physics-band h3{font-size:1.02rem;font-weight:500;margin-bottom:.5rem}
+.physics-band p{font-size:.86em;color:rgba(255,255,255,0.68);line-height:1.6;margin:0 0 .6rem}
+.physics-band p:last-child{margin-bottom:0}
+.physics-band strong{color:var(--white)}
+@keyframes v-drop{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+@keyframes i-rise{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.v-arrow{animation:v-drop 2.6s ease-in-out infinite}
+.i-arrow{animation:i-rise 2.6s ease-in-out infinite}
+
+/* ── Vocabulary cards ── */
+.vocab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.vocab-card{
+  background:rgba(255,255,255,0.025);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1rem;padding:22px;display:flex;flex-direction:column;
+  transition:border-color .2s;
+}
+.vocab-card:hover{border-color:rgba(34,198,240,0.3)}
+.vocab-abbr{
+  font-size:1.35rem;font-weight:500;color:var(--cyan);letter-spacing:-.01em;
+  line-height:1.1;margin-bottom:2px;
+}
+.vocab-name{font-size:.78em;color:var(--muted);margin-bottom:14px}
+.vocab-block{margin-bottom:12px}
+.vocab-block:last-of-type{margin-bottom:14px}
+.vocab-h{
+  font-size:.64em;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(34,198,240,0.75);font-weight:600;margin-bottom:3px;
+}
+.vocab-block p{font-size:.8em;color:rgba(255,255,255,0.62);line-height:1.55;margin:0}
+.vocab-block p strong{color:rgba(255,255,255,0.85);font-weight:500}
+.vocab-num{
+  margin-top:auto;
+  display:inline-block;align-self:flex-start;
+  background:rgba(34,198,240,0.08);border:1px solid rgba(34,198,240,0.22);
+  border-radius:100vw;padding:4px 13px;font-size:.74em;color:var(--cyan);
+  font-weight:500;letter-spacing:.02em;line-height:1.45;
+}
+
+/* ── Concept pillars (compact explainer) ── */
+.pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:1.6rem}
+.pillar-card{
+  background:rgba(255,255,255,0.025);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1rem;padding:22px 20px;
+}
+.pillar-num{font-size:.64em;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:8px}
+.pillar-card h3{font-size:.98em;font-weight:500;color:var(--white);margin-bottom:6px;line-height:1.3}
+.pillar-card p{font-size:.84em;color:rgba(255,255,255,0.58);line-height:1.55;margin:0}
+.pillar-card.pillar-event{border-color:rgba(239,83,80,0.22);background:rgba(239,83,80,0.04)}
+.pillar-card.pillar-event .pillar-num{color:#ef9a9a}
+
+/* ── Compact concept chips ── */
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.concept-card{
+  background:rgba(255,255,255,0.025);border:1px solid rgba(34,198,240,0.1);
+  border-radius:.9rem;padding:18px 20px;
+}
+.concept-abbr{font-size:1.1rem;font-weight:500;color:var(--cyan);margin-bottom:4px}
+.concept-card p{font-size:.84em;color:rgba(255,255,255,0.65);line-height:1.5;margin:0}
+
+/* ── Region snapshot ── */
+.region-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.region-card{
+  text-align:center;padding:24px 18px;
+  background:rgba(255,255,255,0.025);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1rem;
+}
+.region-val{font-size:1.6rem;font-weight:500;color:var(--cyan);line-height:1.1;margin-bottom:6px}
+.region-lbl{font-size:.8em;color:var(--muted);line-height:1.45}
+
+/* ── Big idea callout ── */
+.big-idea{
+  text-align:center;max-width:720px;margin:0 auto;
+  font-family:'Vollkorn',serif;font-style:italic;
+  font-size:clamp(1.15rem,2vw,1.45rem);color:rgba(255,255,255,0.78);line-height:1.45;
+}
+
+/* ── Jurisdiction table ── */
+.mqt-wrap{overflow-x:auto;border-radius:1rem;border:1px solid rgba(34,198,240,0.1);margin-bottom:1.4rem}
+.mqt-table{width:100%;border-collapse:collapse;font-size:.875em}
+.mqt-table th{
+  text-align:left;padding:10px 16px;
+  font-size:.7em;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);border-bottom:1px solid rgba(34,198,240,0.1);
+  font-weight:500;background:rgba(34,198,240,0.03)
+}
+.mqt-table td{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.mqt-table tbody tr:last-child td{border-bottom:none}
+.mqt-table tbody tr:hover td{background:rgba(255,255,255,0.02)}
+.mqt-name{color:var(--white);font-weight:500}
+.mqt-before{color:rgba(255,255,255,0.5)}
+.mqt-after{color:rgba(255,255,255,0.8)}
+.mqt-table tr.row-hl td{background:rgba(34,198,240,0.06)}
+.mqt-table tr.row-hl .mqt-name{color:var(--cyan)}
+.scope-caveats{
+  padding:14px 18px;border-radius:.8rem;font-size:.76em;
+  color:rgba(255,255,255,0.35);line-height:1.6;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)
+}
+.scope-caveats strong{color:rgba(255,255,255,0.5)}
+.callout{
+  border-left:3px solid var(--cyan);background:rgba(34,198,240,0.06);
+  padding:13px 17px;border-radius:0 .6rem .6rem 0;margin:1.2rem 0;
+}
+.callout p{margin:0;font-size:.9em;color:rgba(255,255,255,0.78)}
+
+/* ── Design consequence band ── */
+.design-band{
+  margin-top:8px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1.2rem;padding:26px 28px;
+}
+.db-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-bottom:20px}
+.db-head{
+  font-size:.78em;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:.55rem;
+}
+.db-item p{font-size:.82em;color:rgba(255,255,255,0.62);line-height:1.6;margin:0}
+
+/* ── Canvas story ── */
+.chart-toggle{display:flex;gap:8px;margin-bottom:18px;align-items:center;flex-wrap:wrap}
+.chart-toggle span{font-size:.82em;color:var(--muted);margin-right:4px}
+.toggle-btn{
+  padding:7px 18px;border-radius:100vw;font-size:.85em;font-weight:500;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.18);
+  background:transparent;color:var(--muted);transition:all .2s;font-family:inherit;
+}
+.toggle-btn.active{background:rgba(34,198,240,0.14);border-color:rgba(34,198,240,0.44);color:var(--white)}
+.toggle-btn:hover:not(.active):not(:disabled){border-color:rgba(255,255,255,0.32);color:var(--white)}
+.toggle-btn:disabled{opacity:.38;cursor:default;pointer-events:none}
+.toggle-btn.demo-highlight{
+  border-color:rgba(34,198,240,0.65);color:var(--white);
+  box-shadow:0 0 0 2px rgba(34,198,240,0.2),0 0 20px rgba(34,198,240,0.35);
+  animation:toggle-pulse 1.1s ease-in-out infinite;
+}
+@keyframes toggle-pulse{0%,100%{opacity:1}50%{opacity:.72}}
+.chart-story-hint{font-size:.78em;color:var(--muted);margin-left:auto;font-style:italic}
+.canvas-wrap{
+  border-radius:1.2rem;overflow:hidden;
+  border:1px solid rgba(34,198,240,0.12);background:#0a0f1f;
+}
+#story-chart{display:block;width:100%}
+.chart-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:.8em;color:var(--muted)}
+.leg-item{display:flex;align-items:center;gap:7px}
+.leg-line{width:22px;height:2px;flex-shrink:0}
+
+/* ── Episodes ── */
+.episodes-intro{color:rgba(255,255,255,0.68);max-width:600px;margin-bottom:2.2rem}
+.ep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ep-card{
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);
+  border-radius:1rem;padding:22px;position:relative;opacity:.5;
+  text-decoration:none;color:inherit;display:block;
+}
+.ep-card.current{border-color:rgba(34,198,240,0.28);background:rgba(34,198,240,0.05);opacity:1}
+.ep-card.linked{opacity:.85;transition:border-color .2s}
+.ep-card.linked:hover{border-color:rgba(34,198,240,0.35)}
+.ep-num{font-size:.7em;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:7px;font-weight:600}
+.ep-card h4{font-size:.95em;font-weight:500;margin-bottom:5px}
+.ep-card p{font-size:.8em;color:var(--muted);line-height:1.45}
+
+/* ── Footer ── */
+.page-footer{
+  border-top:1px solid rgba(34,198,240,0.1);
+  padding:38px 30px;max-width:1060px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.footer-note{font-size:.76em;color:rgba(255,255,255,0.28);max-width:580px;line-height:1.55}
+
+/* ── Responsive ── */
+@media(max-width:860px){
+  .shift-row{grid-template-columns:1fr;gap:8px}
+  .shift-arrow{display:none}
+  .shift-term{font-size:.98em;padding-top:6px}
+  .physics-band{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .two-col{grid-template-columns:1fr;gap:36px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .concept-grid{grid-template-columns:1fr 1fr}
+  .pillar-grid{grid-template-columns:1fr}
+  .region-row{grid-template-columns:1fr}
+  .ep-grid{grid-template-columns:1fr 1fr}
+  .stat-grid{grid-template-columns:1fr}
+  .db-grid{grid-template-columns:1fr}
+  .series-nav .ep-name{display:none}
+}
+@media(max-width:560px){
+  .ep-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .mqt-table{font-size:.8em}
+  .mqt-table th,.mqt-table td{padding:8px 10px}
+}
+</style>
+<style>
+
+/* ── Series navigation bar ── */
+.sn{position:sticky;top:0;z-index:500;
+  background:rgba(10,15,31,0.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(34,198,240,0.14);
+  padding:0 20px;height:50px;
+  display:flex;align-items:center;gap:12px;
+  font-family:Geist,'Segoe UI',system-ui,Arial,sans-serif;font-size:.8rem}
+.sn-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;opacity:.9;transition:opacity .18s}
+.sn-logo:hover{opacity:1}
+.sn-sep{color:rgba(255,255,255,0.16);flex-shrink:0;font-size:1em;padding:0 2px}
+.sn-eps{display:flex;gap:2px;flex:1;justify-content:center}
+.sn-ep{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;
+  text-decoration:none;color:rgba(232,236,244,0.4);font-size:.74rem;
+  font-weight:500;transition:all .18s;white-space:nowrap}
+.sn-ep .sn-ep-long{display:none}
+.sn-ep:hover{color:rgba(232,236,244,0.8);background:rgba(255,255,255,0.05)}
+.sn-ep.sn-cur{color:#22c6f0;background:rgba(34,198,240,0.1);font-weight:600}
+.sn-ep.sn-cur .sn-ep-badge{color:#22c6f0}
+.sn-ep-badge{font-size:.68rem;opacity:.7}
+.sn-arrows{display:flex;gap:6px;flex-shrink:0}
+.sn-arr{padding:5px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;
+  color:rgba(232,236,244,0.5);text-decoration:none;font-size:.74rem;
+  white-space:nowrap;transition:all .18s}
+.sn-arr:hover{color:#e8ecf4;border-color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.04)}
+.sn-arr.sn-home{border-color:rgba(34,198,240,0.2);color:rgba(34,198,240,0.6)}
+.sn-arr.sn-home:hover{border-color:rgba(34,198,240,0.5);color:#22c6f0}
+@media(min-width:640px){.sn-ep .sn-ep-long{display:inline;opacity:.6;font-weight:400;margin-left:1px}}
+@media(max-width:480px){.sn-arrows .sn-arr:not(.sn-home){display:none}}
+</style>
+</head>
+<body>
+<nav class="sn" aria-label="HIT Technology Series navigation">
+  <a class="sn-logo" href="index.html" aria-label="Series index"><svg width="130" height="22" viewBox="0 0 164 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76058 2.93931C8.60556 4.02273 7.67379 4.85556 6.5475 4.85556C5.31274 4.85556 4.31177 3.85459 4.31177 2.61983C4.31177 1.38507 5.31274 0.384094 6.5475 0.384094C7.67385 0.384094 8.60567 1.21702 8.76061 2.30053H15.5304C15.7154 1.38943 16.521 0.703681 17.4867 0.703681C18.5891 0.703681 19.4829 1.59741 19.4829 2.69987C19.4829 3.6656 18.7971 4.47116 17.886 4.65613V11.5986C18.5259 11.7439 19.0037 12.3163 19.0037 13.0002C19.0037 13.794 18.3602 14.4375 17.5664 14.4375C16.7727 14.4375 16.1292 13.794 16.1292 13.0002C16.1292 12.3162 16.6071 11.7437 17.2472 11.5985V4.68184C16.3361 4.57291 15.6136 3.85036 15.5047 2.93931H8.76058ZM22.517 9.46393C21.4335 9.30893 20.6007 8.37715 20.6007 7.25085C20.6007 6.01609 21.6017 5.01511 22.8364 5.01511C24.0712 5.01511 25.0722 6.01609 25.0722 7.25085C25.0722 8.37719 24.2393 9.309 23.1558 9.46395V16.2336C24.0669 16.4186 24.7526 17.2241 24.7526 18.1898C24.7526 19.2923 23.8589 20.186 22.7564 20.186C21.7906 20.186 20.985 19.5002 20.8001 18.5889H13.8577C13.7124 19.2289 13.14 19.7067 12.4561 19.7067C11.6623 19.7067 11.0188 19.0632 11.0188 18.2694C11.0188 17.4756 11.6623 16.8322 12.4561 16.8322C13.1401 16.8322 13.7126 17.31 13.8578 17.9501L20.7745 17.9501C20.8835 17.0392 21.606 16.3168 22.517 16.2079V9.46393ZM18.5247 21.1443C17.3984 21.1443 16.4666 21.9772 16.3116 23.0606H9.56737C9.45846 22.1496 8.73594 21.427 7.8249 21.3181L7.82489 14.4014C8.46501 14.2562 8.94288 13.6838 8.94288 12.9997C8.94288 12.2059 8.2994 11.5625 7.50562 11.5625C6.71185 11.5625 6.06836 12.2059 6.06836 12.9997C6.06836 13.6837 6.54612 14.2561 7.18611 14.4013L7.18611 21.3438C6.27498 21.5288 5.5892 22.3343 5.5892 23.3001C5.5892 24.4025 6.48292 25.2962 7.58539 25.2962C8.5511 25.2962 9.35664 24.6105 9.54163 23.6994H16.3116C16.4665 24.7829 17.3983 25.6158 18.5247 25.6158C19.7594 25.6158 20.7604 24.6148 20.7604 23.3801C20.7604 22.1453 19.7594 21.1443 18.5247 21.1443ZM2.55508 16.5359C3.63857 16.6909 4.47147 17.6227 4.47147 18.749C4.47147 19.9838 3.4705 20.9848 2.23573 20.9848C1.00097 20.9848 0 19.9838 0 18.749C0 17.6227 0.832853 16.6909 1.9163 16.5359L1.9163 9.76633C1.00519 9.58133 0.319447 8.77579 0.319447 7.81009C0.319447 6.70762 1.21317 5.8139 2.31564 5.8139C3.28143 5.8139 4.08703 6.49977 4.27193 7.411L11.2144 7.411C11.3596 6.77101 11.932 6.29325 12.616 6.29325C13.4098 6.29325 14.0532 6.93674 14.0532 7.73051C14.0532 8.52429 13.4098 9.16777 12.616 9.16777C11.9319 9.16777 11.3595 8.6899 11.2143 8.04979L4.29759 8.04979C4.18857 8.96074 3.46606 9.68317 2.55508 9.79207L2.55508 16.5359Z" fill="url(#ng)"/> <path d="M32.0912 20.8843V5.98939H42.7637V8.68405H34.8919V12.8003H42.3393V15.3889H34.8919V20.8843H32.0912ZM49.5169 10.1693C52.8693 10.1693 55.0335 12.673 55.0335 15.6647C55.0335 18.7201 52.9542 21.1813 49.5381 21.1813C46.1221 21.1813 44.064 18.7201 44.064 15.6647C44.064 12.673 46.1857 10.1693 49.5169 10.1693ZM49.5381 12.5669C47.671 12.5669 46.695 14.0946 46.695 15.6647C46.695 17.2348 47.6498 18.7625 49.5381 18.7625C51.4265 18.7625 52.3813 17.2348 52.3813 15.6647C52.3813 14.0946 51.278 12.5669 49.5381 12.5669ZM59.5733 10.4239V16.0254C59.5733 17.6167 60.4433 18.8262 62.0982 18.8262C63.7108 18.8262 64.7717 17.4894 64.7717 15.8981V10.4239H67.339V20.9267H65.0263L64.8566 19.6112C63.7744 20.6933 62.7772 21.1813 61.3132 21.1813C58.8307 21.1813 56.9848 19.2717 56.9848 16.0466V10.4239H59.5733ZM77.912 20.8843V15.3464C77.912 13.7551 77.0208 12.5457 75.387 12.5457C73.7745 12.5457 72.7136 13.8824 72.7136 15.4737V20.8843H70.1463V10.4239H72.459L72.6287 11.7606C73.7108 10.5937 74.7293 10.1905 76.066 10.1905C78.5273 10.1905 80.5005 12.0365 80.5005 15.3252V20.8843H77.912ZM93.8949 6.05304V20.8843H91.4761L91.3064 19.4415C90.4789 20.7994 89.2058 21.1813 87.9327 21.1813C84.8774 21.1813 82.5434 19.0808 82.5434 15.6435C82.5434 12.0365 84.8137 10.1693 87.8691 10.1693C88.9724 10.1693 90.6698 10.7422 91.3064 11.8455V6.05304H93.8949ZM88.1025 12.5881C86.4687 12.5881 85.132 13.7551 85.132 15.6435C85.132 17.4894 86.4475 18.7413 88.1025 18.7413C89.7362 18.7413 91.1366 17.5531 91.1366 15.6435C91.1366 13.84 89.7362 12.5881 88.1025 12.5881Z" fill="white"/> <path d="M102.885 6.03183C108.041 6.03183 110.311 9.74494 110.311 13.4793C110.311 17.1924 108.02 20.8843 102.885 20.8843H97.0499V6.03183H102.885ZM99.8294 18.1896H102.885C106.195 18.1896 107.531 15.8344 107.531 13.4793C107.531 11.1029 106.174 8.68405 102.885 8.68405H99.8294V18.1896ZM112.245 7.47464C112.245 6.4774 113.009 5.96817 113.773 5.96817C114.536 5.96817 115.3 6.4774 115.3 7.47464C115.3 8.49309 114.536 8.9811 113.773 8.9811C113.009 8.9811 112.245 8.49309 112.245 7.47464ZM115.067 10.3815V20.8843H112.478V10.3815H115.067ZM126.841 9.36302L128.75 10.8058L127.435 12.3335C128.347 13.4156 128.644 14.3704 128.644 15.4525C128.644 17.3197 127.774 18.5928 126.056 19.3778C128.262 20.1629 128.644 21.7542 128.644 22.7727C128.644 25.7432 125.737 27.186 122.937 27.186C119.308 27.186 117.187 25.3612 117.293 22.3695H119.86C119.754 23.8123 121.303 24.6823 122.937 24.6823C124.379 24.6823 125.95 24.0669 125.95 22.7727C125.95 21.4996 124.931 20.7145 122.979 20.7145C119.521 20.7145 117.25 18.7413 117.25 15.4525C117.25 11.9304 120.051 10.1481 122.979 10.1481C123.785 10.1481 124.952 10.3178 125.674 10.8058L126.841 9.36302ZM122.979 12.5457C121.282 12.5457 119.839 13.5005 119.839 15.4525C119.839 17.2773 121.282 18.3381 122.979 18.3381C124.676 18.3381 126.056 17.2348 126.056 15.4525C126.056 13.6702 124.676 12.5457 122.979 12.5457ZM130.728 7.47464C130.728 6.4774 131.491 5.96817 132.255 5.96817C133.019 5.96817 133.783 6.4774 133.783 7.47464C133.783 8.49309 133.019 8.9811 132.255 8.9811C131.491 8.9811 130.728 8.49309 130.728 7.47464ZM133.549 10.3815V20.8843H130.961V10.3815H133.549ZM140.104 7.47464V10.4876H142.989V12.7154H140.083V17.3197C140.083 18.3169 140.613 18.8049 141.441 18.8049C141.844 18.8049 142.289 18.6776 142.692 18.4867L143.414 20.6933C142.607 21.0328 141.95 21.1389 141.059 21.1389C138.894 21.1389 137.515 19.8658 137.515 17.3197V12.7154H135.563V10.4876H137.515V7.75047L140.104 7.47464ZM153.408 10.4239H155.891V20.8843H153.451L153.323 19.3566C152.708 20.5872 151.117 21.2025 149.928 21.2025C146.809 21.2025 144.539 19.3142 144.539 15.6435C144.539 11.994 146.937 10.1693 149.992 10.1693C151.414 10.1693 152.729 10.827 153.323 11.8667L153.408 10.4239ZM150.225 12.482C148.507 12.482 147.128 13.649 147.128 15.6435C147.128 17.638 148.507 18.8262 150.225 18.8262C152.262 18.8262 153.281 17.2348 153.281 15.6435C153.281 14.0734 152.262 12.482 150.225 12.482ZM161.316 6.05304V20.8843H158.749V6.05304H161.316Z" fill="#22C6F0"/> <defs> <linearGradient id="ng" x1="8.46" y1="5.73" x2="19.64" y2="23.62" gradientUnits="userSpaceOnUse"> <stop stop-color="#22C6F0"/><stop offset="1" stop-color="white"/> </linearGradient> </defs> </svg></a>
+  <span class="sn-sep">·</span>
+  <div class="sn-eps">
+    <a class="sn-ep sn-cur" href="episode0_grid_codes.html"><span class="sn-ep-badge">Ep 0</span><span class="sn-ep-long">Grid Codes</span></a>
+    <a class="sn-ep" href="hit_episode1.html"><span class="sn-ep-badge">Ep 1</span><span class="sn-ep-long">Voltage Reg</span></a>
+    <a class="sn-ep" href="dll_harmonics.html"><span class="sn-ep-badge">Ep 2</span><span class="sn-ep-long">Harmonics</span></a>
+    <a class="sn-ep" href="dll_mqt.html"><span class="sn-ep-badge">MQT</span><span class="sn-ep-long">MQT Viewer</span></a>
+  </div>
+  <div class="sn-arrows">
+    <a class="sn-arr" href="index.html">← Series Index</a>
+    <a class="sn-arr sn-home" href="index.html">⊞ All</a>
+    <a class="sn-arr" href="hit_episode1.html">Ep 1 →</a>
+  </div>
+</nav>
+
+
+<!-- ── Series nav ──────────────────────────────────────────────── -->
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Episode 0 · The Baseline</div>
+    <h1>Grid Code Compliance and the<br>Future of Data Centre Design</h1>
+    <p class="hero-sub">The grid used to be a supplier. Now it is a connection counterparty with explicit performance requirements, and that changes how facilities are designed.</p>
+    <div class="hero-diagram">
+      <svg viewBox="0 0 860 196" xmlns="http://www.w3.org/2000/svg" style="width:100%" aria-label="Then versus now: disconnect to backup versus ride through and recover">
+        <defs>
+          <marker id="harr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0,8 3,0 6" fill="rgba(34,198,240,0.55)"/>
+          </marker>
+        </defs>
+        <!-- THEN panel -->
+        <text x="14" y="15" font-size="9.5" fill="#607080" letter-spacing=".12em" font-family="Geist,system-ui,sans-serif" font-weight="500">THEN · PROTECT THE LOAD</text>
+        <rect x="10" y="22" width="400" height="148" rx="8" fill="rgba(239,83,80,0.04)" stroke="rgba(239,83,80,0.2)" stroke-width="1"/>
+        <!-- grid voltage trace (sag) -->
+        <text x="26" y="48" font-size="7.5" fill="rgba(255,255,255,0.3)" font-family="Geist,system-ui,sans-serif" letter-spacing=".08em">GRID VOLTAGE</text>
+        <polyline class="hero-draw" points="26,68 150,68 150,102 190,102 190,72 206,68 394,68"
+          fill="none" stroke="#EF5350" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <text x="170" y="116" font-size="7.5" fill="rgba(239,83,80,0.6)" text-anchor="middle" font-family="Geist,system-ui,sans-serif">fault · sag</text>
+        <!-- facility draw trace: trips to zero -->
+        <text x="26" y="132" font-size="7.5" fill="rgba(255,255,255,0.3)" font-family="Geist,system-ui,sans-serif" letter-spacing=".08em">POWER DRAWN FROM GRID</text>
+        <polyline class="hero-draw d2" points="26,146 156,146 156,162 394,162"
+          fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <g class="hero-fade f2">
+          <line x1="151" y1="141" x2="161" y2="151" stroke="#EF5350" stroke-width="1.6"/>
+          <line x1="161" y1="141" x2="151" y2="151" stroke="#EF5350" stroke-width="1.6"/>
+          <text x="270" y="156" font-size="8" fill="rgba(239,83,80,0.75)" text-anchor="middle" font-family="Geist,system-ui,sans-serif">breaker opens → uninterruptible power supply &amp; backup generation</text>
+        </g>
+        <!-- arrow between panels -->
+        <g class="hero-fade f2">
+          <line x1="414" y1="96" x2="442" y2="96" stroke="rgba(34,198,240,0.5)" stroke-width="1.5" marker-end="url(#harr)"/>
+        </g>
+        <!-- NOW panel -->
+        <text x="454" y="15" font-size="9.5" fill="#607080" letter-spacing=".12em" font-family="Geist,system-ui,sans-serif" font-weight="500">NOW · SUPPORT THE GRID</text>
+        <rect x="450" y="22" width="400" height="148" rx="8" fill="rgba(34,198,240,0.04)" stroke="rgba(34,198,240,0.2)" stroke-width="1"/>
+        <!-- same grid sag -->
+        <text x="466" y="48" font-size="7.5" fill="rgba(255,255,255,0.3)" font-family="Geist,system-ui,sans-serif" letter-spacing=".08em">GRID VOLTAGE</text>
+        <polyline class="hero-draw d3" points="466,68 590,68 590,102 630,102 630,72 646,68 834,68"
+          fill="none" stroke="#EF5350" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <text x="610" y="116" font-size="7.5" fill="rgba(239,83,80,0.6)" text-anchor="middle" font-family="Geist,system-ui,sans-serif">same fault</text>
+        <!-- facility draw trace: rides through and recovers -->
+        <text x="466" y="132" font-size="7.5" fill="rgba(255,255,255,0.3)" font-family="Geist,system-ui,sans-serif" letter-spacing=".08em">POWER DRAWN FROM GRID</text>
+        <polyline class="hero-draw d4" points="466,146 590,146 590,158 630,158 632,156 668,149 700,147 834,146"
+          fill="none" stroke="#22c6f0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <g class="hero-fade f3">
+          <text x="724" y="160" font-size="8" fill="rgba(34,198,240,0.8)" text-anchor="middle" font-family="Geist,system-ui,sans-serif">stays connected · ≥90% within recovery window</text>
+        </g>
+        <!-- captions -->
+        <text x="14" y="190" font-size="8.5" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">The grid was a commodity you bought</text>
+        <text x="454" y="190" font-size="8.5" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">The grid sets connection performance requirements</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ── Page body ───────────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── 1. The shift (merged) ─────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">The Shift</div>
+  <h2>Why data centre design changed</h2>
+  <p class="sect-lede">For decades, the design brief was simple: protect the information technology load. When grid voltage looked unhealthy, transfer to uninterruptible power supply and generator sets. That worked at modest scale. It stopped working when individual sites reached hundreds of megawatts.</p>
+
+  <div class="pillar-grid">
+    <div class="pillar-card">
+      <div class="pillar-num">Then</div>
+      <h3>Protect the load</h3>
+      <p>Internal reliability only. Tier ratings, ITIC power acceptability curves, backup generator sets. Grid-side behaviour was outside the facility scope.</p>
+    </div>
+    <div class="pillar-card pillar-event">
+      <div class="pillar-num">The trigger</div>
+      <h3>Scale and real events</h3>
+      <p>Facilities now reach hundreds of megawatts to gigawatt scale. In July 2024, approximately 1.5 GW of data centre load disconnected during a 230 kV reclosing sequence when facilities transferred to backup (North American Electric Reliability Corporation Large Loads Task Force, 2025).</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">Now</div>
+      <h3>Support the grid</h3>
+      <p>Grid operators are setting ride-through, recovery, and cycling requirements. There is no global standard; each operator sets its own numbers.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>In short:</strong> ride-through used to mean the load rides on backup. It now means the facility rides through <em>on the grid</em>.</p>
+  </div>
+</section>
+
+<!-- ── 2. Then vs Now ────────────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">Then vs Now</div>
+  <h2>Same words, opposite meanings</h2>
+
+  <div class="shift-list">
+    <div class="shift-row">
+      <div class="shift-term">Fault ride-through</div>
+      <div class="shift-cell shift-then">
+        <span class="shift-tag">Then</span>
+        <p>Jump to backup. Save the load.</p>
+      </div>
+      <div class="shift-arrow">→</div>
+      <div class="shift-cell shift-now">
+        <span class="shift-tag">Now</span>
+        <p>Stay on the high-voltage grid through the fault.</p>
+      </div>
+    </div>
+    <div class="shift-row">
+      <div class="shift-term">Energy storage</div>
+      <div class="shift-cell shift-then">
+        <span class="shift-tag">Then</span>
+        <p>Hours of backup autonomy. Fuel problem.</p>
+      </div>
+      <div class="shift-arrow">→</div>
+      <div class="shift-cell shift-now">
+        <span class="shift-tag">Now</span>
+        <p>Milliseconds of grid-event support. Power problem.</p>
+      </div>
+    </div>
+    <div class="shift-row">
+      <div class="shift-term">Disconnection</div>
+      <div class="shift-cell shift-then">
+        <span class="shift-tag">Then</span>
+        <p>Protective disconnection. Minimise exposure time.</p>
+      </div>
+      <div class="shift-arrow">→</div>
+      <div class="shift-cell shift-now">
+        <span class="shift-tag">Now</span>
+        <p>A grid reliability violation at scale.</p>
+      </div>
+    </div>
+    <div class="shift-row">
+      <div class="shift-term">Design driver</div>
+      <div class="shift-cell shift-then">
+        <span class="shift-tag">Then</span>
+        <p>Uptime SLA.</p>
+      </div>
+      <div class="shift-arrow">→</div>
+      <div class="shift-cell shift-now">
+        <span class="shift-tag">Now</span>
+        <p>Uptime SLA + connection agreement.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="physics-band">
+    <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px" aria-label="Constant power: voltage falls, current rises">
+      <text x="150" y="18" text-anchor="middle" font-size="13" fill="rgba(255,255,255,0.85)" font-family="Geist,system-ui,sans-serif" font-weight="500">P = V × I&#160;&#160;(constant power)</text>
+      <g class="v-arrow">
+        <text x="75" y="68" text-anchor="middle" font-size="22" fill="#EF5350" font-family="Geist,system-ui,sans-serif" font-weight="500">V</text>
+        <line x1="75" y1="80" x2="75" y2="116" stroke="#EF5350" stroke-width="2.4"/>
+        <polygon points="68,112 82,112 75,126" fill="#EF5350"/>
+      </g>
+      <text x="75" y="144" text-anchor="middle" font-size="9" fill="rgba(239,83,80,0.7)" font-family="Geist,system-ui,sans-serif">voltage sags</text>
+      <g class="i-arrow">
+        <text x="225" y="68" text-anchor="middle" font-size="22" fill="#FF9800" font-family="Geist,system-ui,sans-serif" font-weight="500">I</text>
+        <line x1="225" y1="116" x2="225" y2="80" stroke="#FF9800" stroke-width="2.4"/>
+        <polygon points="218,84 232,84 225,70" fill="#FF9800"/>
+      </g>
+      <text x="225" y="144" text-anchor="middle" font-size="9" fill="rgba(255,152,0,0.75)" font-family="Geist,system-ui,sans-serif">current rises</text>
+      <line x1="120" y1="98" x2="180" y2="98" stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-dasharray="3,4"/>
+    </svg>
+    <div>
+      <h3>Staying connected is not passive</h3>
+      <p>Data centres tend toward constant-power draw. When voltage sags, current rises at the worst moment for the grid. The facility must stay connected and limit what it draws. The shortfall must be supplied locally.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. One fault, two philosophies (canvas story) ─────────── -->
+<section class="sect" id="story">
+  <div class="sect-label">See It</div>
+  <h2>One fault. Two outcomes.</h2>
+  <p class="sect-lede">Same voltage sag. Watch what the grid sees when the facility trips to backup versus when it rides through and recovers.</p>
+
+  <div class="chart-toggle">
+    <span>View:</span>
+    <button class="toggle-btn active" data-mode="then" id="toggle-then" disabled onclick="setStoryMode('then')">Then: protect the load</button>
+    <button class="toggle-btn" data-mode="now" id="toggle-now" disabled onclick="setStoryMode('now')">Now: support the grid</button>
+    <span class="chart-story-hint" id="story-hint">Story plays as you scroll.</span>
+  </div>
+
+  <div class="canvas-wrap" id="story-wrap">
+    <canvas id="story-chart"></canvas>
+  </div>
+
+  <div class="chart-legend">
+    <div class="leg-item"><div class="leg-line" style="background:#FF9800;height:2.5px"></div><span>Grid voltage at the point of interconnection</span></div>
+    <div class="leg-item"><div class="leg-line" style="background:#EF5350;height:2.5px"></div><span>Power drawn from grid, Then (trips to backup)</span></div>
+    <div class="leg-item"><div class="leg-line" style="background:#22c6f0;height:2.5px"></div><span>Power drawn from grid, Now (rides through, recovers)</span></div>
+  </div>
+
+  <div class="callout" style="margin-top:1.4rem">
+    <p>Three ideas in one chart: <strong>stay connected</strong> (voltage ride-through), <strong>limit your draw</strong> during the sag, <strong>come back fast</strong> after recovery (active power recovery).</p>
+  </div>
+</section>
+
+<!-- ── 4. Vocabulary ─────────────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">The Words</div>
+  <h2>What the grid is now asking for</h2>
+  <p class="sect-lede">Terms used in connection studies and grid codes. Most were absent from data centre design briefs until large-load requirements emerged.</p>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-abbr">Voltage Ride-Through</div>
+      <p>Stay connected through voltage sags and interruptions deeper and longer than information technology equipment alone tolerates.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-abbr">Frequency Ride-Through</div>
+      <p>Stay connected through frequency excursions outside the continuous operating band, not voltage events alone.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-abbr">Active Power Recovery</div>
+      <p>After the fault clears, return to at least 90% of pre-fault active power within the operator's recovery window.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-abbr">Cyclic load</div>
+      <p>Artificial intelligence training can swing tens to hundreds of megawatts on second-to-second cycles (Microsoft/NVIDIA, 2025). The grid sees this as forced oscillation.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-abbr">Sub-Synchronous Torsional Interaction</div>
+      <p>Those oscillations can resonate with synchronous generator shafts, amplifying torsional stress (Energy Systems Integration Group study case, 2026).</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-abbr">Ramp limits</div>
+      <p>Limit how fast demand changes, especially at 100 MW scale and above.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5. Every site is different ────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">Every Site Is Different</div>
+  <h2>No global standard</h2>
+  <p class="sect-lede">Requirements converge in kind but differ in numbers. Your site choice carries a compliance profile.</p>
+  <div class="region-row">
+    <div class="region-card">
+      <div class="region-val">10</div>
+      <div class="region-lbl">Grid operators with published large-load requirements (Energy Systems Integration Group (ESIG) Table 1: AESO, ATC, EirGrid, ERCOT, Energinet, Fingrid, IESO, RTE, SPP, TenneT)</div>
+    </div>
+    <div class="region-card">
+      <div class="region-val">0.5 s to 2 s</div>
+      <div class="region-lbl">Active power recovery window: EirGrid/Fingrid 500 ms, ERCOT 2 s (ESIG 2026; ERCOT Nodal Operating Guide Revision Request 282)</div>
+    </div>
+    <div class="region-card">
+      <div class="region-val">Design stage</div>
+      <div class="region-lbl">Compliance assessed by simulation before energisation (EirGrid Frequency Ride-Through and Active Power Recovery; ERCOT Model Qualification Test)</div>
+    </div>
+  </div>
+  <div class="scope-caveats" style="margin-top:1.2rem">
+    <strong>Sources:</strong> Energy Systems Integration Group (ESIG) Large Loads Performance Requirements (2026) · North American Electric Reliability Corporation (NERC) Large Loads Task Force (LLTF) (2025) · EirGrid Frequency Ride-Through and Active Power Recovery Guide (CC.7.4.3.2) · ERCOT Nodal Operating Guide Revision Request 282 (NOGRR-282). Verify against the governing grid code for your site.
+  </div>
+</section>
+
+<!-- ── 6. Design consequences ────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">So What</div>
+  <h2>What this means for your project</h2>
+  <div class="design-band">
+    <div class="db-grid">
+      <div class="db-item">
+        <div class="db-head">Gates connection</div>
+        <p>Demonstrate compliance by simulation before energisation. Connection studies gate the project schedule.</p>
+      </div>
+      <div class="db-item">
+        <div class="db-head">Reshapes the single-line diagram</div>
+        <p>Ride-through, recovery, and load smoothing become design inputs, not late-stage additions.</p>
+      </div>
+      <div class="db-item">
+        <div class="db-head">Affects procurement</div>
+        <p>Equipment that closes these gaps carries its own lead times and cost.</p>
+      </div>
+    </div>
+    <p class="big-idea" style="margin-top:1.4rem">This page is the baseline. Everything else in the series (voltage regulation, storage, alternatives) starts here.</p>
+  </div>
+</section>
+
+<!-- ── 7. Series ─────────────────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">Next</div>
+  <h2>Where the series goes</h2>
+  <div class="ep-grid">
+    <div class="ep-card current">
+      <div class="ep-num">Episode 0</div>
+      <h4>The baseline</h4>
+      <p>Why grid codes now apply to data centres, and what changed.</p>
+    </div>
+    <a class="ep-card linked" href="hit_episode1.html">
+      <div class="ep-num">Episode 1</div>
+      <h4>Load Voltage Regulation</h4>
+      <p>How active compensation handles grid disturbances, and where storage is needed.</p>
+    </a>
+    <div class="ep-card">
+      <div class="ep-num">Coming</div>
+      <h4>Storage &amp; Alternatives</h4>
+      <p>Architectures, technologies, and supply chain realities.</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-body -->
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="page-footer">
+    <svg width="130" height="22" viewBox="0 0 164 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76058 2.93931C8.60556 4.02273 7.67379 4.85556 6.5475 4.85556C5.31274 4.85556 4.31177 3.85459 4.31177 2.61983C4.31177 1.38507 5.31274 0.384094 6.5475 0.384094C7.67385 0.384094 8.60567 1.21702 8.76061 2.30053H15.5304C15.7154 1.38943 16.521 0.703681 17.4867 0.703681C18.5891 0.703681 19.4829 1.59741 19.4829 2.69987C19.4829 3.6656 18.7971 4.47116 17.886 4.65613V11.5986C18.5259 11.7439 19.0037 12.3163 19.0037 13.0002C19.0037 13.794 18.3602 14.4375 17.5664 14.4375C16.7727 14.4375 16.1292 13.794 16.1292 13.0002C16.1292 12.3162 16.6071 11.7437 17.2472 11.5985V4.68184C16.3361 4.57291 15.6136 3.85036 15.5047 2.93931H8.76058ZM22.517 9.46393C21.4335 9.30893 20.6007 8.37715 20.6007 7.25085C20.6007 6.01609 21.6017 5.01511 22.8364 5.01511C24.0712 5.01511 25.0722 6.01609 25.0722 7.25085C25.0722 8.37719 24.2393 9.309 23.1558 9.46395V16.2336C24.0669 16.4186 24.7526 17.2241 24.7526 18.1898C24.7526 19.2923 23.8589 20.186 22.7564 20.186C21.7906 20.186 20.985 19.5002 20.8001 18.5889H13.8577C13.7124 19.2289 13.14 19.7067 12.4561 19.7067C11.6623 19.7067 11.0188 19.0632 11.0188 18.2694C11.0188 17.4756 11.6623 16.8322 12.4561 16.8322C13.1401 16.8322 13.7126 17.31 13.8578 17.9501L20.7745 17.9501C20.8835 17.0392 21.606 16.3168 22.517 16.2079V9.46393ZM18.5247 21.1443C17.3984 21.1443 16.4666 21.9772 16.3116 23.0606H9.56737C9.45846 22.1496 8.73594 21.427 7.8249 21.3181L7.82489 14.4014C8.46501 14.2562 8.94288 13.6838 8.94288 12.9997C8.94288 12.2059 8.2994 11.5625 7.50562 11.5625C6.71185 11.5625 6.06836 12.2059 6.06836 12.9997C6.06836 13.6837 6.54612 14.2561 7.18611 14.4013L7.18611 21.3438C6.27498 21.5288 5.5892 22.3343 5.5892 23.3001C5.5892 24.4025 6.48292 25.2962 7.58539 25.2962C8.5511 25.2962 9.35664 24.6105 9.54163 23.6994H16.3116C16.4665 24.7829 17.3983 25.6158 18.5247 25.6158C19.7594 25.6158 20.7604 24.6148 20.7604 23.3801C20.7604 22.1453 19.7594 21.1443 18.5247 21.1443ZM2.55508 16.5359C3.63857 16.6909 4.47147 17.6227 4.47147 18.749C4.47147 19.9838 3.4705 20.9848 2.23573 20.9848C1.00097 20.9848 0 19.9838 0 18.749C0 17.6227 0.832853 16.6909 1.9163 16.5359L1.9163 9.76633C1.00519 9.58133 0.319447 8.77579 0.319447 7.81009C0.319447 6.70762 1.21317 5.8139 2.31564 5.8139C3.28143 5.8139 4.08703 6.49977 4.27193 7.411L11.2144 7.411C11.3596 6.77101 11.932 6.29325 12.616 6.29325C13.4098 6.29325 14.0532 6.93674 14.0532 7.73051C14.0532 8.52429 13.4098 9.16777 12.616 9.16777C11.9319 9.16777 11.3595 8.6899 11.2143 8.04979L4.29759 8.04979C4.18857 8.96074 3.46606 9.68317 2.55508 9.79207L2.55508 16.5359Z" fill="url(#ng2)"/>
+      <path d="M32.0912 20.8843V5.98939H42.7637V8.68405H34.8919V12.8003H42.3393V15.3889H34.8919V20.8843H32.0912ZM49.5169 10.1693C52.8693 10.1693 55.0335 12.673 55.0335 15.6647C55.0335 18.7201 52.9542 21.1813 49.5381 21.1813C46.1221 21.1813 44.064 18.7201 44.064 15.6647C44.064 12.673 46.1857 10.1693 49.5169 10.1693ZM49.5381 12.5669C47.671 12.5669 46.695 14.0946 46.695 15.6647C46.695 17.2348 47.6498 18.7625 49.5381 18.7625C51.4265 18.7625 52.3813 17.2348 52.3813 15.6647C52.3813 14.0946 51.278 12.5669 49.5381 12.5669ZM59.5733 10.4239V16.0254C59.5733 17.6167 60.4433 18.8262 62.0982 18.8262C63.7108 18.8262 64.7717 17.4894 64.7717 15.8981V10.4239H67.339V20.9267H65.0263L64.8566 19.6112C63.7744 20.6933 62.7772 21.1813 61.3132 21.1813C58.8307 21.1813 56.9848 19.2717 56.9848 16.0466V10.4239H59.5733ZM77.912 20.8843V15.3464C77.912 13.7551 77.0208 12.5457 75.387 12.5457C73.7745 12.5457 72.7136 13.8824 72.7136 15.4737V20.8843H70.1463V10.4239H72.459L72.6287 11.7606C73.7108 10.5937 74.7293 10.1905 76.066 10.1905C78.5273 10.1905 80.5005 12.0365 80.5005 15.3252V20.8843H77.912ZM93.8949 6.05304V20.8843H91.4761L91.3064 19.4415C90.4789 20.7994 89.2058 21.1813 87.9327 21.1813C84.8774 21.1813 82.5434 19.0808 82.5434 15.6435C82.5434 12.0365 84.8137 10.1693 87.8691 10.1693C88.9724 10.1693 90.6698 10.7422 91.3064 11.8455V6.05304H93.8949ZM88.1025 12.5881C86.4687 12.5881 85.132 13.7551 85.132 15.6435C85.132 17.4894 86.4475 18.7413 88.1025 18.7413C89.7362 18.7413 91.1366 17.5531 91.1366 15.6435C91.1366 13.84 89.7362 12.5881 88.1025 12.5881Z" fill="white"/>
+      <path d="M102.885 6.03183C108.041 6.03183 110.311 9.74494 110.311 13.4793C110.311 17.1924 108.02 20.8843 102.885 20.8843H97.0499V6.03183H102.885ZM99.8294 18.1896H102.885C106.195 18.1896 107.531 15.8344 107.531 13.4793C107.531 11.1029 106.174 8.68405 102.885 8.68405H99.8294V18.1896ZM112.245 7.47464C112.245 6.4774 113.009 5.96817 113.773 5.96817C114.536 5.96817 115.3 6.4774 115.3 7.47464C115.3 8.49309 114.536 8.9811 113.773 8.9811C113.009 8.9811 112.245 8.49309 112.245 7.47464ZM115.067 10.3815V20.8843H112.478V10.3815H115.067ZM126.841 9.36302L128.75 10.8058L127.435 12.3335C128.347 13.4156 128.644 14.3704 128.644 15.4525C128.644 17.3197 127.774 18.5928 126.056 19.3778C128.262 20.1629 128.644 21.7542 128.644 22.7727C128.644 25.7432 125.737 27.186 122.937 27.186C119.308 27.186 117.187 25.3612 117.293 22.3695H119.86C119.754 23.8123 121.303 24.6823 122.937 24.6823C124.379 24.6823 125.95 24.0669 125.95 22.7727C125.95 21.4996 124.931 20.7145 122.979 20.7145C119.521 20.7145 117.25 18.7413 117.25 15.4525C117.25 11.9304 120.051 10.1481 122.979 10.1481C123.785 10.1481 124.952 10.3178 125.674 10.8058L126.841 9.36302ZM122.979 12.5457C121.282 12.5457 119.839 13.5005 119.839 15.4525C119.839 17.2773 121.282 18.3381 122.979 18.3381C124.676 18.3381 126.056 17.2348 126.056 15.4525C126.056 13.6702 124.676 12.5457 122.979 12.5457ZM130.728 7.47464C130.728 6.4774 131.491 5.96817 132.255 5.96817C133.019 5.96817 133.783 6.4774 133.783 7.47464C133.783 8.49309 133.019 8.9811 132.255 8.9811C131.491 8.9811 130.728 8.49309 130.728 7.47464ZM133.549 10.3815V20.8843H130.961V10.3815H133.549ZM140.104 7.47464V10.4876H142.989V12.7154H140.083V17.3197C140.083 18.3169 140.613 18.8049 141.441 18.8049C141.844 18.8049 142.289 18.6776 142.692 18.4867L143.414 20.6933C142.607 21.0328 141.95 21.1389 141.059 21.1389C138.894 21.1389 137.515 19.8658 137.515 17.3197V12.7154H135.563V10.4876H137.515V7.75047L140.104 7.47464ZM153.408 10.4239H155.891V20.8843H153.451L153.323 19.3566C152.708 20.5872 151.117 21.2025 149.928 21.2025C146.809 21.2025 144.539 19.3142 144.539 15.6435C144.539 11.994 146.937 10.1693 149.992 10.1693C151.414 10.1693 152.729 10.827 153.323 11.8667L153.408 10.4239ZM150.225 12.482C148.507 12.482 147.128 13.649 147.128 15.6435C147.128 17.638 148.507 18.8262 150.225 18.8262C152.262 18.8262 153.281 17.2348 153.281 15.6435C153.281 14.0734 152.262 12.482 150.225 12.482ZM161.316 6.05304V20.8843H158.749V6.05304H161.316Z" fill="#22C6F0"/>
+      <defs><linearGradient id="ng2" x1="8.46" y1="5.73" x2="19.64" y2="23.62" gradientUnits="userSpaceOnUse"><stop stop-color="#22C6F0"/><stop offset="1" stop-color="white"/></linearGradient></defs>
+    </svg>
+    <div class="footer-note">
+      FoundDigital DS · Hybrid Intelligent Transformer (HIT) Technology Series · Episode 0 · June 2026<br>
+      Sources: Energy Systems Integration Group (ESIG) Large Loads Performance Requirements (2026) · North American Electric Reliability Corporation (NERC) Large Loads Task Force (LLTF) (2025) · EirGrid CC.7.4.3.2 · ERCOT NOGRR-282 · Microsoft/NVIDIA Power Stabilization for AI Training Datacentres (2025)
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── "One fault, two philosophies" canvas story ────────────────────────────
+(function() {
+  const canvas = document.getElementById('story-chart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  const ML = 58, MR = 26, MT = 36, MB = 48;
+  let CW = 0, CH = 0;
+
+  // Time axis 0–8 s, y axis 0–130 (% of nominal voltage / pre-fault power)
+  const T_END = 8, Y_MAX = 130;
+
+  // Grid voltage at the POI: 35% retained for 250 ms, recovery to 0.9 pu, then nominal
+  const VOLT = [[0,100],[1.0,100],[1.001,35],[1.25,35],[1.3,90],[1.9,98],[2.3,100],[8,100]];
+  // THEN: facility protection transfers to backup ~40 ms into the sag, grid draw never returns
+  const PTHEN = [[0,100],[1.0,100],[1.001,100],[1.04,100],[1.045,0],[8,0]];
+  // NOW: stays connected, draw limited during the sag, recovers ≥90% inside the APR window
+  const PNOW = [[0,100],[1.0,100],[1.001,32],[1.25,32],[1.3,55],[1.45,60],[2.6,90],[3.2,97],[8,99]];
+
+  const T_REC = 1.3;        // voltage back at 0.9 pu
+  const APR_WIN = 2.0;      // ERCOT window (s)
+  const T_90 = 2.6;         // NOW trace crosses 90%
+
+  function mX(t) { return ML + (t / T_END) * CW; }
+  function mY(p) { return MT + CH - (p / Y_MAX) * CH; }
+
+  function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+  function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  // Staged progress state
+  let axesA = 0, voltProg = 0, sagPillA = 0;
+  let thenProg = 0, thenAnnA = 0;
+  let nowProg = 0, aprA = 0, nowAnnA = 0;
+  let modeT = 0;            // 0 = Then, 1 = Now
+  let storyComplete = false, storyRunning = false, modeFrame = null;
+
+  function setHint(text) {
+    const el = document.getElementById('story-hint');
+    if (el) el.textContent = text;
+  }
+
+  function animate(getter, setter, to, dur) {
+    return new Promise(resolve => {
+      const from = getter();
+      const t0 = performance.now();
+      function step(ts) {
+        const p = Math.min(1, (ts - t0) / dur);
+        setter(from + (to - from) * ease(p));
+        redraw();
+        if (p < 1) requestAnimationFrame(step);
+        else { setter(to); redraw(); resolve(); }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  function segLen(pts) {
+    let l = 0;
+    for (let i = 1; i < pts.length; i++)
+      l += Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]);
+    return l;
+  }
+
+  function drawProgress(data, prog, color, lw, dash, alpha) {
+    if (!data.length || prog <= 0 || alpha <= 0) return;
+    const pts = data.map(([t,v]) => [mX(t), mY(v)]);
+    const total = segLen(pts);
+    const tgt = prog * total;
+    let drawn = 0;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    if (dash) ctx.setLineDash(dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) {
+      const s = Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]);
+      if (drawn + s <= tgt) { ctx.lineTo(pts[i][0], pts[i][1]); drawn += s; }
+      else {
+        const f = s === 0 ? 0 : (tgt - drawn) / s;
+        ctx.lineTo(pts[i-1][0]+f*(pts[i][0]-pts[i-1][0]), pts[i-1][1]+f*(pts[i][1]-pts[i-1][1]));
+        break;
+      }
+    }
+    ctx.stroke(); if (dash) ctx.setLineDash([]); ctx.restore();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawPill(text, x, y, align, alpha, opts) {
+    if (alpha <= 0) return;
+    opts = opts || {};
+    const fs = opts.fs || 9.5;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.font = `${opts.weight || ''} ${fs}px Geist,system-ui,sans-serif`.trim();
+    ctx.textAlign = align;
+    ctx.textBaseline = 'middle';
+    const tw = ctx.measureText(text).width;
+    const th = fs + 4, padX = 6, padY = 3.5;
+    let lx = x - padX;
+    if (align === 'center') lx = x - tw / 2 - padX;
+    else if (align === 'right') lx = x - tw - padX;
+    roundRect(lx, y - th / 2 - padY, tw + padX * 2, th + padY * 2, 4);
+    ctx.fillStyle = opts.bg || 'rgba(10,15,31,0.96)';
+    ctx.fill();
+    ctx.strokeStyle = opts.border || 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = opts.color || 'rgba(255,255,255,0.88)';
+    ctx.fillText(text, x, y);
+    ctx.restore();
+  }
+
+  function redraw() {
+    const W = ML + CW + MR, H = MT + CH + MB;
+    ctx.clearRect(0, 0, W, H);
+
+    // background
+    ctx.fillStyle = '#0a0f1f';
+    ctx.fillRect(0, 0, W, H);
+    if (axesA <= 0) return;
+
+    // ── grid + axes ──
+    ctx.save();
+    ctx.globalAlpha = axesA;
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    ctx.font = '9px Geist,system-ui,sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    for (let p = 0; p <= 125; p += 25) {
+      const y = mY(p);
+      ctx.beginPath(); ctx.moveTo(ML, y); ctx.lineTo(ML + CW, y); ctx.stroke();
+      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText(p + '%', ML - 8, y);
+    }
+    for (let t = 0; t <= T_END; t++) {
+      const x = mX(t);
+      ctx.beginPath(); ctx.moveTo(x, MT); ctx.lineTo(x, MT + CH); ctx.stroke();
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText(t + ' s', x, MT + CH + 8);
+    }
+    // axis titles
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText('% of nominal voltage / pre-fault power', ML, MT - 18);
+    ctx.restore();
+
+    // ── APR window (Now mode) ──
+    const aprAlpha = aprA * modeT;
+    if (aprAlpha > 0) {
+      ctx.save();
+      ctx.globalAlpha = aprAlpha;
+      const x0 = mX(T_REC), x1 = mX(T_REC + APR_WIN);
+      ctx.fillStyle = 'rgba(34,198,240,0.06)';
+      ctx.fillRect(x0, MT, x1 - x0, CH);
+      ctx.strokeStyle = 'rgba(34,198,240,0.25)';
+      ctx.setLineDash([3,4]);
+      ctx.beginPath(); ctx.moveTo(x0, MT); ctx.lineTo(x0, MT + CH); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x1, MT); ctx.lineTo(x1, MT + CH); ctx.stroke();
+      // 90% target line across window
+      ctx.strokeStyle = 'rgba(34,198,240,0.45)';
+      ctx.beginPath(); ctx.moveTo(x0, mY(90)); ctx.lineTo(x1, mY(90)); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+      drawPill('Active Power Recovery window · 2 s (ERCOT)', (mX(T_REC) + mX(T_REC + APR_WIN)) / 2, MT + 14, 'center', aprAlpha,
+        { color: '#22c6f0', border: 'rgba(34,198,240,0.4)' });
+      drawPill('90% target', mX(T_REC + APR_WIN) + 6, mY(90), 'left', aprAlpha,
+        { fs: 8.5, color: 'rgba(34,198,240,0.85)', border: 'rgba(34,198,240,0.3)' });
+    }
+
+    // ── voltage trace ──
+    drawProgress(VOLT, voltProg, '#FF9800', 2.2, null, 0.92);
+    drawPill('0.35 pu · 250 ms', mX(1.12), mY(28), 'center', sagPillA,
+      { color: '#FFB74D', border: 'rgba(255,152,0,0.4)' });
+
+    // ── THEN power trace ──
+    const thenAlpha = 1 - 0.8 * modeT;   // ghost in Now mode
+    drawProgress(PTHEN, thenProg, '#EF5350', 2.4, null, thenAlpha);
+    if (thenProg >= 1) {
+      // trip marker
+      ctx.save();
+      ctx.globalAlpha = thenAnnA * thenAlpha;
+      const tx = mX(1.043), ty = mY(50);
+      ctx.strokeStyle = '#EF5350'; ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.moveTo(tx-5, ty-5); ctx.lineTo(tx+5, ty+5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(tx+5, ty-5); ctx.lineTo(tx-5, ty+5); ctx.stroke();
+      ctx.restore();
+      drawPill('ITIC curve limit exceeded → transfer to backup', mX(1.25), mY(58), 'left', thenAnnA * thenAlpha,
+        { fs: 9, color: '#ef9a9a', border: 'rgba(239,83,80,0.35)' });
+    }
+    drawPill('Load lost from grid: multi-GW class event (July 2024, NERC Large Loads Task Force)', mX(4.6), mY(11), 'center',
+      thenAnnA * (1 - modeT), { color: '#ef9a9a', border: 'rgba(239,83,80,0.4)' });
+
+    // ── NOW power trace ──
+    drawProgress(PNOW, nowProg, '#22c6f0', 2.4, null, modeT);
+    if (nowProg >= 1 && modeT > 0) {
+      // 90% crossing marker
+      ctx.save();
+      ctx.globalAlpha = nowAnnA * modeT;
+      ctx.fillStyle = '#22c6f0';
+      ctx.beginPath(); ctx.arc(mX(T_90), mY(90), 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+      drawPill('90% restored, inside the window', mX(T_90) + 10, mY(82), 'left', nowAnnA * modeT,
+        { fs: 9, color: '#22c6f0', border: 'rgba(34,198,240,0.4)' });
+      drawPill('Draw capped while connected (current limitation)', mX(1.12), mY(44), 'center', nowAnnA * modeT,
+        { fs: 8.5, color: 'rgba(255,255,255,0.75)', border: 'rgba(34,198,240,0.25)' });
+    }
+    drawPill('The grid sees a disturbance, not a loss-of-load event', mX(5.4), mY(112), 'center',
+      nowAnnA * modeT, { color: '#81d4fa', border: 'rgba(34,198,240,0.45)' });
+  }
+
+  function setModeUI(mode) {
+    document.querySelectorAll('#story .toggle-btn').forEach(b => b.classList.remove('active', 'demo-highlight'));
+    const btn = document.querySelector(`#story .toggle-btn[data-mode="${mode}"]`);
+    if (btn) btn.classList.add('active');
+  }
+
+  window.setStoryMode = function(mode) {
+    if (!storyComplete) return;
+    setModeUI(mode);
+    const target = mode === 'now' ? 1 : 0;
+    if (modeFrame) cancelAnimationFrame(modeFrame);
+    const from = modeT, t0 = performance.now();
+    function step(ts) {
+      const p = Math.min(1, (ts - t0) / 900);
+      modeT = from + (target - from) * ease(p);
+      redraw();
+      if (p < 1) modeFrame = requestAnimationFrame(step);
+      else { modeT = target; modeFrame = null; redraw(); }
+    }
+    modeFrame = requestAnimationFrame(step);
+    setHint(mode === 'now'
+      ? 'Now: ride through the sag, cap the draw, recover 90% inside the window'
+      : 'Then: transfer to backup at the ITIC curve limit; the grid loses the load');
+  };
+
+  async function runStory() {
+    if (storyRunning || storyComplete) return;
+    storyRunning = true;
+
+    setHint('A routine transmission fault arrives.');
+    await animate(() => axesA, v => { axesA = v; }, 1, 500);
+    await animate(() => voltProg, v => { voltProg = v; }, 1, 1800);
+    await animate(() => sagPillA, v => { sagPillA = v; }, 1, 400);
+    await delay(400);
+
+    setHint('Then: the facility protects its load and leaves the grid');
+    modeT = 0; setModeUI('then');
+    await animate(() => thenProg, v => { thenProg = v; }, 1, 1500);
+    await animate(() => thenAnnA, v => { thenAnnA = v; }, 1, 600);
+    await delay(1600);
+
+    const nowBtn = document.getElementById('toggle-now');
+    nowBtn.classList.add('demo-highlight');
+    setHint('Now: the same facility must stay connected and recover');
+    nowProg = 0;
+    const modeAnim = animate(() => modeT, v => { modeT = v; }, 1, 1000);
+    await animate(() => nowProg, v => { nowProg = v; }, 1, 1800);
+    await modeAnim;
+    await animate(() => aprA, v => { aprA = v; }, 1, 600);
+    await animate(() => nowAnnA, v => { nowAnnA = v; }, 1, 600);
+    nowBtn.classList.remove('demo-highlight');
+    setModeUI('now');
+    await delay(600);
+
+    storyComplete = true;
+    storyRunning = false;
+    document.getElementById('toggle-then').disabled = false;
+    document.getElementById('toggle-now').disabled = false;
+    setHint('Use the toggle to compare Then / Now');
+    redraw();
+  }
+
+  function resize() {
+    const wrap = document.getElementById('story-wrap');
+    const w = wrap.clientWidth;
+    const h = Math.max(320, Math.min(430, Math.round(w * 0.44)));
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    CW = w - ML - MR;
+    CH = h - MT - MB;
+    redraw();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { runStory(); io.disconnect(); }
+    });
+  }, { threshold: 0.4 });
+  io.observe(canvas);
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+(function() {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Hero entrance ──────────────────────────────────────────────────────────
+  gsap.timeline({ delay: 0.12 })
+    .from('.hero-kicker', { opacity:0, y:14, duration:0.55, ease:'power3.out' })
+    .from('.hero h1', { opacity:0, y:26, duration:0.7, ease:'power3.out' }, '-=0.3')
+    .from('.hero-sub', { opacity:0, y:18, duration:0.6, ease:'power3.out' }, '-=0.42')
+    .from('.hero-diagram', { opacity:0, y:24, duration:0.7, ease:'power3.out' }, '-=0.35');
+  gsap.from('.series-nav', { opacity:0, y:-6, duration:0.5, delay:0.08, ease:'power2.out' });
+
+  // ── Helper: single element reveal ─────────────────────────────────────────
+  function revealEl(selector, props, stOpts) {
+    document.querySelectorAll(selector).forEach(el => {
+      gsap.from(el, Object.assign({ duration:0.65, ease:'power3.out',
+        scrollTrigger: Object.assign({ trigger:el, start:'top 89%', once:true }, stOpts)
+      }, props));
+    });
+  }
+
+  // Section headings + copy
+  revealEl('.sect-label', { opacity:0, x:-10, y:0, duration:0.5 });
+  revealEl('.sect h2',    { opacity:0, y:22 });
+  revealEl('.sect-lede',  { opacity:0, y:16, duration:0.55 });
+  revealEl('.col-text p', { opacity:0, y:12, duration:0.5 });
+  revealEl('.callout',    { opacity:0, x:-14, duration:0.5 });
+
+  // ── Pillar cards ───────────────────────────────────────────────────────────
+  gsap.from('.pillar-card', {
+    opacity:0, y:24, scale:0.96,
+    duration:0.5, stagger:0.1, ease:'back.out(1.4)',
+    scrollTrigger:{ trigger:'.pillar-grid', start:'top 87%', once:true }
+  });
+
+  // ── Paradigm shift rows ────────────────────────────────────────────────────
+  document.querySelectorAll('.shift-row').forEach(row => {
+    gsap.from(row.querySelector('.shift-then'), {
+      opacity:0, x:-22, duration:0.55, ease:'power3.out',
+      scrollTrigger:{ trigger:row, start:'top 87%', once:true }
+    });
+    gsap.from(row.querySelector('.shift-now'), {
+      opacity:0, x:22, duration:0.55, delay:0.18, ease:'power3.out',
+      scrollTrigger:{ trigger:row, start:'top 87%', once:true }
+    });
+    gsap.from(row.querySelector('.shift-term'), {
+      opacity:0, duration:0.45, ease:'power2.out',
+      scrollTrigger:{ trigger:row, start:'top 87%', once:true }
+    });
+  });
+  gsap.from('.physics-band', {
+    opacity:0, y:26, duration:0.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'.physics-band', start:'top 87%', once:true }
+  });
+
+  // ── Canvas story section ───────────────────────────────────────────────────
+  gsap.from('#story .chart-toggle', {
+    opacity:0, y:12, duration:0.45, ease:'power2.out',
+    scrollTrigger:{ trigger:'#story .chart-toggle', start:'top 90%', once:true }
+  });
+  gsap.from('#story .canvas-wrap', {
+    opacity:0, y:20, duration:0.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'#story .canvas-wrap', start:'top 88%', once:true }
+  });
+  gsap.from('#story .chart-legend', {
+    opacity:0, y:10, duration:0.45, ease:'power2.out',
+    scrollTrigger:{ trigger:'#story .chart-legend', start:'top 92%', once:true }
+  });
+
+  // ── Concept cards ───────────────────────────────────────────────────────────
+  gsap.from('.concept-card', {
+    opacity:0, y:20, scale:0.97,
+    duration:0.45, stagger:0.07, ease:'back.out(1.3)',
+    scrollTrigger:{ trigger:'.concept-grid', start:'top 86%', once:true }
+  });
+
+  // ── Region snapshot ────────────────────────────────────────────────────────
+  gsap.from('.region-card', {
+    opacity:0, y:22, scale:0.96,
+    duration:0.5, stagger:0.1, ease:'back.out(1.4)',
+    scrollTrigger:{ trigger:'.region-row', start:'top 87%', once:true }
+  });
+  gsap.from('.big-idea', {
+    opacity:0, y:14, duration:0.55, ease:'power2.out',
+    scrollTrigger:{ trigger:'.big-idea', start:'top 90%', once:true }
+  });
+
+  // ── Design consequence band ────────────────────────────────────────────────
+  gsap.from('.design-band', {
+    opacity:0, y:24, duration:0.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'.design-band', start:'top 87%', once:true }
+  });
+  gsap.from('.db-item', {
+    opacity:0, y:16,
+    duration:0.45, stagger:0.11, ease:'power2.out',
+    scrollTrigger:{ trigger:'.design-band', start:'top 85%', once:true }
+  });
+
+  // ── Series cards ───────────────────────────────────────────────────────────
+  gsap.from('.ep-card', {
+    opacity:0, y:22,
+    duration:0.45, stagger:0.1, ease:'back.out(1.3)',
+    scrollTrigger:{ trigger:'.ep-grid', start:'top 86%', once:true }
+  });
+
+  // ── Hero parallax ──────────────────────────────────────────────────────────
+  gsap.to('.hero-inner', {
+    y: 55, ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true
+    }
+  });
+
+  // ── Section border-top draw-in lines ───────────────────────────────────────
+  document.querySelectorAll('.sect + .sect').forEach(function(sect) {
+    var line = document.createElement('div');
+    line.style.cssText = 'position:absolute;top:0;left:0;height:1px;width:100%;' +
+      'background:linear-gradient(90deg,rgba(34,198,240,0.18) 0%,transparent 80%);' +
+      'transform-origin:left;transform:scaleX(0);pointer-events:none;';
+    sect.style.position = 'relative';
+    sect.insertBefore(line, sect.firstChild);
+    gsap.to(line, {
+      scaleX: 1, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: sect, start: 'top 88%', once: true }
+    });
+    sect.style.borderTop = 'none';
+  });
+
+})();
+</script>
+</body>
+</html>

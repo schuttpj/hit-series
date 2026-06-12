@@ -1,0 +1,2259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Load Voltage Regulation: HIT Technology Series · FoundDigital DS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#10152e;--dark:#0a0f1f;--cyan:#22c6f0;--white:#ffffff;
+  --grey:#f4f4f4;--muted:#a0a0a0;--red:#EF5350;--amber:#FF9800;--green:#4CAF50;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Geist',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--navy);color:var(--white);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  line-height:1.65;overflow-x:hidden;
+}
+
+/* ── Series Nav ── */
+.series-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,15,31,0.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(34,198,240,0.14);
+  padding:11px 28px;
+  display:flex;align-items:center;gap:10px;
+  font-size:0.83em;
+}
+.series-nav .logo svg{display:block}
+.sep{color:rgba(255,255,255,0.18);font-size:1.1em}
+.series-title{color:var(--muted)}
+.ep-name{color:var(--white);font-weight:500}
+
+/* ── Hero ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:110px 30px 80px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-250px;left:-200px;
+  width:800px;height:800px;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(34,198,240,0.07) 0%,transparent 68%);
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(transparent,var(--navy));pointer-events:none;
+}
+.hero-inner{max-width:1060px;margin:0 auto;width:100%}
+.hero-kicker{
+  font-size:0.76em;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1.1rem;font-weight:500;
+}
+.hero h1{
+  font-size:clamp(2.8rem,6vw,5.2rem);font-weight:500;line-height:1.06;
+  letter-spacing:-.02em;margin-bottom:1.1rem;
+}
+.hero-sub{
+  font-family:'Vollkorn',serif;font-style:italic;
+  font-size:clamp(1.05rem,1.8vw,1.35rem);
+  color:rgba(255,255,255,0.68);max-width:560px;margin-bottom:3rem;
+}
+.hero-diagram{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(34,198,240,0.12);
+  border-radius:1.2rem;padding:28px 24px;overflow:hidden;
+}
+
+/* ── Sections ── */
+.page-body{width:100%;max-width:1060px;margin:0 auto;padding:0 30px}
+.sect{padding:80px 0}
+.sect+.sect{border-top:1px solid rgba(34,198,240,0.08)}
+.sect-label{
+  display:inline-block;font-size:0.72em;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:.8rem;
+}
+.sect h2{
+  font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:500;line-height:1.2;
+  margin-bottom:1rem;letter-spacing:-.01em;
+}
+.sect-lede{font-size:1.02em;color:rgba(255,255,255,0.72);max-width:680px;margin-bottom:2.2rem}
+
+/* ── Challenge ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.col-text p{color:rgba(255,255,255,0.72);margin-bottom:.9rem}
+.col-text strong{color:var(--white)}
+.tag{
+  display:inline-block;
+  background:rgba(255,152,0,0.1);border:1px solid rgba(255,152,0,0.28);
+  border-radius:4px;padding:1px 7px;font-size:.78em;color:var(--amber);
+  font-weight:500;letter-spacing:.04em;margin-right:4px;
+}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1rem;padding:20px;transition:border-color .2s;
+}
+.stat-card:hover{border-color:rgba(34,198,240,0.28)}
+.stat-val{font-size:1.9rem;font-weight:500;color:var(--cyan);letter-spacing:-.02em;line-height:1;margin-bottom:5px}
+.stat-lbl{font-size:.8em;color:var(--muted);line-height:1.4}
+
+/* ── Why this matters: causal chain ── */
+.why-flow{margin-top:36px}
+.why-flow-title{
+  font-size:.72em;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:1.1rem;
+}
+.wf-step{
+  position:relative;padding:0 0 22px 34px;
+}
+.wf-step::before{
+  content:'';position:absolute;left:9px;top:22px;bottom:0;
+  width:1px;background:rgba(34,198,240,0.18);
+}
+.wf-step:last-of-type::before{display:none}
+.wf-dot{
+  position:absolute;left:0;top:2px;
+  width:19px;height:19px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.62rem;font-weight:600;
+  background:rgba(34,198,240,0.1);border:1px solid rgba(34,198,240,0.4);color:var(--cyan);
+}
+.wf-step.wf-event .wf-dot{
+  background:rgba(239,83,80,0.1);border-color:rgba(239,83,80,0.45);color:var(--red);
+}
+.wf-head{font-size:.88em;font-weight:500;color:var(--white);margin-bottom:4px}
+.wf-step p{font-size:.8em;color:rgba(255,255,255,0.6);line-height:1.6;margin:0}
+.wf-step p strong{color:rgba(255,255,255,0.85);font-weight:500}
+.wf-close{
+  border-left:3px solid var(--cyan);background:rgba(34,198,240,0.07);
+  padding:13px 16px;border-radius:0 .6rem .6rem 0;margin-top:4px;
+}
+.wf-close p{font-size:.84em;color:rgba(255,255,255,0.85);margin:0;line-height:1.55}
+
+/* ── Design consequence band ── */
+.design-band{
+  margin-top:48px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1.2rem;padding:26px 28px;
+}
+.db-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-bottom:20px}
+.db-head{
+  font-size:.78em;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:.55rem;
+}
+.db-item p{font-size:.82em;color:rgba(255,255,255,0.62);line-height:1.6;margin:0}
+@media(max-width:768px){
+  .db-grid{grid-template-columns:1fr}
+}
+
+/* ── APR comparison table ── */
+.apr-block{margin-top:52px}
+.apr-title{font-size:1.05rem;font-weight:500;margin-bottom:1rem;letter-spacing:-.005em}
+.mqt-table tr.row-hl td{background:rgba(34,198,240,0.06)}
+.mqt-table tr.row-hl .mqt-name{color:var(--cyan)}
+
+/* ── ITIC Section ── */
+.zone-diagram{border-radius:1rem;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:1.5rem}
+.zone{padding:16px 20px;font-size:.88em;font-weight:500}
+.zone-pct{font-size:.73em;opacity:.65;margin-top:2px}
+.z-over{background:rgba(239,83,80,0.08);border-bottom:1px solid rgba(239,83,80,0.18);color:#ef9a9a}
+.z-safe{background:rgba(34,198,240,0.07);border-bottom:1px solid rgba(34,198,240,0.14);color:var(--cyan)}
+.z-caution{background:rgba(255,152,0,0.06);border-bottom:1px solid rgba(255,152,0,0.16);color:#ffcc80}
+.z-under{background:rgba(239,83,80,0.06);color:#ef9a9a}
+.itic-body p{color:rgba(255,255,255,0.72);margin-bottom:.9rem}
+.itic-body strong{color:var(--white)}
+.callout{
+  border-left:3px solid var(--cyan);background:rgba(34,198,240,0.06);
+  padding:13px 17px;border-radius:0 .6rem .6rem 0;margin:1.2rem 0;
+}
+.callout p{margin:0;font-size:.9em;color:rgba(255,255,255,0.78)}
+.gap-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:2.5rem}
+.gap-card{
+  background:rgba(239,83,80,0.06);border:1px solid rgba(239,83,80,0.2);
+  border-radius:1rem;padding:20px;text-align:center;
+}
+.gap-val{font-size:1.7rem;font-weight:500;color:var(--red);line-height:1;margin-bottom:5px}
+.gap-lbl{font-size:.8em;color:var(--muted)}
+.gap-desc{font-size:.76em;color:rgba(255,255,255,0.45);margin-top:7px;line-height:1.45}
+
+/* ── How it works ── */
+.arch-wrap{
+  background:rgba(255,255,255,0.02);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1.2rem;padding:28px 24px 20px;margin-bottom:2rem;overflow:hidden;
+}
+.arch-svg{width:100%;max-height:160px}
+@keyframes hit-pulse{0%,100%{filter:drop-shadow(0 0 5px rgba(34,198,240,.3))}50%{filter:drop-shadow(0 0 14px rgba(34,198,240,.65))}}
+.hit-rect{animation:hit-pulse 2.8s ease-in-out infinite}
+@keyframes draw-load{to{stroke-dashoffset:0}}
+.load-path{stroke-dasharray:400;stroke-dashoffset:400;animation:draw-load 1.4s ease-out .8s forwards}
+.spec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.spec-card{
+  background:rgba(34,198,240,0.05);border:1px solid rgba(34,198,240,0.14);
+  border-radius:1rem;padding:20px;text-align:center;
+}
+.spec-val{font-size:1.55rem;font-weight:500;color:var(--cyan);line-height:1;margin-bottom:5px}
+.spec-lbl{font-size:.78em;color:var(--muted);line-height:1.4}
+
+/* ── Evidence ── */
+.chart-toggle{display:flex;gap:8px;margin-bottom:18px;align-items:center}
+.chart-toggle span{font-size:.82em;color:var(--muted);margin-right:4px}
+.toggle-btn{
+  padding:7px 18px;border-radius:100vw;font-size:.85em;font-weight:500;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.18);
+  background:transparent;color:var(--muted);transition:all .2s;font-family:inherit;
+}
+.toggle-btn.active{background:rgba(34,198,240,0.14);border-color:rgba(34,198,240,0.44);color:var(--white)}
+.toggle-btn:hover:not(.active):not(:disabled){border-color:rgba(255,255,255,0.32);color:var(--white)}
+.toggle-btn:disabled{opacity:.38;cursor:default;pointer-events:none}
+.toggle-btn.demo-highlight{
+  border-color:rgba(34,198,240,0.65);color:var(--white);
+  box-shadow:0 0 0 2px rgba(34,198,240,0.2),0 0 20px rgba(34,198,240,0.35);
+  animation:toggle-pulse 1.1s ease-in-out infinite;
+}
+@keyframes toggle-pulse{0%,100%{opacity:1}50%{opacity:.72}}
+.chart-story-hint{font-size:.78em;color:var(--muted);margin-left:auto;font-style:italic}
+.canvas-wrap{
+  border-radius:1.2rem;overflow:hidden;
+  border:1px solid rgba(34,198,240,0.12);background:#0a0f1f;
+}
+#itic-chart{display:block;width:100%}
+.chart-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:.8em;color:var(--muted)}
+.leg-item{display:flex;align-items:center;gap:7px}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.leg-line{width:22px;height:2px;flex-shrink:0}
+.leg-dash{width:22px;height:2px;flex-shrink:0;background:repeating-linear-gradient(90deg,var(--amber) 0,var(--amber) 5px,transparent 5px,transparent 9px)}
+
+/* ── Episodes ── */
+.episodes-intro{color:rgba(255,255,255,0.68);max-width:600px;margin-bottom:2.2rem}
+.ep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ep-card{
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);
+  border-radius:1rem;padding:22px;position:relative;opacity:.5;
+}
+.ep-card.current{border-color:rgba(34,198,240,0.28);background:rgba(34,198,240,0.05);opacity:1}
+.ep-num{font-size:.7em;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:7px;font-weight:600}
+.ep-card h4{font-size:.95em;font-weight:500;margin-bottom:5px}
+.ep-card p{font-size:.8em;color:var(--muted);line-height:1.45}
+
+/* ── Footer ── */
+.page-footer{
+  border-top:1px solid rgba(34,198,240,0.1);
+  padding:38px 30px;max-width:1060px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.footer-note{font-size:.76em;color:rgba(255,255,255,0.28);max-width:580px;line-height:1.55}
+
+/* ── Scroll animations — managed by GSAP ── */
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .two-col{grid-template-columns:1fr;gap:36px}
+  .spec-grid{grid-template-columns:1fr 1fr}
+  .ep-grid{grid-template-columns:1fr 1fr}
+  .gap-row{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:1fr}
+  .series-nav .ep-name{display:none}
+}
+@media(max-width:500px){
+  .ep-grid{grid-template-columns:1fr}
+  .spec-grid{grid-template-columns:1fr}
+}
+
+/* ── Simulation overlay ── */
+.sim-overlay{
+  display:none;position:fixed;inset:0;z-index:900;
+  background:var(--dark);flex-direction:column;
+}
+.sim-overlay.open{display:flex}
+.sim-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px;background:#0a0f1f;
+  border-bottom:1px solid rgba(34,198,240,0.15);flex-shrink:0;
+}
+.sim-header-left{display:flex;align-items:center;gap:10px}
+.sim-header-title{font-size:.82rem;color:rgba(255,255,255,0.65);font-family:Geist,system-ui,sans-serif;letter-spacing:.01em}
+.sim-close{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(34,198,240,0.08);border:1px solid rgba(34,198,240,0.22);
+  color:rgba(255,255,255,0.75);padding:6px 14px;border-radius:6px;
+  cursor:pointer;font-size:.8rem;font-family:Geist,system-ui,sans-serif;
+  transition:background .18s,color .18s;line-height:1;
+}
+.sim-close:hover{background:rgba(34,198,240,0.18);color:#fff}
+#sim-frame{flex:1;border:none;width:100%;background:#0a0f1f}
+.sim-launch-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:28px;margin-top:2.5rem;
+  background:rgba(34,198,240,0.04);border:1px solid rgba(34,198,240,0.14);
+  border-radius:1.2rem;padding:28px 32px;
+}
+.sim-launch-label{
+  font-size:.72rem;letter-spacing:.09em;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:.45rem;
+}
+.sim-launch-wrap h3{font-size:1.05rem;font-weight:500;color:var(--white);margin:0 0 .45rem}
+.sim-launch-wrap p{font-size:.875rem;color:var(--muted);line-height:1.55;margin:0}
+.sim-launch-info{flex:1}
+.sim-btn{
+  flex-shrink:0;background:var(--cyan);color:var(--dark);
+  border:none;padding:12px 22px;border-radius:.7rem;
+  font-size:.9rem;font-weight:600;cursor:pointer;
+  font-family:Geist,system-ui,sans-serif;
+  white-space:nowrap;transition:opacity .18s;
+}
+.sim-btn:hover{opacity:.88}
+@media(max-width:700px){
+  .sim-launch-wrap{flex-direction:column;align-items:flex-start}
+  .sim-btn{width:100%;text-align:center}
+}
+
+/* ── ITIC hover tooltip ── */
+#itic-tip{
+  position:fixed;z-index:600;pointer-events:none;display:none;
+  background:rgba(8,12,26,0.97);border:1px solid rgba(34,198,240,0.3);
+  border-radius:.65rem;padding:12px 15px;max-width:270px;
+  font-size:.8em;color:rgba(255,255,255,0.8);line-height:1.55;
+  box-shadow:0 10px 36px rgba(0,0,0,0.5);
+}
+#itic-tip strong{color:#fff}
+#itic-tip sub{font-size:.75em}
+.chart-hint{font-size:.75em;color:var(--muted);margin-top:10px;text-align:right;letter-spacing:.03em}
+
+/* ── Chart compact summary ── */
+.chart-summary{
+  display:flex;flex-wrap:wrap;align-items:center;gap:18px;
+  margin-top:16px;padding:13px 18px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
+  border-radius:.8rem;font-size:.85em;
+}
+.cs-item{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.65)}
+.cs-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* ── MQT scope table ── */
+.mqt-wrap{overflow-x:auto;border-radius:1rem;border:1px solid rgba(34,198,240,0.1);margin-bottom:1.4rem}
+.mqt-table{width:100%;border-collapse:collapse;font-size:.875em}
+.mqt-table th{
+  text-align:left;padding:10px 16px;
+  font-size:.7em;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);border-bottom:1px solid rgba(34,198,240,0.1);
+  font-weight:500;background:rgba(34,198,240,0.03)
+}
+.mqt-table td{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.mqt-table tbody tr:last-child td{border-bottom:none}
+.mqt-table tbody tr:hover td{background:rgba(255,255,255,0.02)}
+.mqt-name{color:var(--white);font-weight:500}
+.mqt-before{color:rgba(255,255,255,0.5)}
+.mqt-after{color:rgba(255,255,255,0.8)}
+.verdict{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:100vw;padding:3px 11px;font-size:.78em;font-weight:500;white-space:nowrap
+}
+.v-ok{background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.25);color:#81C784}
+.v-partial{background:rgba(255,152,0,0.09);border:1px solid rgba(255,152,0,0.24);color:#FFB74D}
+.v-storage{background:rgba(239,83,80,0.08);border:1px solid rgba(239,83,80,0.22);color:#E57373}
+.scope-tally{
+  display:flex;flex-wrap:wrap;gap:12px;margin-bottom:1.4rem
+}
+.tally-card{
+  display:flex;align-items:center;gap:10px;
+  border-radius:.8rem;padding:12px 18px;flex:1;min-width:160px;
+}
+.tally-ok{background:rgba(76,175,80,0.07);border:1px solid rgba(76,175,80,0.18)}
+.tally-partial{background:rgba(255,152,0,0.06);border:1px solid rgba(255,152,0,0.18)}
+.tally-storage{background:rgba(239,83,80,0.06);border:1px solid rgba(239,83,80,0.18)}
+.tally-num{font-size:1.7rem;font-weight:500;line-height:1}
+.tally-ok .tally-num{color:#81C784}
+.tally-partial .tally-num{color:#FFB74D}
+.tally-storage .tally-num{color:#E57373}
+.tally-lbl{font-size:.78em;color:var(--muted);line-height:1.4}
+.scope-caveats{
+  padding:14px 18px;border-radius:.8rem;font-size:.76em;
+  color:rgba(255,255,255,0.35);line-height:1.6;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)
+}
+.scope-caveats strong{color:rgba(255,255,255,0.5)}
+@media(max-width:700px){
+  .mqt-table{font-size:.8em}
+  .mqt-table th,.mqt-table td{padding:8px 10px}
+  .tally-card{min-width:130px}
+}
+
+/* ── Intro modal ── */
+.xp-overlay{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;
+  justify-content:center;background:rgba(8,11,24,0.6);backdrop-filter:blur(7px)}
+[hidden]{display:none !important}
+.xp-modal{position:relative;background:#161c38;border:1px solid rgba(34,198,240,0.28);
+  border-radius:14px;max-width:800px;width:calc(100% - 48px);padding:26px 32px 18px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.55);max-height:90vh;overflow-y:auto}
+.xp-kicker{font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
+  color:#22c6f0;font-weight:600;margin-bottom:.5rem}
+.xp-modal h2{font-size:1.1rem;font-weight:500;margin:0 0 .6rem}
+.xp-modal p,.xp-modal li{font-size:.84rem;color:rgba(232,236,244,0.72);line-height:1.65}
+.xp-modal p{margin:0 0 .7rem}
+.xp-modal p strong{color:rgba(232,236,244,0.95);font-weight:500}
+.xp-x{position:absolute;top:10px;right:12px;background:none;border:none;
+  color:rgba(232,236,244,0.45);font-size:1.15rem;cursor:pointer}
+.xp-foot{display:flex;align-items:center;gap:10px;margin-top:14px;
+  padding-top:14px;border-top:1px solid rgba(255,255,255,0.07)}
+.xp-dots{display:flex;gap:6px;margin-right:auto}
+.xp-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.18)}
+.xp-dot.on{background:#22c6f0}
+.xp-btn{border-radius:7px;padding:8px 16px;font-size:.8rem;font-weight:600;
+  cursor:pointer;font-family:inherit}
+.xp-btn-primary{background:#22c6f0;color:#0a0f1f;border:none}
+.xp-btn-ghost{background:transparent;color:rgba(232,236,244,0.6);
+  border:1px solid rgba(255,255,255,0.18)}
+.xp-btn:disabled{opacity:.3;cursor:default}
+.xp-help{position:fixed;right:18px;bottom:18px;z-index:900;width:40px;height:40px;
+  border-radius:50%;border:none;cursor:pointer;background:#22c6f0;color:#0a0f1f;
+  font-size:1.1rem;font-weight:700;box-shadow:0 6px 22px rgba(0,0,0,0.45)}
+.xp-ref-chip{background:rgba(34,198,240,0.06);border:1px solid rgba(34,198,240,0.16);
+  border-radius:8px;padding:9px 13px;font-size:.71rem;color:rgba(232,236,244,0.62);line-height:1.55}
+.xp-banner{background:rgba(34,198,240,0.06);border-bottom:1px solid rgba(34,198,240,0.16);
+  padding:8px 20px;font-size:.67rem;color:rgba(232,236,244,0.45);
+  letter-spacing:.05em;text-align:center;font-family:Geist,system-ui,sans-serif}
+/* ── Intro visual components ── */
+.xi-tally{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0}
+.xi-tally-box{border-radius:10px;padding:14px 12px;text-align:center}
+.xi-tally-ok{background:rgba(64,200,112,0.08);border:1px solid rgba(64,200,112,0.32)}
+.xi-tally-warn{background:rgba(240,160,32,0.07);border:1px solid rgba(240,160,32,0.28)}
+.xi-tally-fail{background:rgba(232,64,64,0.08);border:1px solid rgba(232,64,64,0.28)}
+.xi-tally-num{font-size:2.6rem;font-weight:700;line-height:1;margin:2px 0}
+.xi-ok{color:#40c870}.xi-org{color:#f0a020}.xi-red{color:#e84040}
+.xi-tally-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.09em;color:rgba(232,236,244,0.38);margin-bottom:4px}
+.xi-tally-unit{font-size:.62rem;color:rgba(232,236,244,0.42);margin-bottom:7px}
+.xi-tally-note{font-size:.64rem;color:rgba(232,236,244,0.5);margin-top:6px;line-height:1.4}
+.xi-puzzle{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.xi-pz{border-radius:10px;padding:13px;border:1px solid rgba(46,58,92,0.5);
+  background:#0e1428;position:relative}
+.xi-pz.xi-pz-on{border-color:rgba(34,198,240,0.45);background:rgba(34,198,240,0.05)}
+.xi-pz.xi-pz-dim{opacity:.42}
+.xi-pz-tag{font-size:.54rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:4px;padding:2px 7px;display:inline-block;margin-bottom:7px}
+.xi-pz-tag.xi-tag-on{background:#22c6f0;color:#0a0f1f}
+.xi-pz-tag.xi-tag-ep{background:rgba(34,198,240,0.13);color:#22c6f0;border:1px solid rgba(34,198,240,0.32)}
+.xi-pz-tag.xi-tag-dim{background:rgba(232,236,244,0.06);color:rgba(232,236,244,0.28);border:1px solid rgba(232,236,244,0.1)}
+.xi-pz-title{font-size:.82rem;font-weight:600;color:#e8ecf4;margin-bottom:4px}
+.xi-pz-body{font-size:.65rem;color:rgba(232,236,244,0.42);line-height:1.45}
+.xi-sources{font-size:.6rem;color:rgba(232,236,244,0.28);margin-top:8px;
+  border-top:1px solid rgba(46,58,92,0.28);padding-top:7px;line-height:1.55}
+</style>
+<style>
+
+/* ── Series navigation bar ── */
+.sn{position:sticky;top:0;z-index:500;
+  background:rgba(10,15,31,0.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(34,198,240,0.14);
+  padding:0 20px;height:50px;
+  display:flex;align-items:center;gap:12px;
+  font-family:Geist,'Segoe UI',system-ui,Arial,sans-serif;font-size:.8rem}
+.sn-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;opacity:.9;transition:opacity .18s}
+.sn-logo:hover{opacity:1}
+.sn-sep{color:rgba(255,255,255,0.16);flex-shrink:0;font-size:1em;padding:0 2px}
+.sn-eps{display:flex;gap:2px;flex:1;justify-content:center}
+.sn-ep{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;
+  text-decoration:none;color:rgba(232,236,244,0.4);font-size:.74rem;
+  font-weight:500;transition:all .18s;white-space:nowrap}
+.sn-ep .sn-ep-long{display:none}
+.sn-ep:hover{color:rgba(232,236,244,0.8);background:rgba(255,255,255,0.05)}
+.sn-ep.sn-cur{color:#22c6f0;background:rgba(34,198,240,0.1);font-weight:600}
+.sn-ep.sn-cur .sn-ep-badge{color:#22c6f0}
+.sn-ep-badge{font-size:.68rem;opacity:.7}
+.sn-arrows{display:flex;gap:6px;flex-shrink:0}
+.sn-arr{padding:5px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;
+  color:rgba(232,236,244,0.5);text-decoration:none;font-size:.74rem;
+  white-space:nowrap;transition:all .18s}
+.sn-arr:hover{color:#e8ecf4;border-color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.04)}
+.sn-arr.sn-home{border-color:rgba(34,198,240,0.2);color:rgba(34,198,240,0.6)}
+.sn-arr.sn-home:hover{border-color:rgba(34,198,240,0.5);color:#22c6f0}
+@media(min-width:640px){.sn-ep .sn-ep-long{display:inline;opacity:.6;font-weight:400;margin-left:1px}}
+@media(max-width:480px){.sn-arrows .sn-arr:not(.sn-home){display:none}}
+</style>
+</head>
+<body>
+<nav class="sn" aria-label="HIT Technology Series navigation">
+  <a class="sn-logo" href="index.html" aria-label="Series index"><svg width="130" height="22" viewBox="0 0 164 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76058 2.93931C8.60556 4.02273 7.67379 4.85556 6.5475 4.85556C5.31274 4.85556 4.31177 3.85459 4.31177 2.61983C4.31177 1.38507 5.31274 0.384094 6.5475 0.384094C7.67385 0.384094 8.60567 1.21702 8.76061 2.30053H15.5304C15.7154 1.38943 16.521 0.703681 17.4867 0.703681C18.5891 0.703681 19.4829 1.59741 19.4829 2.69987C19.4829 3.6656 18.7971 4.47116 17.886 4.65613V11.5986C18.5259 11.7439 19.0037 12.3163 19.0037 13.0002C19.0037 13.794 18.3602 14.4375 17.5664 14.4375C16.7727 14.4375 16.1292 13.794 16.1292 13.0002C16.1292 12.3162 16.6071 11.7437 17.2472 11.5985V4.68184C16.3361 4.57291 15.6136 3.85036 15.5047 2.93931H8.76058ZM22.517 9.46393C21.4335 9.30893 20.6007 8.37715 20.6007 7.25085C20.6007 6.01609 21.6017 5.01511 22.8364 5.01511C24.0712 5.01511 25.0722 6.01609 25.0722 7.25085C25.0722 8.37719 24.2393 9.309 23.1558 9.46395V16.2336C24.0669 16.4186 24.7526 17.2241 24.7526 18.1898C24.7526 19.2923 23.8589 20.186 22.7564 20.186C21.7906 20.186 20.985 19.5002 20.8001 18.5889H13.8577C13.7124 19.2289 13.14 19.7067 12.4561 19.7067C11.6623 19.7067 11.0188 19.0632 11.0188 18.2694C11.0188 17.4756 11.6623 16.8322 12.4561 16.8322C13.1401 16.8322 13.7126 17.31 13.8578 17.9501L20.7745 17.9501C20.8835 17.0392 21.606 16.3168 22.517 16.2079V9.46393ZM18.5247 21.1443C17.3984 21.1443 16.4666 21.9772 16.3116 23.0606H9.56737C9.45846 22.1496 8.73594 21.427 7.8249 21.3181L7.82489 14.4014C8.46501 14.2562 8.94288 13.6838 8.94288 12.9997C8.94288 12.2059 8.2994 11.5625 7.50562 11.5625C6.71185 11.5625 6.06836 12.2059 6.06836 12.9997C6.06836 13.6837 6.54612 14.2561 7.18611 14.4013L7.18611 21.3438C6.27498 21.5288 5.5892 22.3343 5.5892 23.3001C5.5892 24.4025 6.48292 25.2962 7.58539 25.2962C8.5511 25.2962 9.35664 24.6105 9.54163 23.6994H16.3116C16.4665 24.7829 17.3983 25.6158 18.5247 25.6158C19.7594 25.6158 20.7604 24.6148 20.7604 23.3801C20.7604 22.1453 19.7594 21.1443 18.5247 21.1443ZM2.55508 16.5359C3.63857 16.6909 4.47147 17.6227 4.47147 18.749C4.47147 19.9838 3.4705 20.9848 2.23573 20.9848C1.00097 20.9848 0 19.9838 0 18.749C0 17.6227 0.832853 16.6909 1.9163 16.5359L1.9163 9.76633C1.00519 9.58133 0.319447 8.77579 0.319447 7.81009C0.319447 6.70762 1.21317 5.8139 2.31564 5.8139C3.28143 5.8139 4.08703 6.49977 4.27193 7.411L11.2144 7.411C11.3596 6.77101 11.932 6.29325 12.616 6.29325C13.4098 6.29325 14.0532 6.93674 14.0532 7.73051C14.0532 8.52429 13.4098 9.16777 12.616 9.16777C11.9319 9.16777 11.3595 8.6899 11.2143 8.04979L4.29759 8.04979C4.18857 8.96074 3.46606 9.68317 2.55508 9.79207L2.55508 16.5359Z" fill="url(#ng)"/> <path d="M32.0912 20.8843V5.98939H42.7637V8.68405H34.8919V12.8003H42.3393V15.3889H34.8919V20.8843H32.0912ZM49.5169 10.1693C52.8693 10.1693 55.0335 12.673 55.0335 15.6647C55.0335 18.7201 52.9542 21.1813 49.5381 21.1813C46.1221 21.1813 44.064 18.7201 44.064 15.6647C44.064 12.673 46.1857 10.1693 49.5169 10.1693ZM49.5381 12.5669C47.671 12.5669 46.695 14.0946 46.695 15.6647C46.695 17.2348 47.6498 18.7625 49.5381 18.7625C51.4265 18.7625 52.3813 17.2348 52.3813 15.6647C52.3813 14.0946 51.278 12.5669 49.5381 12.5669ZM59.5733 10.4239V16.0254C59.5733 17.6167 60.4433 18.8262 62.0982 18.8262C63.7108 18.8262 64.7717 17.4894 64.7717 15.8981V10.4239H67.339V20.9267H65.0263L64.8566 19.6112C63.7744 20.6933 62.7772 21.1813 61.3132 21.1813C58.8307 21.1813 56.9848 19.2717 56.9848 16.0466V10.4239H59.5733ZM77.912 20.8843V15.3464C77.912 13.7551 77.0208 12.5457 75.387 12.5457C73.7745 12.5457 72.7136 13.8824 72.7136 15.4737V20.8843H70.1463V10.4239H72.459L72.6287 11.7606C73.7108 10.5937 74.7293 10.1905 76.066 10.1905C78.5273 10.1905 80.5005 12.0365 80.5005 15.3252V20.8843H77.912ZM93.8949 6.05304V20.8843H91.4761L91.3064 19.4415C90.4789 20.7994 89.2058 21.1813 87.9327 21.1813C84.8774 21.1813 82.5434 19.0808 82.5434 15.6435C82.5434 12.0365 84.8137 10.1693 87.8691 10.1693C88.9724 10.1693 90.6698 10.7422 91.3064 11.8455V6.05304H93.8949ZM88.1025 12.5881C86.4687 12.5881 85.132 13.7551 85.132 15.6435C85.132 17.4894 86.4475 18.7413 88.1025 18.7413C89.7362 18.7413 91.1366 17.5531 91.1366 15.6435C91.1366 13.84 89.7362 12.5881 88.1025 12.5881Z" fill="white"/> <path d="M102.885 6.03183C108.041 6.03183 110.311 9.74494 110.311 13.4793C110.311 17.1924 108.02 20.8843 102.885 20.8843H97.0499V6.03183H102.885ZM99.8294 18.1896H102.885C106.195 18.1896 107.531 15.8344 107.531 13.4793C107.531 11.1029 106.174 8.68405 102.885 8.68405H99.8294V18.1896ZM112.245 7.47464C112.245 6.4774 113.009 5.96817 113.773 5.96817C114.536 5.96817 115.3 6.4774 115.3 7.47464C115.3 8.49309 114.536 8.9811 113.773 8.9811C113.009 8.9811 112.245 8.49309 112.245 7.47464ZM115.067 10.3815V20.8843H112.478V10.3815H115.067ZM126.841 9.36302L128.75 10.8058L127.435 12.3335C128.347 13.4156 128.644 14.3704 128.644 15.4525C128.644 17.3197 127.774 18.5928 126.056 19.3778C128.262 20.1629 128.644 21.7542 128.644 22.7727C128.644 25.7432 125.737 27.186 122.937 27.186C119.308 27.186 117.187 25.3612 117.293 22.3695H119.86C119.754 23.8123 121.303 24.6823 122.937 24.6823C124.379 24.6823 125.95 24.0669 125.95 22.7727C125.95 21.4996 124.931 20.7145 122.979 20.7145C119.521 20.7145 117.25 18.7413 117.25 15.4525C117.25 11.9304 120.051 10.1481 122.979 10.1481C123.785 10.1481 124.952 10.3178 125.674 10.8058L126.841 9.36302ZM122.979 12.5457C121.282 12.5457 119.839 13.5005 119.839 15.4525C119.839 17.2773 121.282 18.3381 122.979 18.3381C124.676 18.3381 126.056 17.2348 126.056 15.4525C126.056 13.6702 124.676 12.5457 122.979 12.5457ZM130.728 7.47464C130.728 6.4774 131.491 5.96817 132.255 5.96817C133.019 5.96817 133.783 6.4774 133.783 7.47464C133.783 8.49309 133.019 8.9811 132.255 8.9811C131.491 8.9811 130.728 8.49309 130.728 7.47464ZM133.549 10.3815V20.8843H130.961V10.3815H133.549ZM140.104 7.47464V10.4876H142.989V12.7154H140.083V17.3197C140.083 18.3169 140.613 18.8049 141.441 18.8049C141.844 18.8049 142.289 18.6776 142.692 18.4867L143.414 20.6933C142.607 21.0328 141.95 21.1389 141.059 21.1389C138.894 21.1389 137.515 19.8658 137.515 17.3197V12.7154H135.563V10.4876H137.515V7.75047L140.104 7.47464ZM153.408 10.4239H155.891V20.8843H153.451L153.323 19.3566C152.708 20.5872 151.117 21.2025 149.928 21.2025C146.809 21.2025 144.539 19.3142 144.539 15.6435C144.539 11.994 146.937 10.1693 149.992 10.1693C151.414 10.1693 152.729 10.827 153.323 11.8667L153.408 10.4239ZM150.225 12.482C148.507 12.482 147.128 13.649 147.128 15.6435C147.128 17.638 148.507 18.8262 150.225 18.8262C152.262 18.8262 153.281 17.2348 153.281 15.6435C153.281 14.0734 152.262 12.482 150.225 12.482ZM161.316 6.05304V20.8843H158.749V6.05304H161.316Z" fill="#22C6F0"/> <defs> <linearGradient id="ng" x1="8.46" y1="5.73" x2="19.64" y2="23.62" gradientUnits="userSpaceOnUse"> <stop stop-color="#22C6F0"/><stop offset="1" stop-color="white"/> </linearGradient> </defs> </svg></a>
+  <span class="sn-sep">·</span>
+  <div class="sn-eps">
+    <a class="sn-ep" href="episode0_grid_codes.html"><span class="sn-ep-badge">Ep 0</span><span class="sn-ep-long">Grid Codes</span></a>
+    <a class="sn-ep sn-cur" href="hit_episode1.html"><span class="sn-ep-badge">Ep 1</span><span class="sn-ep-long">Voltage Reg</span></a>
+    <a class="sn-ep" href="dll_harmonics.html"><span class="sn-ep-badge">Ep 2</span><span class="sn-ep-long">Harmonics</span></a>
+    <a class="sn-ep" href="dll_mqt.html"><span class="sn-ep-badge">MQT</span><span class="sn-ep-long">MQT Viewer</span></a>
+  </div>
+  <div class="sn-arrows">
+    <a class="sn-arr" href="episode0_grid_codes.html">← Ep 0</a>
+    <a class="sn-arr sn-home" href="index.html">⊞ All</a>
+    <a class="sn-arr" href="dll_harmonics.html">Ep 2 →</a>
+  </div>
+</nav>
+
+
+<div class="xp-banner">Firmware-in-the-loop simulation &nbsp;·&nbsp; Series compensation only &nbsp;·&nbsp; BESS energy injection not modelled &nbsp;·&nbsp; Reference Design June 2026 v1 &nbsp;·&nbsp; Work in progress: not lab- or production-validated</div>
+
+<div class="xp-overlay" id="xp-intro" role="dialog" aria-modal="true">
+  <div class="xp-modal">
+    <button class="xp-x" data-close="xp-intro" aria-label="Close">&times;</button>
+
+    <!-- Step 1: Canvas animation -->
+    <div class="xp-step" data-step="1">
+      <div class="xp-kicker">Series compensation study &nbsp;&middot;&nbsp; Reference Design June 2026 v1 &nbsp;&middot;&nbsp; &plusmn;20% injection range</div>
+      <h2>How the HIT series path regulates load-side voltage</h2>
+
+      <canvas id="xp-vr-cv" width="720" height="230"
+        style="display:block;width:100%;border-radius:10px;border:1px solid rgba(46,58,92,0.45);
+               margin:12px 0;background:#070c1a"></canvas>
+
+      <div class="xp-ref-chip">
+        <strong style="color:rgba(232,236,244,0.88)">What this shows:</strong>
+        Grid voltage oscillates between 80% (sag) and 120% (swell). Without HIT, every deviation reaches the load &mdash; risking ITIC exceedance.
+        With HIT, a series-injected correction voltage continuously holds the load bus near nominal.
+        The &#177;20% duty-cycle limit means sags below 80% require additional stored energy (BESS).
+        <br><span style="color:rgba(232,236,244,0.38)">Series compensation only &mdash; no BESS injection modelled in this simulation.</span>
+      </div>
+    </div>
+
+    <!-- Step 2: MQT outcome tally -->
+    <div class="xp-step" data-step="2" hidden>
+      <div class="xp-kicker">ERCOT Model Quality Test &nbsp;&middot;&nbsp; 25-second profile &nbsp;&middot;&nbsp; 8 key voltage events</div>
+      <h2>Which MQT events does series compensation resolve?</h2>
+
+      <div class="xi-tally">
+        <div class="xi-tally-box xi-tally-ok">
+          <div class="xi-tally-label">Resolved by series compensation</div>
+          <div class="xi-tally-num xi-ok">5</div>
+          <div class="xi-tally-unit">of 8 MQT events</div>
+          <div class="xi-tally-note">Sags to 70&ndash;80% &nbsp;&middot;&nbsp; 120% swell<br>Compensation range reached or exceeded</div>
+        </div>
+        <div class="xi-tally-box xi-tally-warn">
+          <div class="xi-tally-label">Partially improved</div>
+          <div class="xi-tally-num xi-org">2</div>
+          <div class="xi-tally-unit">stored energy required</div>
+          <div class="xi-tally-note">Sags below 50%<br>Beyond &#177;20% compensation range</div>
+        </div>
+        <div class="xi-tally-box xi-tally-fail">
+          <div class="xi-tally-label">Physical limit</div>
+          <div class="xi-tally-num xi-red">1</div>
+          <div class="xi-tally-unit">source voltage = zero</div>
+          <div class="xi-tally-note">150 ms complete fault<br>V<sub>inject</sub> = D &times; V<sub>source</sub> = 0</div>
+        </div>
+      </div>
+
+      <p style="font-size:.75rem;color:rgba(232,236,244,0.45);margin:8px 0 0;line-height:1.55">
+        Series compensation range: <strong style="color:rgba(232,236,244,0.7)">&plusmn;20% of source voltage</strong>. Events within range are fully corrected; events below the range are partially improved; a complete voltage interruption cannot be compensated regardless of injection capacity. BESS energy injection handles the shortfall.
+      </p>
+    </div>
+
+    <!-- Step 3: Series map -->
+    <div class="xp-step" data-step="3" hidden>
+      <div class="xp-kicker">HIT Technology Series &nbsp;&middot;&nbsp; FoundDigital DS</div>
+      <h2>Four capabilities, one transformer</h2>
+
+      <div class="xi-puzzle">
+        <div class="xi-pz xi-pz-on">
+          <span class="xi-pz-tag xi-tag-on">Episode 1 &nbsp;&middot;&nbsp; This demo</span>
+          <div class="xi-pz-title">Voltage Regulation</div>
+          <div class="xi-pz-body">Series compensation: &#177;20% injection corrects grid sags and swells at 20 kHz. Keeps load voltage within ITIC tolerance envelope during ERCOT MQT events.</div>
+        </div>
+        <div class="xi-pz">
+          <span class="xi-pz-tag xi-tag-ep">Episode 2 &nbsp;&middot;&nbsp; Available</span>
+          <div class="xi-pz-title">Harmonic Cancellation</div>
+          <div class="xi-pz-body">Shunt compensation: HIT injects equal-and-opposite harmonic currents. Reduces TDD from 28% (six-pulse UPS) to &le;5% at the PCC &mdash; IEEE 519-2022 compliance demonstration.</div>
+        </div>
+        <div class="xi-pz xi-pz-dim">
+          <span class="xi-pz-tag xi-tag-dim">Coming</span>
+          <div class="xi-pz-title">Frequency Ride-Through</div>
+          <div class="xi-pz-body">BESS synthetic inertia and active power recovery: 90% of pre-event load within 2 seconds of voltage recovery. ERCOT NOGRR-282 &sect;2.6.4 frequency requirements.</div>
+        </div>
+        <div class="xi-pz xi-pz-dim">
+          <span class="xi-pz-tag xi-tag-dim">Coming</span>
+          <div class="xi-pz-title">Power Factor Correction</div>
+          <div class="xi-pz-body">Shunt VAR compensation: reactive power support at the PCC. Reduces grid-side reactive current demand and improves voltage stability margin during high-load events.</div>
+        </div>
+      </div>
+      <div class="xi-sources">Reference: ERCOT NOGRR-282 (April 2026) &nbsp;&middot;&nbsp; IEEE Std 1159-2019 ITIC &nbsp;&middot;&nbsp; ESIG Large Loads Task Force 2026 &nbsp;&middot;&nbsp; OEM Reference Design June 2026 v1</div>
+    </div>
+
+    <!-- Footer nav -->
+    <div class="xp-foot">
+      <div class="xp-dots">
+        <div class="xp-dot on"></div>
+        <div class="xp-dot"></div>
+        <div class="xp-dot"></div>
+      </div>
+      <button class="xp-btn xp-btn-ghost" id="xp-back" disabled>Back</button>
+      <button class="xp-btn xp-btn-primary" id="xp-next">Next</button>
+    </div>
+  </div>
+</div>
+
+<button class="xp-help" data-show="xp-intro" title="Show intro" aria-label="Show intro">?</button>
+
+
+<!-- ── Series nav ──────────────────────────────────────────────── -->
+<nav class="series-nav">
+  <span class="logo">
+    <svg width="130" height="22" viewBox="0 0 164 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76058 2.93931C8.60556 4.02273 7.67379 4.85556 6.5475 4.85556C5.31274 4.85556 4.31177 3.85459 4.31177 2.61983C4.31177 1.38507 5.31274 0.384094 6.5475 0.384094C7.67385 0.384094 8.60567 1.21702 8.76061 2.30053H15.5304C15.7154 1.38943 16.521 0.703681 17.4867 0.703681C18.5891 0.703681 19.4829 1.59741 19.4829 2.69987C19.4829 3.6656 18.7971 4.47116 17.886 4.65613V11.5986C18.5259 11.7439 19.0037 12.3163 19.0037 13.0002C19.0037 13.794 18.3602 14.4375 17.5664 14.4375C16.7727 14.4375 16.1292 13.794 16.1292 13.0002C16.1292 12.3162 16.6071 11.7437 17.2472 11.5985V4.68184C16.3361 4.57291 15.6136 3.85036 15.5047 2.93931H8.76058ZM22.517 9.46393C21.4335 9.30893 20.6007 8.37715 20.6007 7.25085C20.6007 6.01609 21.6017 5.01511 22.8364 5.01511C24.0712 5.01511 25.0722 6.01609 25.0722 7.25085C25.0722 8.37719 24.2393 9.309 23.1558 9.46395V16.2336C24.0669 16.4186 24.7526 17.2241 24.7526 18.1898C24.7526 19.2923 23.8589 20.186 22.7564 20.186C21.7906 20.186 20.985 19.5002 20.8001 18.5889H13.8577C13.7124 19.2289 13.14 19.7067 12.4561 19.7067C11.6623 19.7067 11.0188 19.0632 11.0188 18.2694C11.0188 17.4756 11.6623 16.8322 12.4561 16.8322C13.1401 16.8322 13.7126 17.31 13.8578 17.9501L20.7745 17.9501C20.8835 17.0392 21.606 16.3168 22.517 16.2079V9.46393ZM18.5247 21.1443C17.3984 21.1443 16.4666 21.9772 16.3116 23.0606H9.56737C9.45846 22.1496 8.73594 21.427 7.8249 21.3181L7.82489 14.4014C8.46501 14.2562 8.94288 13.6838 8.94288 12.9997C8.94288 12.2059 8.2994 11.5625 7.50562 11.5625C6.71185 11.5625 6.06836 12.2059 6.06836 12.9997C6.06836 13.6837 6.54612 14.2561 7.18611 14.4013L7.18611 21.3438C6.27498 21.5288 5.5892 22.3343 5.5892 23.3001C5.5892 24.4025 6.48292 25.2962 7.58539 25.2962C8.5511 25.2962 9.35664 24.6105 9.54163 23.6994H16.3116C16.4665 24.7829 17.3983 25.6158 18.5247 25.6158C19.7594 25.6158 20.7604 24.6148 20.7604 23.3801C20.7604 22.1453 19.7594 21.1443 18.5247 21.1443ZM2.55508 16.5359C3.63857 16.6909 4.47147 17.6227 4.47147 18.749C4.47147 19.9838 3.4705 20.9848 2.23573 20.9848C1.00097 20.9848 0 19.9838 0 18.749C0 17.6227 0.832853 16.6909 1.9163 16.5359L1.9163 9.76633C1.00519 9.58133 0.319447 8.77579 0.319447 7.81009C0.319447 6.70762 1.21317 5.8139 2.31564 5.8139C3.28143 5.8139 4.08703 6.49977 4.27193 7.411L11.2144 7.411C11.3596 6.77101 11.932 6.29325 12.616 6.29325C13.4098 6.29325 14.0532 6.93674 14.0532 7.73051C14.0532 8.52429 13.4098 9.16777 12.616 9.16777C11.9319 9.16777 11.3595 8.6899 11.2143 8.04979L4.29759 8.04979C4.18857 8.96074 3.46606 9.68317 2.55508 9.79207L2.55508 16.5359Z" fill="url(#ng)"/>
+      <path d="M32.0912 20.8843V5.98939H42.7637V8.68405H34.8919V12.8003H42.3393V15.3889H34.8919V20.8843H32.0912ZM49.5169 10.1693C52.8693 10.1693 55.0335 12.673 55.0335 15.6647C55.0335 18.7201 52.9542 21.1813 49.5381 21.1813C46.1221 21.1813 44.064 18.7201 44.064 15.6647C44.064 12.673 46.1857 10.1693 49.5169 10.1693ZM49.5381 12.5669C47.671 12.5669 46.695 14.0946 46.695 15.6647C46.695 17.2348 47.6498 18.7625 49.5381 18.7625C51.4265 18.7625 52.3813 17.2348 52.3813 15.6647C52.3813 14.0946 51.278 12.5669 49.5381 12.5669ZM59.5733 10.4239V16.0254C59.5733 17.6167 60.4433 18.8262 62.0982 18.8262C63.7108 18.8262 64.7717 17.4894 64.7717 15.8981V10.4239H67.339V20.9267H65.0263L64.8566 19.6112C63.7744 20.6933 62.7772 21.1813 61.3132 21.1813C58.8307 21.1813 56.9848 19.2717 56.9848 16.0466V10.4239H59.5733ZM77.912 20.8843V15.3464C77.912 13.7551 77.0208 12.5457 75.387 12.5457C73.7745 12.5457 72.7136 13.8824 72.7136 15.4737V20.8843H70.1463V10.4239H72.459L72.6287 11.7606C73.7108 10.5937 74.7293 10.1905 76.066 10.1905C78.5273 10.1905 80.5005 12.0365 80.5005 15.3252V20.8843H77.912ZM93.8949 6.05304V20.8843H91.4761L91.3064 19.4415C90.4789 20.7994 89.2058 21.1813 87.9327 21.1813C84.8774 21.1813 82.5434 19.0808 82.5434 15.6435C82.5434 12.0365 84.8137 10.1693 87.8691 10.1693C88.9724 10.1693 90.6698 10.7422 91.3064 11.8455V6.05304H93.8949ZM88.1025 12.5881C86.4687 12.5881 85.132 13.7551 85.132 15.6435C85.132 17.4894 86.4475 18.7413 88.1025 18.7413C89.7362 18.7413 91.1366 17.5531 91.1366 15.6435C91.1366 13.84 89.7362 12.5881 88.1025 12.5881Z" fill="white"/>
+      <path d="M102.885 6.03183C108.041 6.03183 110.311 9.74494 110.311 13.4793C110.311 17.1924 108.02 20.8843 102.885 20.8843H97.0499V6.03183H102.885ZM99.8294 18.1896H102.885C106.195 18.1896 107.531 15.8344 107.531 13.4793C107.531 11.1029 106.174 8.68405 102.885 8.68405H99.8294V18.1896ZM112.245 7.47464C112.245 6.4774 113.009 5.96817 113.773 5.96817C114.536 5.96817 115.3 6.4774 115.3 7.47464C115.3 8.49309 114.536 8.9811 113.773 8.9811C113.009 8.9811 112.245 8.49309 112.245 7.47464ZM115.067 10.3815V20.8843H112.478V10.3815H115.067ZM126.841 9.36302L128.75 10.8058L127.435 12.3335C128.347 13.4156 128.644 14.3704 128.644 15.4525C128.644 17.3197 127.774 18.5928 126.056 19.3778C128.262 20.1629 128.644 21.7542 128.644 22.7727C128.644 25.7432 125.737 27.186 122.937 27.186C119.308 27.186 117.187 25.3612 117.293 22.3695H119.86C119.754 23.8123 121.303 24.6823 122.937 24.6823C124.379 24.6823 125.95 24.0669 125.95 22.7727C125.95 21.4996 124.931 20.7145 122.979 20.7145C119.521 20.7145 117.25 18.7413 117.25 15.4525C117.25 11.9304 120.051 10.1481 122.979 10.1481C123.785 10.1481 124.952 10.3178 125.674 10.8058L126.841 9.36302ZM122.979 12.5457C121.282 12.5457 119.839 13.5005 119.839 15.4525C119.839 17.2773 121.282 18.3381 122.979 18.3381C124.676 18.3381 126.056 17.2348 126.056 15.4525C126.056 13.6702 124.676 12.5457 122.979 12.5457ZM130.728 7.47464C130.728 6.4774 131.491 5.96817 132.255 5.96817C133.019 5.96817 133.783 6.4774 133.783 7.47464C133.783 8.49309 133.019 8.9811 132.255 8.9811C131.491 8.9811 130.728 8.49309 130.728 7.47464ZM133.549 10.3815V20.8843H130.961V10.3815H133.549ZM140.104 7.47464V10.4876H142.989V12.7154H140.083V17.3197C140.083 18.3169 140.613 18.8049 141.441 18.8049C141.844 18.8049 142.289 18.6776 142.692 18.4867L143.414 20.6933C142.607 21.0328 141.95 21.1389 141.059 21.1389C138.894 21.1389 137.515 19.8658 137.515 17.3197V12.7154H135.563V10.4876H137.515V7.75047L140.104 7.47464ZM153.408 10.4239H155.891V20.8843H153.451L153.323 19.3566C152.708 20.5872 151.117 21.2025 149.928 21.2025C146.809 21.2025 144.539 19.3142 144.539 15.6435C144.539 11.994 146.937 10.1693 149.992 10.1693C151.414 10.1693 152.729 10.827 153.323 11.8667L153.408 10.4239ZM150.225 12.482C148.507 12.482 147.128 13.649 147.128 15.6435C147.128 17.638 148.507 18.8262 150.225 18.8262C152.262 18.8262 153.281 17.2348 153.281 15.6435C153.281 14.0734 152.262 12.482 150.225 12.482ZM161.316 6.05304V20.8843H158.749V6.05304H161.316Z" fill="#22C6F0"/>
+      <defs>
+        <linearGradient id="ng" x1="8.46" y1="5.73" x2="19.64" y2="23.62" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#22C6F0"/><stop offset="1" stop-color="white"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </span>
+  <span class="sep">·</span>
+  <span class="series-title">Hybrid Intelligent Transformer (HIT) Technology Series</span>
+  <span class="sep">·</span>
+  <span class="ep-name">Load Voltage Regulation</span>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Hybrid Intelligent Transformer (HIT) Technology Series</div>
+    <h1>Load Voltage<br>Regulation</h1>
+    <p class="hero-sub">How active series compensation regulates load-side voltage during grid disturbances within the ±20% compensation range, and where energy storage is additionally required.</p>
+    <div class="hero-diagram">
+      <svg class="arch-svg" viewBox="0 0 860 148" xmlns="http://www.w3.org/2000/svg" aria-label="Architecture diagram: Grid to HIT to Load">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0,8 3,0 6" fill="rgba(34,198,240,0.55)"/>
+          </marker>
+        </defs>
+        <!-- Grid side panel -->
+        <text x="14" y="15" font-size="9.5" fill="#607080" letter-spacing=".12em" font-family="Geist,system-ui,sans-serif" font-weight="500">GRID SUPPLY</text>
+        <rect x="10" y="20" width="248" height="96" rx="8" fill="rgba(239,83,80,0.05)" stroke="rgba(239,83,80,0.22)" stroke-width="1"/>
+        <!-- MQT-like schematic waveform (sags + fault + swells) -->
+        <polyline points="18,68 55,68 55,78 78,78 78,84 95,84 95,94 108,94 108,115 120,115 120,90 122,90 122,54 166,54 166,60 240,60" fill="none" stroke="#EF5350" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <text x="112" y="130" font-size="8" fill="rgba(239,83,80,0.6)" text-anchor="middle" font-family="Geist,system-ui,sans-serif">0% fault</text>
+        <text x="195" y="50" font-size="8" fill="rgba(239,83,80,0.6)" text-anchor="middle" font-family="Geist,system-ui,sans-serif">120% swell</text>
+        <text x="14" y="145" font-size="8.5" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">0 – 120% of nominal</text>
+        <!-- Arrow -->
+        <line x1="262" y1="68" x2="310" y2="68" stroke="rgba(34,198,240,0.5)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <!-- HIT block -->
+        <rect class="hit-rect" x="314" y="28" width="192" height="80" rx="10" fill="rgba(34,198,240,0.08)" stroke="#22c6f0" stroke-width="1.5"/>
+        <text x="410" y="62" text-anchor="middle" font-size="18" font-weight="500" fill="#22c6f0" font-family="Geist,system-ui,sans-serif">HIT</text>
+        <text x="410" y="80" text-anchor="middle" font-size="10" fill="rgba(34,198,240,0.75)" font-family="Geist,system-ui,sans-serif">Active Series Compensation</text>
+        <text x="410" y="96" text-anchor="middle" font-size="8.5" fill="rgba(160,160,160,0.55)" font-family="Geist,system-ui,sans-serif">20 kHz control · ±20% voltage injection</text>
+        <!-- Arrow -->
+        <line x1="509" y1="68" x2="557" y2="68" stroke="rgba(34,198,240,0.5)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <!-- Load side panel -->
+        <text x="566" y="15" font-size="9.5" fill="#607080" letter-spacing=".12em" font-family="Geist,system-ui,sans-serif" font-weight="500">DATA CENTER LOAD</text>
+        <rect x="562" y="20" width="284" height="96" rx="8" fill="rgba(34,198,240,0.04)" stroke="rgba(34,198,240,0.18)" stroke-width="1"/>
+        <!-- Compensated load-side waveform — stepped, not flat.
+             Events within ±20% range are regulated toward nominal.
+             50% sag → ≈60%, 0% fault → 0%, 35% recovery → ≈42%.
+             y=68=100%, scale: 1% below = 0.47px (matches grid side) -->
+        <path class="load-path"
+          d="M578,68 L621,68 L621,70 L648,70 L648,76 L668,76 L668,87 L683,87 L683,115 L697,115 L697,95 L699,95 L699,70 L751,70 L751,68 L838,68"
+          fill="none" stroke="#22c6f0" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
+        <!-- 0% fault label below load panel -->
+        <text x="690" y="128" font-size="7.5" fill="rgba(239,83,80,0.55)" text-anchor="middle" font-family="Geist,system-ui,sans-serif">0% fault</text>
+        <text x="566" y="145" font-size="8.5" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">regulated (within compensation range)</text>
+        <!-- Nominal reference line -->
+        <line x1="572" y1="68" x2="840" y2="68" stroke="rgba(34,198,240,0.12)" stroke-width="1" stroke-dasharray="2,4"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ── Page body ───────────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── 1. Challenge ──────────────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">The Challenge</div>
+  <h2>Grid voltage disturbances at large-load interconnections</h2>
+  <div class="two-col">
+    <div class="col-text">
+      <p>Large computational facilities draw power at a scale that makes them material participants in grid stability. Their information technology equipment runs on switch-mode power supplies engineered to tight voltage tolerances that assume nominal supply conditions.</p>
+      <p>Grids do not always maintain nominal voltage. Faults, switching events, and load imbalances produce voltage sags, swells, and momentary interruptions. Uninterruptible power supply systems traditionally absorbed these events passively, with the facility free to disconnect. Transmission system operators no longer accept that behaviour at this scale.</p>
+      <p>Grid codes worldwide now impose fault ride-through (FRT) and active power recovery (APR) requirements on large loads. The Energy Systems Integration Group (ESIG) Large Loads Task Force (2026) surveyed requirements from ERCOT, SPP, ATC, and AESO in North America and Fingrid, Energinet, TenneT, and RTE in Europe. EirGrid has published its own FRT/APR Study Assessment Guide for transmission-connected demand facilities under Grid Code clause CC.7.4.3.2. The requirement families are converging: voltage and frequency ride-through, multi-disturbance withstand, and rapid post-fault recovery of active power.</p>
+      <p><span class="tag">ERCOT NOGRR-282</span> effective April 2026, is used as the demonstration case throughout this document. It designates qualifying computational facilities as <strong>Large Computational Loads (LCLs)</strong> and is the first fully codified large-load ride-through standard with a defined compliance test profile, the Model Quality Test (MQT). It is not the strictest case: Fingrid and EirGrid both require 90% of pre-disturbance power restored within 0.5 seconds; ERCOT allows 2 seconds.</p>
+    </div>
+    <div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-val">108 GW</div>
+        <div class="stat-lbl">Texas interconnection queue; predominantly data centers and AI facilities</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">8 Transmission System Operators</div>
+        <div class="stat-lbl">Jurisdictions with published large-load frequency ride-through and active power recovery requirements (ESIG 2026; EirGrid assessment guide)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0.0 pu</div>
+        <div class="stat-lbl">ERCOT voltage ride-through (VRT): complete voltage interruption a Large Computational Load must ride through for 150 ms without tripping</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">2 sec</div>
+        <div class="stat-lbl">ERCOT active power recovery (APR): 90% of pre-event load within 2 seconds of fault clearance</div>
+      </div>
+    </div>
+
+    <div class="why-flow">
+      <div class="why-flow-title">How we got here</div>
+      <div class="wf-step">
+        <div class="wf-dot">1</div>
+        <div class="wf-head">Data centers were designed for internal reliability only</div>
+        <p>Facility protection and controls were free to transfer to backup generation or uninterruptible power supply whenever grid conditions looked unacceptable. The grid-side consequence of that transfer was nobody's design requirement.</p>
+      </div>
+      <div class="wf-step wf-event">
+        <div class="wf-dot">2</div>
+        <div class="wf-head">At today's scale, that behaviour became a grid event</div>
+        <p>On July 10, 2024, a 230 kV fault sequence in the Eastern Interconnection triggered the near-simultaneous loss of approximately <strong>1,500 MW</strong> of voltage-sensitive load, primarily data centres transferring to backup through their own protection and controls. No utility breaker opened. The load loss drove a frequency overshoot, and the North American Electric Reliability Corporation (NERC) notes a similar event in a smaller interconnection would cause a far larger deviation. ERCOT has recorded comparable events.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-dot">3</div>
+        <div class="wf-head">Grid codes responded with ride-through obligations</div>
+        <p>ERCOT NOGRR-282, the NERC Level 3 Alert, EirGrid's frequency ride-through and active power recovery assessment guide, and the Fingrid and Energinet requirements all follow from this. Facilities must now <strong>prove</strong>, by simulation study against the operator's test profile, that they stay connected and recover active power on the operator's terms, not their own.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="design-band">
+    <div class="db-grid">
+      <div class="db-item">
+        <div class="db-head">Proven at design stage</div>
+        <p>EirGrid requires the FRT/APR study before connection, based on site-specific controller settings, with re-assessment when settings change. ERCOT requires the Model Quality Test at the point of interconnection. The study examines the facility as designed.</p>
+      </div>
+      <div class="db-item">
+        <div class="db-head">New scope in the electrical design</div>
+        <p>Ride-through and recovery require equipment, control methodologies, protection algorithms, and protection settings that legacy data center designs never carried. Each carries capex, opex, and reliability consequences.</p>
+      </div>
+      <div class="db-item">
+        <div class="db-head">Gates the project</div>
+        <p>The FRT/APR study is a condition of connection. A facility that cannot demonstrate compliance does not energise, whatever its internal reliability tier.</p>
+      </div>
+    </div>
+    <div class="wf-close">
+      <p>Ride-through compliance is not a permitting formality to be resolved after the design is frozen. It shapes the single-line diagram, the equipment list, and the protection philosophy. Projects that treat it as an afterthought discover the gap at the interconnection study, when redesign is most expensive.</p>
+    </div>
+  </div>
+
+  <div class="apr-block">
+    <h3 class="apr-title">Post-fault active power recovery requirements by system operator</h3>
+    <div class="mqt-wrap">
+      <table class="mqt-table">
+        <thead>
+          <tr>
+            <th>System Operator</th>
+            <th>Jurisdiction</th>
+            <th>Post-Fault Active Power Recovery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mqt-name">ATC</td>
+            <td class="mqt-before">United States</td>
+            <td class="mqt-after">Full restoration within three cycles of fault clearance, without shifting to back-up or UPS</td>
+          </tr>
+          <tr>
+            <td class="mqt-name">Fingrid</td>
+            <td class="mqt-before">Finland</td>
+            <td class="mqt-after">Data centers: 90% of pre-disturbance power restored within 0.5 s</td>
+          </tr>
+          <tr>
+            <td class="mqt-name">EirGrid</td>
+            <td class="mqt-before">Ireland</td>
+            <td class="mqt-after">Demand facilities: 90% of prefault active power demand within 500 ms of system voltage recovering to 0.9 pu (CC.7.4.3.2)</td>
+          </tr>
+          <tr>
+            <td class="mqt-name">AESO</td>
+            <td class="mqt-before">Canada (Alberta)</td>
+            <td class="mqt-after">1 s default, configurable to 10 s depending on system strength</td>
+          </tr>
+          <tr class="row-hl">
+            <td class="mqt-name">ERCOT</td>
+            <td class="mqt-before">United States (Texas)</td>
+            <td class="mqt-after">90% of pre-disturbance load restored within 2 s when voltage recovers to 0.9 pu (NOGRR-282)</td>
+          </tr>
+          <tr>
+            <td class="mqt-name">Energinet</td>
+            <td class="mqt-before">Denmark</td>
+            <td class="mqt-after">Staged: 80% within 5 s, 90% within 20 s, 95% within 30 s</td>
+          </tr>
+          <tr>
+            <td class="mqt-name">TenneT</td>
+            <td class="mqt-before">Netherlands / Germany</td>
+            <td class="mqt-after">Pre-fault active current restored after fault clearance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="scope-caveats">
+      <strong>Source:</strong> Energy Systems Integration Group (ESIG), Large Loads Performance Requirements (2026), Table 6; EirGrid, Frequency Ride-Through and Active Power Recovery Study Assessment Guide for Demand Facilities (Grid Code CC.7.4.3.2). The ERCOT entry reflects the final NOGRR-282 language of 2 seconds; the ESIG review cites the earlier draft value of 1 second. ERCOT (highlighted) is the demonstration case used in this document.
+    </div>
+  </div>
+</section>
+
+<!-- ── 2. ITIC Standard ───────────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">The Standard</div>
+  <h2>What information technology equipment actually tolerates: the ITIC curve</h2>
+  <div class="two-col">
+    <div class="itic-body">
+      <p>The <strong>ITIC curve</strong> (IEEE Std 1159-2019, formerly CBEMA) defines the voltage tolerance envelope for information technology equipment. It specifies the combinations of voltage magnitude and event duration that equipment must withstand without damage or loss of function.</p>
+      <p>The curve has three zones. The safe zone is not a single voltage threshold: it is duration-dependent. Equipment rated to ITIC tolerates a complete voltage interruption for up to 20 ms, a sag to 70% for up to 500 ms, and a sag to 80% for up to 10 seconds. Outside those boundaries, equipment protection may activate.</p>
+      <p>The ITIC envelope is a property of the equipment, not of any grid code. It is the same in Texas, Finland, and Denmark, and it is the fixed reference against which each system operator's ride-through requirement can be plotted. Any FRT profile that extends below the ITIC lower boundary produces the same class of compliance gap, whichever jurisdiction publishes it.</p>
+      <div class="callout">
+        <p>ERCOT NOGRR-282 requires ride-through at conditions that fall below the ITIC lower boundary. This is the core compliance gap: the grid code demands more than the equipment was designed to survive.</p>
+      </div>
+      <p>The gap is not theoretical. It appears precisely in the ERCOT MQT (Model Quality Test), the 25-second voltage ride-through test profile that every LCL must complete at its point of interconnection.</p>
+    </div>
+    <div>
+      <div class="zone-diagram">
+        <div class="zone z-over">
+          <div>Prohibited Region</div>
+          <div class="zone-pct">Above the ITIC upper envelope: not permitted</div>
+        </div>
+        <div class="zone z-safe">
+          <div>No Interruption in Function</div>
+          <div class="zone-pct">Inside the ITIC envelope: equipment continues normal operation</div>
+        </div>
+        <div class="zone z-under">
+          <div>No Damage Region</div>
+          <div class="zone-pct">Below the ITIC lower envelope: function may interrupt, no equipment damage</div>
+        </div>
+      </div>
+      <div class="gap-row">
+        <div class="gap-card">
+          <div class="gap-val">35 ppt</div>
+          <div class="gap-lbl">Sag gap at 150 ms</div>
+          <div class="gap-desc">ERCOT requires ride-through at 35% · ITIC lower limit is 70%</div>
+        </div>
+        <div class="gap-card">
+          <div class="gap-val">150 ms</div>
+          <div class="gap-lbl">Complete fault tolerance</div>
+          <div class="gap-desc">ERCOT: survive 0% voltage · ITIC: 0% safe for only 20 ms</div>
+        </div>
+        <div class="gap-card">
+          <div class="gap-val">10 ppt</div>
+          <div class="gap-lbl">Swell gap at 500 ms–1 s</div>
+          <div class="gap-desc">ERCOT: ride through 120% · ITIC upper drops to 110% at 500 ms</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. How HIT Helps ───────────────────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">The Technology</div>
+  <h2>Active series compensation: the HIT between grid and load</h2>
+  <p class="sect-lede">The HIT (Hybrid Intelligent Transformer) sits in series between the grid supply and the data center load. Rather than passively passing grid voltage through to the load, it actively injects a correction voltage in series, reducing load-side voltage deviation within the limits of its ±20% duty-cycle range. Where source voltage is sufficient, this brings load voltage within the ITIC tolerance envelope. Where the source voltage is zero or the sag exceeds the compensation range, stored energy is required.</p>
+  <div class="arch-wrap">
+    <!-- HIT series-shunt topology: conventional transformer carries bulk power; additional series/shunt windings let partially-rated converters inject corrections only -->
+    <svg viewBox="0 0 860 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:130px">
+      <defs>
+        <marker id="arr2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0,8 3,0 6" fill="rgba(34,198,240,0.6)"/>
+        </marker>
+      </defs>
+      <!-- HIT brace (full span) -->
+      <line x1="100" y1="6" x2="648" y2="6" stroke="rgba(34,198,240,0.2)" stroke-width="1"/>
+      <text x="374" y="4" text-anchor="middle" font-size="8.5" fill="rgba(34,198,240,0.5)" letter-spacing=".08em" font-family="Geist,system-ui,sans-serif">HIT · series-shunt topology · 20 kHz control</text>
+      <!-- Grid circle -->
+      <circle cx="48" cy="38" r="28" fill="rgba(239,83,80,0.08)" stroke="rgba(239,83,80,0.25)" stroke-width="1.2"/>
+      <text x="48" y="34" text-anchor="middle" font-size="11" fill="#ef9a9a" font-family="Geist,system-ui,sans-serif" font-weight="500">Grid</text>
+      <text x="48" y="48" text-anchor="middle" font-size="9" fill="rgba(239,83,80,0.6)" font-family="Geist,system-ui,sans-serif">0–120%</text>
+      <text x="48" y="110" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">Source voltage</text>
+      <!-- Line: Grid → Conv. TX -->
+      <line x1="78" y1="38" x2="97" y2="38" stroke="rgba(34,198,240,0.45)" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <!-- Conventional Transformer block — full-power rated, bulk energy transfer -->
+      <rect x="100" y="10" width="132" height="56" rx="8" fill="rgba(34,198,240,0.05)" stroke="rgba(34,198,240,0.28)" stroke-width="1.5"/>
+      <text x="166" y="30" text-anchor="middle" font-size="10.5" fill="#22c6f0" font-family="Geist,system-ui,sans-serif" font-weight="500">Transformer</text>
+      <text x="166" y="44" text-anchor="middle" font-size="8.5" fill="rgba(34,198,240,0.55)" font-family="Geist,system-ui,sans-serif">Bulk power transfer</text>
+      <text x="166" y="57" text-anchor="middle" font-size="7.5" fill="rgba(160,160,160,0.42)" font-family="Geist,system-ui,sans-serif">full-power rated</text>
+      <text x="166" y="110" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">main transformer</text>
+      <!-- Line: Conv. TX → series injection tap -->
+      <line x1="234" y1="38" x2="352" y2="38" stroke="rgba(34,198,240,0.45)" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <!-- Series injection tap — additional winding injects correction voltage in series -->
+      <circle cx="358" cy="38" r="5" fill="rgba(34,198,240,0.8)"/>
+      <text x="358" y="26" text-anchor="middle" font-size="7" fill="rgba(34,198,240,0.52)" font-family="Geist,system-ui,sans-serif" letter-spacing=".05em">additional winding</text>
+      <!-- Vertical: series tap → VSC1 AC terminal -->
+      <line x1="358" y1="44" x2="358" y2="70" stroke="rgba(34,198,240,0.4)" stroke-width="1.2"/>
+      <!-- Line: series tap → load bus -->
+      <line x1="361" y1="38" x2="577" y2="38" stroke="rgba(34,198,240,0.45)" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <text x="470" y="27" text-anchor="middle" font-size="7.5" fill="rgba(34,198,240,0.36)" font-family="Geist,system-ui,sans-serif" letter-spacing=".1em">LOAD BUS</text>
+      <!-- Load bus shunt tap — VSC2 shunt winding connects here -->
+      <circle cx="582" cy="38" r="5" fill="rgba(34,198,240,0.8)"/>
+      <!-- Vertical: load bus → VSC2 AC terminal (shunt) -->
+      <line x1="582" y1="44" x2="582" y2="70" stroke="rgba(34,198,240,0.4)" stroke-width="1.2"/>
+      <text x="600" y="59" font-size="7" fill="rgba(34,198,240,0.45)" font-family="Geist,system-ui,sans-serif">shunt winding</text>
+      <!-- Line: load bus → Load -->
+      <line x1="585" y1="38" x2="780" y2="38" stroke="rgba(34,198,240,0.45)" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <!-- Load circle -->
+      <circle cx="812" cy="38" r="28" fill="rgba(34,198,240,0.07)" stroke="rgba(34,198,240,0.28)" stroke-width="1.2"/>
+      <text x="812" y="34" text-anchor="middle" font-size="11" fill="#22c6f0" font-family="Geist,system-ui,sans-serif" font-weight="500">Load</text>
+      <text x="812" y="48" text-anchor="middle" font-size="9" fill="rgba(34,198,240,0.6)" font-family="Geist,system-ui,sans-serif">~100%</text>
+      <text x="812" y="110" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">Regulated supply</text>
+      <!-- Partially-rated electronics row label -->
+      <text x="470" y="67" text-anchor="middle" font-size="7" fill="rgba(34,198,240,0.4)" font-family="Geist,system-ui,sans-serif" letter-spacing=".07em">PARTIALLY RATED · SERIES-SHUNT CONVERTERS</text>
+      <!-- VSC1 block (series converter) -->
+      <rect x="298" y="70" width="120" height="44" rx="8" fill="rgba(34,198,240,0.08)" stroke="#22c6f0" stroke-width="1.5"/>
+      <text x="358" y="88" text-anchor="middle" font-size="10.5" fill="#22c6f0" font-family="Geist,system-ui,sans-serif" font-weight="500">Converter 1</text>
+      <text x="358" y="101" text-anchor="middle" font-size="8.5" fill="rgba(34,198,240,0.65)" font-family="Geist,system-ui,sans-serif">Series injection</text>
+      <text x="358" y="125" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">grid-side · series</text>
+      <!-- VSC1 → DC Link -->
+      <line x1="418" y1="92" x2="438" y2="92" stroke="rgba(34,198,240,0.28)" stroke-width="1.1" marker-end="url(#arr2)"/>
+      <!-- DC Link (shared capacitor) -->
+      <rect x="440" y="70" width="62" height="44" rx="6" fill="rgba(34,198,240,0.05)" stroke="rgba(34,198,240,0.2)" stroke-width="1.2"/>
+      <text x="471" y="89" text-anchor="middle" font-size="8.5" fill="#22c6f0" font-family="Geist,system-ui,sans-serif" font-weight="500">DC Link</text>
+      <text x="471" y="102" text-anchor="middle" font-size="8" fill="rgba(34,198,240,0.52)" font-family="Geist,system-ui,sans-serif">capacitor</text>
+      <text x="471" y="125" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">shared bus</text>
+      <!-- DC Link → VSC2 -->
+      <line x1="502" y1="92" x2="522" y2="92" stroke="rgba(34,198,240,0.28)" stroke-width="1.1" marker-end="url(#arr2)"/>
+      <!-- VSC2 block (shunt converter) -->
+      <rect x="524" y="70" width="120" height="44" rx="8" fill="rgba(34,198,240,0.08)" stroke="#22c6f0" stroke-width="1.5"/>
+      <text x="584" y="88" text-anchor="middle" font-size="10.5" fill="#22c6f0" font-family="Geist,system-ui,sans-serif" font-weight="500">Converter 2</text>
+      <text x="584" y="101" text-anchor="middle" font-size="8.5" fill="rgba(34,198,240,0.65)" font-family="Geist,system-ui,sans-serif">Shunt regulation</text>
+      <text x="584" y="125" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.28)" font-family="Geist,system-ui,sans-serif">load-side · shunt</text>
+    </svg>
+  </div>
+  <div class="spec-grid">
+    <div class="spec-card">
+      <div class="spec-val">20 kHz</div>
+      <div class="spec-lbl">Control loop rate; 50 µs per step, OEM firmware confirmed</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-val">±20%</div>
+      <div class="spec-lbl">Duty-cycle injection range; ±78 V at 392 V peak ERCOT nominal (V<sub>inject</sub> = D · V<sub>source</sub>)</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-val">&lt;1 cycle</div>
+      <div class="spec-lbl">Correction response within compensation range; one 60 Hz cycle</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-val">3-phase</div>
+      <div class="spec-lbl">Three-phase control architecture; single-phase performance validated in this simulation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4. Evidence ────────────────────────────────────────────── -->
+<section class="sect" id="evidence">
+  <div class="sect-label">The Evidence</div>
+  <h2>ERCOT MQT: 8 key voltage events on the ITIC curve</h2>
+  <p class="sect-lede">The ERCOT Model Quality Test is a 25-second test profile covering the voltage disturbance categories defined in NOGRR-282 Nodal Operating Guide §2.15 Table A: shallow sags, deep sags, a complete 150 ms interruption, post-fault partial recovery, and sustained overvoltage swells. The chart plots each event by duration and magnitude against the fixed ITIC envelope, with the ERCOT voltage ride-through requirement superimposed as the jurisdiction-specific overlay. Other ride-through profiles, such as the EirGrid, Fingrid, and Energinet low-voltage ride-through (LVRT) curves, can be overlaid on the same axes as the analysis is extended.</p>
+
+  <div class="chart-toggle">
+    <span>View:</span>
+    <button class="toggle-btn active" data-mode="without" id="toggle-without" disabled onclick="setHITMode('without')">Without HIT</button>
+    <button class="toggle-btn" data-mode="with" id="toggle-with" disabled onclick="setHITMode('with')">With HIT</button>
+    <span class="chart-story-hint" id="chart-story-hint">Chart builds step by step as you scroll…</span>
+  </div>
+
+  <div class="canvas-wrap">
+    <canvas id="itic-chart"></canvas>
+  </div>
+
+  <div class="chart-legend">
+    <div class="leg-item"><div class="leg-line" style="background:#22c6f0;height:2.5px"></div><span>ITIC boundary (information technology equipment tolerance limit)</span></div>
+    <div class="leg-item"><div class="leg-dash"></div><span>ERCOT NOGRR-282 VRT requirement</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#EF5350"></div><span>Event outside ITIC safe zone</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#4CAF50"></div><span>Event inside ITIC safe zone</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#22c6f0"></div><span>HIT-regulated (within ITIC safe zone)</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#FF9800"></div><span>HIT-regulated (partial improvement; energy storage required)</span></div>
+  </div>
+
+  <div class="chart-summary">
+    <div class="cs-item">
+      <span class="cs-dot" style="background:#EF5350"></span>
+      <span id="cs-text">4 of 8 events fall outside the ITIC safe zone</span>
+    </div>
+    <div class="cs-item" style="color:var(--muted);font-size:.8em;margin-left:auto">
+      Hover over events for detail
+    </div>
+  </div>
+
+  <div class="sim-launch-wrap">
+    <div class="sim-launch-info">
+      <div class="sim-launch-label">Reference Design June 2026 v1 · OEM Firmware · 20 kHz · ERCOT MQT</div>
+      <h3>Explore the HIT simulation environment</h3>
+      <p>The Reference Design controller DLL was run at 20 kHz against the full 25-second ERCOT MQT voltage profile. Inspect step-by-step source voltage, compensation output (v<sub>a_comp</sub>), and load voltage across each event in the ride-through sequence.</p>
+    </div>
+    <button class="sim-btn" onclick="openSim()">Explore simulation →</button>
+  </div>
+</section>
+
+<!-- ── 5. Scope & Limits ──────────────────────────────────────── -->
+<section class="sect" id="scope">
+  <div class="sect-label">Scope &amp; Limits</div>
+  <h2>The 8 key MQT events: series compensation outcome</h2>
+  <p class="sect-lede">Of the eight key voltage events in the ERCOT Model Quality Test profile, series compensation resolves five. The remaining three require stored energy to close the gap, either because the source voltage is below the compensation threshold, or because the source voltage is zero.</p>
+
+  <div class="scope-tally">
+    <div class="tally-card tally-ok">
+      <div class="tally-num">5</div>
+      <div class="tally-lbl">Resolved by<br>series compensation</div>
+    </div>
+    <div class="tally-card tally-partial">
+      <div class="tally-num">2</div>
+      <div class="tally-lbl">Partially improved:<br>stored energy required</div>
+    </div>
+    <div class="tally-card tally-storage">
+      <div class="tally-num">1</div>
+      <div class="tally-lbl">Physical limit:<br>source voltage is zero</div>
+    </div>
+  </div>
+
+  <div class="mqt-wrap">
+    <table class="mqt-table">
+      <thead>
+        <tr>
+          <th>MQT Event</th>
+          <th>Grid Voltage</th>
+          <th>With Series Compensation</th>
+          <th>Outcome</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mqt-name">80% sag · 1.75 s</td>
+          <td class="mqt-before">80% · ITIC lower boundary</td>
+          <td class="mqt-after">~96% load voltage</td>
+          <td><span class="verdict v-ok">✓ Resolved</span></td>
+        </tr>
+        <tr>
+          <td class="mqt-name">70% sag · 250 ms</td>
+          <td class="mqt-before">70% · ITIC lower boundary</td>
+          <td class="mqt-after">~84% load voltage</td>
+          <td><span class="verdict v-ok">✓ Resolved</span></td>
+        </tr>
+        <tr>
+          <td class="mqt-name">50% sag · 500 ms</td>
+          <td class="mqt-before">50% · below ITIC lower limit</td>
+          <td class="mqt-after">~60% · 10 ppts short of 70% boundary</td>
+          <td><span class="verdict v-partial">⚠ Storage needed</span></td>
+        </tr>
+        <tr>
+          <td class="mqt-name">Complete fault · 150 ms</td>
+          <td class="mqt-before">0% · 7.5× ITIC tolerance</td>
+          <td class="mqt-after">0% · V<sub>inject</sub> = D × V<sub>source</sub> = 0</td>
+          <td><span class="verdict v-storage">✗ Storage required</span></td>
+        </tr>
+        <tr>
+          <td class="mqt-name">35% partial recovery · 100 ms</td>
+          <td class="mqt-before">35% · below ITIC lower limit</td>
+          <td class="mqt-after">~42% · 28 ppts short of 70% boundary</td>
+          <td><span class="verdict v-partial">⚠ Storage needed</span></td>
+        </tr>
+        <tr>
+          <td class="mqt-name">120% swell · 1 s</td>
+          <td class="mqt-before">120% · above ITIC upper limit</td>
+          <td class="mqt-after">~96% load voltage</td>
+          <td><span class="verdict v-ok">✓ Resolved</span></td>
+        </tr>
+        <tr>
+          <td class="mqt-name">104% swell · 2.5 s</td>
+          <td class="mqt-before">104% · within ITIC safe zone</td>
+          <td class="mqt-after">~100% load voltage</td>
+          <td><span class="verdict v-ok">✓ Resolved</span></td>
+        </tr>
+        <tr>
+          <td class="mqt-name">110% swell · 4 s</td>
+          <td class="mqt-before">110% · ITIC upper boundary</td>
+          <td class="mqt-after">~99% load voltage</td>
+          <td><span class="verdict v-ok">✓ Resolved</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="scope-caveats">
+    <strong>Basis &amp; limitations:</strong> "With HIT" voltages are estimates from the ±20% duty-cycle range (V<sub>load</sub> ≈ V<sub>source</sub> × (1 ± 0.20)). The Reference Design June 2026 v1 OEM firmware was exercised at 20 kHz over the full ERCOT MQT profile confirming the compensation range. The 0% fault result is unambiguous: series output = D × V<sub>source</sub>; at zero source voltage, injection is always zero. Three-phase unbalanced faults, facility-scale aggregation, and multi-unit deployment are outside this simulation scope. PSS/E and PSCAD validation required for interconnection filing.
+  </div>
+</section>
+
+<!-- ── 6. HIT Controller Functions ───────────────────────────── -->
+<section class="sect">
+  <div class="sect-label">HIT Controller Functions</div>
+  <h2>What the HIT controller does</h2>
+  <p class="episodes-intro">This episode demonstrates load voltage regulation, one function of the HIT Reference Design controller firmware. The same platform also provides reactive power and phase balancing. Facility-level battery energy storage system (BESS) dispatch, grid fault ride-through, and synthetic inertia are separate architecture decisions, not HIT controller functions, and are covered in other studies.</p>
+  <div class="ep-grid">
+    <div class="ep-card current">
+      <div class="ep-num">Demonstrated here</div>
+      <h4>Load Voltage Regulation</h4>
+      <p>Series compensation within ±20% of source voltage. Regulates load-side voltage during ERCOT MQT sag and swell events.</p>
+    </div>
+    <div class="ep-card">
+      <div class="ep-num">HIT function</div>
+      <h4>Reactive Power &amp; Power Factor</h4>
+      <p>Voltage source converter (VSC)-based reactive power injection for power factor correction at the load terminals. Reduces reactive power demand and peak charges.</p>
+    </div>
+    <div class="ep-card">
+      <div class="ep-num">HIT function</div>
+      <h4>Three-Phase Phase Balance</h4>
+      <p>Active phase balancing across the three series injection paths. Corrects unbalanced grid or load conditions at the point of common coupling (PCC).</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-body -->
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="page-footer">
+    <svg width="130" height="22" viewBox="0 0 164 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76058 2.93931C8.60556 4.02273 7.67379 4.85556 6.5475 4.85556C5.31274 4.85556 4.31177 3.85459 4.31177 2.61983C4.31177 1.38507 5.31274 0.384094 6.5475 0.384094C7.67385 0.384094 8.60567 1.21702 8.76061 2.30053H15.5304C15.7154 1.38943 16.521 0.703681 17.4867 0.703681C18.5891 0.703681 19.4829 1.59741 19.4829 2.69987C19.4829 3.6656 18.7971 4.47116 17.886 4.65613V11.5986C18.5259 11.7439 19.0037 12.3163 19.0037 13.0002C19.0037 13.794 18.3602 14.4375 17.5664 14.4375C16.7727 14.4375 16.1292 13.794 16.1292 13.0002C16.1292 12.3162 16.6071 11.7437 17.2472 11.5985V4.68184C16.3361 4.57291 15.6136 3.85036 15.5047 2.93931H8.76058ZM22.517 9.46393C21.4335 9.30893 20.6007 8.37715 20.6007 7.25085C20.6007 6.01609 21.6017 5.01511 22.8364 5.01511C24.0712 5.01511 25.0722 6.01609 25.0722 7.25085C25.0722 8.37719 24.2393 9.309 23.1558 9.46395V16.2336C24.0669 16.4186 24.7526 17.2241 24.7526 18.1898C24.7526 19.2923 23.8589 20.186 22.7564 20.186C21.7906 20.186 20.985 19.5002 20.8001 18.5889H13.8577C13.7124 19.2289 13.14 19.7067 12.4561 19.7067C11.6623 19.7067 11.0188 19.0632 11.0188 18.2694C11.0188 17.4756 11.6623 16.8322 12.4561 16.8322C13.1401 16.8322 13.7126 17.31 13.8578 17.9501L20.7745 17.9501C20.8835 17.0392 21.606 16.3168 22.517 16.2079V9.46393ZM18.5247 21.1443C17.3984 21.1443 16.4666 21.9772 16.3116 23.0606H9.56737C9.45846 22.1496 8.73594 21.427 7.8249 21.3181L7.82489 14.4014C8.46501 14.2562 8.94288 13.6838 8.94288 12.9997C8.94288 12.2059 8.2994 11.5625 7.50562 11.5625C6.71185 11.5625 6.06836 12.2059 6.06836 12.9997C6.06836 13.6837 6.54612 14.2561 7.18611 14.4013L7.18611 21.3438C6.27498 21.5288 5.5892 22.3343 5.5892 23.3001C5.5892 24.4025 6.48292 25.2962 7.58539 25.2962C8.5511 25.2962 9.35664 24.6105 9.54163 23.6994H16.3116C16.4665 24.7829 17.3983 25.6158 18.5247 25.6158C19.7594 25.6158 20.7604 24.6148 20.7604 23.3801C20.7604 22.1453 19.7594 21.1443 18.5247 21.1443ZM2.55508 16.5359C3.63857 16.6909 4.47147 17.6227 4.47147 18.749C4.47147 19.9838 3.4705 20.9848 2.23573 20.9848C1.00097 20.9848 0 19.9838 0 18.749C0 17.6227 0.832853 16.6909 1.9163 16.5359L1.9163 9.76633C1.00519 9.58133 0.319447 8.77579 0.319447 7.81009C0.319447 6.70762 1.21317 5.8139 2.31564 5.8139C3.28143 5.8139 4.08703 6.49977 4.27193 7.411L11.2144 7.411C11.3596 6.77101 11.932 6.29325 12.616 6.29325C13.4098 6.29325 14.0532 6.93674 14.0532 7.73051C14.0532 8.52429 13.4098 9.16777 12.616 9.16777C11.9319 9.16777 11.3595 8.6899 11.2143 8.04979L4.29759 8.04979C4.18857 8.96074 3.46606 9.68317 2.55508 9.79207L2.55508 16.5359Z" fill="url(#ng2)"/>
+      <path d="M32.0912 20.8843V5.98939H42.7637V8.68405H34.8919V12.8003H42.3393V15.3889H34.8919V20.8843H32.0912ZM49.5169 10.1693C52.8693 10.1693 55.0335 12.673 55.0335 15.6647C55.0335 18.7201 52.9542 21.1813 49.5381 21.1813C46.1221 21.1813 44.064 18.7201 44.064 15.6647C44.064 12.673 46.1857 10.1693 49.5169 10.1693ZM49.5381 12.5669C47.671 12.5669 46.695 14.0946 46.695 15.6647C46.695 17.2348 47.6498 18.7625 49.5381 18.7625C51.4265 18.7625 52.3813 17.2348 52.3813 15.6647C52.3813 14.0946 51.278 12.5669 49.5381 12.5669ZM59.5733 10.4239V16.0254C59.5733 17.6167 60.4433 18.8262 62.0982 18.8262C63.7108 18.8262 64.7717 17.4894 64.7717 15.8981V10.4239H67.339V20.9267H65.0263L64.8566 19.6112C63.7744 20.6933 62.7772 21.1813 61.3132 21.1813C58.8307 21.1813 56.9848 19.2717 56.9848 16.0466V10.4239H59.5733ZM77.912 20.8843V15.3464C77.912 13.7551 77.0208 12.5457 75.387 12.5457C73.7745 12.5457 72.7136 13.8824 72.7136 15.4737V20.8843H70.1463V10.4239H72.459L72.6287 11.7606C73.7108 10.5937 74.7293 10.1905 76.066 10.1905C78.5273 10.1905 80.5005 12.0365 80.5005 15.3252V20.8843H77.912ZM93.8949 6.05304V20.8843H91.4761L91.3064 19.4415C90.4789 20.7994 89.2058 21.1813 87.9327 21.1813C84.8774 21.1813 82.5434 19.0808 82.5434 15.6435C82.5434 12.0365 84.8137 10.1693 87.8691 10.1693C88.9724 10.1693 90.6698 10.7422 91.3064 11.8455V6.05304H93.8949ZM88.1025 12.5881C86.4687 12.5881 85.132 13.7551 85.132 15.6435C85.132 17.4894 86.4475 18.7413 88.1025 18.7413C89.7362 18.7413 91.1366 17.5531 91.1366 15.6435C91.1366 13.84 89.7362 12.5881 88.1025 12.5881Z" fill="white"/>
+      <path d="M102.885 6.03183C108.041 6.03183 110.311 9.74494 110.311 13.4793C110.311 17.1924 108.02 20.8843 102.885 20.8843H97.0499V6.03183H102.885ZM99.8294 18.1896H102.885C106.195 18.1896 107.531 15.8344 107.531 13.4793C107.531 11.1029 106.174 8.68405 102.885 8.68405H99.8294V18.1896ZM112.245 7.47464C112.245 6.4774 113.009 5.96817 113.773 5.96817C114.536 5.96817 115.3 6.4774 115.3 7.47464C115.3 8.49309 114.536 8.9811 113.773 8.9811C113.009 8.9811 112.245 8.49309 112.245 7.47464ZM115.067 10.3815V20.8843H112.478V10.3815H115.067ZM126.841 9.36302L128.75 10.8058L127.435 12.3335C128.347 13.4156 128.644 14.3704 128.644 15.4525C128.644 17.3197 127.774 18.5928 126.056 19.3778C128.262 20.1629 128.644 21.7542 128.644 22.7727C128.644 25.7432 125.737 27.186 122.937 27.186C119.308 27.186 117.187 25.3612 117.293 22.3695H119.86C119.754 23.8123 121.303 24.6823 122.937 24.6823C124.379 24.6823 125.95 24.0669 125.95 22.7727C125.95 21.4996 124.931 20.7145 122.979 20.7145C119.521 20.7145 117.25 18.7413 117.25 15.4525C117.25 11.9304 120.051 10.1481 122.979 10.1481C123.785 10.1481 124.952 10.3178 125.674 10.8058L126.841 9.36302ZM122.979 12.5457C121.282 12.5457 119.839 13.5005 119.839 15.4525C119.839 17.2773 121.282 18.3381 122.979 18.3381C124.676 18.3381 126.056 17.2348 126.056 15.4525C126.056 13.6702 124.676 12.5457 122.979 12.5457ZM130.728 7.47464C130.728 6.4774 131.491 5.96817 132.255 5.96817C133.019 5.96817 133.783 6.4774 133.783 7.47464C133.783 8.49309 133.019 8.9811 132.255 8.9811C131.491 8.9811 130.728 8.49309 130.728 7.47464ZM133.549 10.3815V20.8843H130.961V10.3815H133.549ZM140.104 7.47464V10.4876H142.989V12.7154H140.083V17.3197C140.083 18.3169 140.613 18.8049 141.441 18.8049C141.844 18.8049 142.289 18.6776 142.692 18.4867L143.414 20.6933C142.607 21.0328 141.95 21.1389 141.059 21.1389C138.894 21.1389 137.515 19.8658 137.515 17.3197V12.7154H135.563V10.4876H137.515V7.75047L140.104 7.47464ZM153.408 10.4239H155.891V20.8843H153.451L153.323 19.3566C152.708 20.5872 151.117 21.2025 149.928 21.2025C146.809 21.2025 144.539 19.3142 144.539 15.6435C144.539 11.994 146.937 10.1693 149.992 10.1693C151.414 10.1693 152.729 10.827 153.323 11.8667L153.408 10.4239ZM150.225 12.482C148.507 12.482 147.128 13.649 147.128 15.6435C147.128 17.638 148.507 18.8262 150.225 18.8262C152.262 18.8262 153.281 17.2348 153.281 15.6435C153.281 14.0734 152.262 12.482 150.225 12.482ZM161.316 6.05304V20.8843H158.749V6.05304H161.316Z" fill="#22C6F0"/>
+      <defs><linearGradient id="ng2" x1="8.46" y1="5.73" x2="19.64" y2="23.62" gradientUnits="userSpaceOnUse"><stop stop-color="#22C6F0"/><stop offset="1" stop-color="white"/></linearGradient></defs>
+    </svg>
+    <div class="footer-note">
+      FoundDigital DS · Hybrid Intelligent Transformer (HIT) Technology Series · Load Voltage Regulation · June 2026<br>
+      Simulation: Ionate Reference Design v1 OEM firmware (digitized_control_win64.dll) · ERCOT Nodal Operating Guide Revision Request 282 Model Quality Test profile · ITIC curve: IEEE Std 1159-2019 · ERCOT voltage ride-through: Nodal Operating Guide (NOG) §2.15 Table A · International requirements: Energy Systems Integration Group (ESIG) Large Loads Performance Requirements (2026); EirGrid Frequency Ride-Through and Active Power Recovery Study Assessment Guide (CC.7.4.3.2)<br>
+      For concept demonstration. Not a substitute for PSS/E, PSCAD, or RTDS validation required for interconnection filing.
+    </div>
+  </div>
+</footer>
+
+<div id="itic-tip"></div>
+
+<script>
+// ── ITIC Canvas Chart ──────────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('itic-chart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  const ML = 62, MR = 22, MT = 44, MB = 50;
+  let CW = 0, CH = 0;
+
+  // Chart axes + vertices: Formal Studies/itic_chart_spec.json
+  // Generated by Formal Studies/export_itic_spec.py from plot_itic_ercot_ieee.py
+  // (Figure 1 in Stage_1d_Functional_Description_v7.docx)
+  const XL = -1, XH = 5, YL = 0, YH = 183;  // log10(0.1)..log10(100000); y 0..183 % (1.83 pu surge arrester ceiling)
+
+  function mX(ms) {
+    if (ms <= 0) return ML;
+    return ML + (Math.log10(Math.max(ms, 0.1)) - XL) / (XH - XL) * CW;
+  }
+  function mY(p) { return MT + CH - (p - YL) / (YH - YL) * CH; }
+  function clipV(v) { return Math.min(v, YH); }
+
+  // ITIC vertices (ms, %) — itic_chart_spec.json → itic_upper_ms_pct / itic_lower_ms_pct
+  const CYCLE_MS = 1000 / 60;
+  const IL = [
+    [0.01 * CYCLE_MS, 0], [20, 0], [20, 40], [20, 70],
+    [500, 70], [500, 80], [10000, 80], [10000, 90], [100000, 90],
+  ];
+  const IL_SAFE = [
+    [0.01 * CYCLE_MS, 0], [20, 0], [20, 70],
+    [500, 70], [500, 80], [10000, 80], [10000, 90], [100000, 90],
+  ];
+  const IU = [
+    [0.01 * CYCLE_MS, 500], [1, 200], [3, 140], [3, 120], [20, 120],
+    [500, 120], [500, 110], [10000, 110], [100000, 110],
+  ];
+  const EL = [[0.1,0],[150,0],[150,35],[250,35],[250,50],[500,50],[500,80],[2000,80],[2000,90],[100000,90]];
+  const EU = [[0.1,120],[1000,120],[1000,110],[100000,110]];
+  const GAP = [[20,0],[150,0],[150,35],[250,35],[250,50],[500,50],[500,70],[20,70]];
+
+  // MQT events — l: short canvas label; tip: tooltip HTML
+  const EW = [
+    {d:1749, v:80,  l:'80% · 1.75 s',
+      tip:'<strong>80% sag · 1.75 s</strong><br>At the ITIC 80% lower boundary for durations above 500 ms. Zero margin: any further reduction trips equipment protection.'},
+    {d:249,  v:70,  l:'70% · 250 ms',
+      tip:'<strong>70% sag · 250 ms</strong><br>At the ITIC 70% lower boundary (20 ms – 500 ms range). Exactly at the trip threshold with no headroom.'},
+    {d:499,  v:50,  l:'50% · 500 ms',
+      tip:'<strong>50% sag · 500 ms</strong><br>20 percentage points below the 70% ITIC lower boundary. Equipment protection likely activates during this event.'},
+    {d:149,  v:0,   l:'Fault · 150 ms',
+      tip:'<strong>Complete fault · 150 ms</strong><br>ITIC tolerates 0 V for 20 ms maximum. This event is 7.5× that limit; no passive ride-through is possible.'},
+    {d:100,  v:35,  l:'35% · 100 ms',
+      tip:'<strong>35% partial recovery · 100 ms</strong><br>35 ppts below the 70% ITIC lower boundary. The hardest tier in the ERCOT voltage ride-through sequence.'},
+    {d:1000, v:120, l:'Swell · 120% · 1 s',
+      tip:'<strong>120% swell · 1 s</strong><br>Exceeds the ITIC 110% upper limit above 500 ms. Sustained overvoltage at load terminals.'},
+    {d:2499, v:104, l:'Swell · 104% · 2.5 s',
+      tip:'<strong>104% swell · 2.5 s</strong><br>Above nominal but within the ITIC 110% upper limit. No equipment damage risk, but elevated voltage persists.'},
+    {d:4000, v:110, l:'110% · 4 s',
+      tip:'<strong>110% swell · 4 s</strong><br>At the ITIC 110% upper boundary for sustained events. Zero headroom at this duration.'},
+  ];
+  // With HIT: series compensation only (V_inject = D × V_source)
+  // At V_source = 0, injection = 0 — physical constraint, not controller limit
+  const EH = [
+    {d:1749, v:96,  l:'~96%', improved:true,
+      tip:'<strong>Resolved → ~96%</strong><br>Maximum boost: +20% × 80% source = +16 ppts. Load voltage rises from 80% to ~96%. Well inside the ITIC safe zone.'},
+    {d:249,  v:84,  l:'~84%', improved:true,
+      tip:'<strong>Resolved → ~84%</strong><br>Maximum boost: +20% × 70% source = +14 ppts. Load voltage rises from 70% to ~84%. Inside the ITIC safe zone.'},
+    {d:499,  v:60,  l:'~60%', improved:true,
+      tip:'<strong>Partial → ~60% ⚠</strong><br>Maximum boost: +20% × 50% = +10 ppts. Load voltage reaches ~60%, still 10 ppts short of the 70% ITIC lower boundary. Battery energy storage system (BESS) required to close the gap.'},
+    {d:149,  v:0,   l:'0% unchanged', improved:false,
+      tip:'<strong>Cannot resolve: no source voltage</strong><br>V<sub>inject</sub> = D × V<sub>source</sub>. When source = 0, injection = 0 regardless of duty cycle. Physical constraint of series topology. Only stored energy can supply the load during a true interruption.'},
+    {d:100,  v:42,  l:'~42%', improved:true,
+      tip:'<strong>Partial → ~42% ⚠</strong><br>Maximum boost: +20% × 35% = +7 ppts. Load voltage reaches ~42%, still 28 ppts below the 70% ITIC lower boundary. Stored energy required.'},
+    {d:1000, v:96,  l:'~96%', improved:true,
+      tip:'<strong>Resolved → ~96%</strong><br>Maximum buck: −20% × 120% source = −24 ppts. Load voltage reduced from 120% to ~96%. Inside the ITIC safe zone.'},
+    {d:2499, v:100, l:'~100%', improved:true,
+      tip:'<strong>Resolved → ~100%</strong><br>Within ±20% compensation range. Controller regulates actively toward nominal. Inside the ITIC safe zone.'},
+    {d:4000, v:99,  l:'~99%', improved:true,
+      tip:'<strong>Resolved → ~99%</strong><br>Within ±20% compensation range. Controller regulates actively toward nominal. Inside the ITIC safe zone.'},
+  ];
+
+  function stairY(data, d) {
+    let v = data[0][1];
+    for (const [td, tv] of data) if (d >= td) v = tv;
+    return v;
+  }
+  function iticLower(d) { return stairY(IL, d); }
+  function iticUpper(d) { return stairY(IU, d); }
+  function inSafe(d, v) { return v >= iticLower(d) && v <= iticUpper(d); }
+
+  function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+
+  // Staged story progress (0–1 each)
+  let iticLineProg = 0, safeFillAlpha = 0, upperDangerAlpha = 0, lowerDangerAlpha = 0;
+  let ercotProg = 0, gapAlpha = 0, labelAlpha = 0;
+  const eventProg = new Array(8).fill(0);
+  let storyComplete = false, storyRunning = false;
+  let transT = 0, toggleFrame = null, ghostFadeFrame = null, hoveredDot = null;
+  let ghostDots = [];
+
+  function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  function eventPos(i, t) {
+    const ev = EW[i], eh = EH[i];
+    return {
+      x: mX(ev.d) + t * (mX(eh.d) - mX(ev.d)),
+      y: mY(ev.v) + t * (mY(eh.v) - mY(ev.v)),
+    };
+  }
+
+  function dotColor(i, t) {
+    const ev = EW[i], eh = EH[i];
+    const curV = ev.v + t * (eh.v - ev.v);
+    const isWithMode = t > 0.5;
+    const safe = inSafe(ev.d, curV);
+    if (!isWithMode) return safe ? '#4CAF50' : '#EF5350';
+    if (safe) return '#22c6f0';
+    if (eh.improved) return '#FF9800';
+    return '#EF5350';
+  }
+
+  function snapshotGhosts(fromT) {
+    if (ghostFadeFrame) { cancelAnimationFrame(ghostFadeFrame); ghostFadeFrame = null; }
+    ghostDots = EW.map((_, i) => {
+      const p = eventPos(i, fromT);
+      return { x: p.x, y: p.y, col: dotColor(i, fromT), alpha: 0.48 };
+    });
+  }
+
+  function fadeGhosts() {
+    return new Promise(resolve => {
+      if (!ghostDots.length) { resolve(); return; }
+      const t0 = performance.now();
+      function step(ts) {
+        const p = Math.min(1, (ts - t0) / 750);
+        ghostDots.forEach(g => { g.alpha = 0.48 * (1 - ease(p)); });
+        redraw();
+        if (p < 1) ghostFadeFrame = requestAnimationFrame(step);
+        else { ghostDots = []; ghostFadeFrame = null; redraw(); resolve(); }
+      }
+      ghostFadeFrame = requestAnimationFrame(step);
+    });
+  }
+
+  function setModeUI(mode) {
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active', 'demo-highlight'));
+    const btn = document.querySelector(`.toggle-btn[data-mode="${mode}"]`);
+    if (btn) btn.classList.add('active');
+    const sumEl = document.getElementById('cs-text');
+    if (!sumEl) return;
+    if (mode === 'without') {
+      const n = EW.reduce((c, ev) => c + (!inSafe(ev.d, ev.v) ? 1 : 0), 0);
+      sumEl.textContent = `${n} of 8 events fall outside the ITIC safe zone`;
+    } else {
+      const n = EH.reduce((c, eh, i) => c + (inSafe(EW[i].d, eh.v) ? 1 : 0), 0);
+      sumEl.textContent = `${n} of 8 inside ITIC safe zone · ${8 - n} require stored energy`;
+    }
+  }
+
+  function animateTransition(s0, s1, dur) {
+    return new Promise(resolve => {
+      snapshotGhosts(s0);
+      if (toggleFrame) cancelAnimationFrame(toggleFrame);
+      const t0 = performance.now();
+      function step(ts) {
+        const p = Math.min(1, (ts - t0) / dur);
+        transT = s0 + (s1 - s0) * ease(p);
+        redraw();
+        if (p < 1) toggleFrame = requestAnimationFrame(step);
+        else { transT = s1; toggleFrame = null; redraw(); resolve(); }
+      }
+      toggleFrame = requestAnimationFrame(step);
+    });
+  }
+
+  function setHint(text) {
+    const el = document.getElementById('chart-story-hint');
+    if (el) el.textContent = text;
+  }
+
+  function animate(getter, setter, to, dur) {
+    return new Promise(resolve => {
+      const from = getter();
+      const t0 = performance.now();
+      function step(ts) {
+        const p = Math.min(1, (ts - t0) / dur);
+        setter(from + (to - from) * ease(p));
+        redraw();
+        if (p < 1) requestAnimationFrame(step);
+        else { setter(to); redraw(); resolve(); }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  async function runStory() {
+    if (storyRunning || storyComplete) return;
+    storyRunning = true;
+
+    setHint('Step 1: Drawing the ITIC boundary (information technology equipment tolerance limit)');
+    await animate(() => iticLineProg, v => { iticLineProg = v; }, 1, 1400);
+
+    setHint('Step 2: No Interruption in Function zone, inside the ITIC envelope');
+    await animate(() => safeFillAlpha, v => { safeFillAlpha = v; }, 1, 600);
+
+    setHint('Step 3: Prohibited Region, above the ITIC upper envelope');
+    await animate(() => upperDangerAlpha, v => { upperDangerAlpha = v; }, 1, 700);
+
+    setHint('Step 4: No Damage Region, below the ITIC lower envelope');
+    await animate(() => lowerDangerAlpha, v => { lowerDangerAlpha = v; }, 1, 700);
+
+    setHint('Step 5: ERCOT voltage ride-through requirement, the grid requires deeper and longer ride-through than the ITIC envelope');
+    await animate(() => ercotProg, v => { ercotProg = v; }, 1, 1800);
+
+    setHint('Step 6: Compliance gap, the region ERCOT requires but the ITIC envelope does not cover');
+    await animate(() => gapAlpha, v => { gapAlpha = v; labelAlpha = v; }, 1, 1000);
+
+    setHint('Step 7: Eight Model Quality Test events, one by one');
+    for (let i = 0; i < 8; i++) {
+      await animate(() => eventProg[i], v => { eventProg[i] = v; }, 1, 380);
+    }
+
+    // Step 8 — automated With / Without HIT comparison
+    transT = 0;
+    setModeUI('without');
+    await delay(1000);
+    setHint('Without HIT: events plotted against ITIC and ERCOT limits');
+    await delay(900);
+
+    const withBtn = document.getElementById('toggle-with');
+    withBtn.classList.add('demo-highlight');
+    setHint('With HIT: series compensation moves events toward the ITIC safe zone');
+    await animateTransition(0, 1, 1300);
+    withBtn.classList.remove('demo-highlight');
+    setModeUI('with');
+    await fadeGhosts();
+    await delay(1500);
+
+    const withoutBtn = document.getElementById('toggle-without');
+    withoutBtn.classList.add('demo-highlight');
+    setHint('Without HIT: original fault positions return');
+    await animateTransition(1, 0, 1300);
+    withoutBtn.classList.remove('demo-highlight');
+    setModeUI('without');
+    await fadeGhosts();
+
+    storyComplete = true;
+    storyRunning = false;
+    document.getElementById('toggle-without').disabled = false;
+    document.getElementById('toggle-with').disabled = false;
+    setHint('Use the toggle to compare With / Without HIT');
+    redraw();
+  }
+
+  function segLen(pts) {
+    let l = 0;
+    for (let i = 1; i < pts.length; i++)
+      l += Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]);
+    return l;
+  }
+
+  function drawProgress(data, prog, color, lw, dash) {
+    if (!data.length || prog <= 0) return;
+    const pts = data.map(([d,v]) => [mX(d), mY(clipV(v))]);
+    const total = segLen(pts);
+    const tgt = prog * total;
+    let drawn = 0;
+    ctx.save();
+    ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    if (dash) ctx.setLineDash(dash);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) {
+      const s = Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]);
+      if (drawn + s <= tgt) { ctx.lineTo(pts[i][0], pts[i][1]); drawn += s; }
+      else {
+        const f = (tgt - drawn) / s;
+        ctx.lineTo(pts[i-1][0]+f*(pts[i][0]-pts[i-1][0]), pts[i-1][1]+f*(pts[i][1]-pts[i-1][1]));
+        break;
+      }
+    }
+    ctx.stroke(); if (dash) ctx.setLineDash([]); ctx.restore();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawTextPill(text, x, y, align, alpha, opts) {
+    opts = opts || {};
+    const fs = opts.fs || 9;
+    const color = opts.color || 'rgba(255,255,255,0.88)';
+    const weight = opts.weight || '';
+    const padX = opts.padX || 5;
+    const padY = opts.padY || 3;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.font = `${weight} ${fs}px Geist,system-ui,sans-serif`;
+    ctx.textAlign = align;
+    ctx.textBaseline = 'middle';
+    const tw = ctx.measureText(text).width;
+    const th = fs + 4;
+    let lx = x - padX;
+    if (align === 'center') lx = x - tw / 2 - padX;
+    else if (align === 'right') lx = x - tw - padX;
+    const ly = y - th / 2 - padY;
+    roundRect(lx, ly, tw + padX * 2, th + padY * 2, 3);
+    ctx.fillStyle = opts.bg || 'rgba(10,15,31,0.96)';
+    ctx.fill();
+    ctx.strokeStyle = opts.border || 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.fillText(text, x, y);
+    ctx.restore();
+  }
+
+  function drawTextPillBlock(lines, cx, cy, alpha, fs, color, weight, opts) {
+    opts = opts || {};
+    const align = opts.align || 'center';
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    const lineH = fs + 3;
+    const w = weight ? `${weight} ` : '';
+    ctx.font = `${w}${fs}px Geist,system-ui,sans-serif`;
+    let maxW = 0;
+    lines.forEach(l => { maxW = Math.max(maxW, ctx.measureText(l).width); });
+    const padX = 7, padY = 5;
+    const totalH = lines.length * lineH;
+    const boxW = maxW + padX * 2;
+    const boxH = totalH + padY * 2;
+    let bx = cx - boxW / 2;
+    if (align === 'left') bx = cx - padX;
+    else if (align === 'right') bx = cx - boxW + padX;
+    const by = cy - boxH / 2;
+    roundRect(bx, by, boxW, boxH, 4);
+    ctx.fillStyle = opts.bg || 'rgba(10,15,31,0.96)';
+    ctx.fill();
+    ctx.strokeStyle = opts.border || 'rgba(255,255,255,0.18)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.textAlign = align;
+    ctx.textBaseline = 'middle';
+    let tx = cx;
+    if (align === 'left') tx = cx;
+    else if (align === 'right') tx = cx;
+    lines.forEach((l, i) => {
+      ctx.fillText(l, tx, cy + (i - (lines.length - 1) / 2) * lineH);
+    });
+    ctx.restore();
+  }
+
+  function polygonCentroid(dataPts) {
+    const pts = dataPts.map(([d, v]) => [mX(d), mY(v)]);
+    let area = 0, cx = 0, cy = 0;
+    for (let i = 0; i < pts.length; i++) {
+      const [x0, y0] = pts[i];
+      const [x1, y1] = pts[(i + 1) % pts.length];
+      const cross = x0 * y1 - x1 * y0;
+      area += cross;
+      cx += (x0 + x1) * cross;
+      cy += (y0 + y1) * cross;
+    }
+    area *= 0.5;
+    if (Math.abs(area) < 1e-4) return { x: pts[0][0], y: pts[0][1] };
+    return { x: cx / (6 * area), y: cy / (6 * area) };
+  }
+
+  function activeDotPositions() {
+    return EW.map((ev, i) => {
+      const ep = eventProg[i];
+      if (ep <= 0) return null;
+      const eh = EH[i];
+      const t = storyComplete ? ease(transT) : 0;
+      return {
+        x: mX(ev.d) + t * (mX(eh.d) - mX(ev.d)),
+        y: mY(ev.v) + t * (mY(eh.v) - mY(ev.v)),
+      };
+    }).filter(Boolean);
+  }
+
+  function nudgeFromDots(x, y, minDist) {
+    const dots = activeDotPositions();
+    let nx = x, ny = y;
+    for (let pass = 0; pass < 6; pass++) {
+      for (const d of dots) {
+        const dist = Math.hypot(nx - d.x, ny - d.y);
+        if (dist < minDist) {
+          const push = (minDist - dist) * 1.15;
+          ny -= push;
+          if (ny < MT + 14) nx += push * 0.6;
+        }
+      }
+    }
+    return { x: nx, y: ny };
+  }
+
+  function gapLabelAnchor() {
+    const c = polygonCentroid(GAP);
+    // Bias up-right from centroid — clears 100 ms / ~42% With-HIT dot (lower-left of gap)
+    let x = c.x + 42;
+    let y = c.y - 28;
+    const dots = activeDotPositions();
+    for (let pass = 0; pass < 4; pass++) {
+      for (const d of dots) {
+        const dist = Math.hypot(x - d.x, y - d.y);
+        if (dist < 46) {
+          const push = (46 - dist) * 1.1;
+          y -= push * 0.85;
+          x += push * 0.55;
+        }
+      }
+    }
+    return { x, y };
+  }
+
+  const EV_LABEL = [
+    { side: 'above', oy: -6 },
+    { side: 'right', oy: 0 },
+    { side: 'below', oy: 10 },
+    { side: 'above', oy: -8 },
+    { side: 'right', ox: 8 },
+    { side: 'left', oy: -4 },
+    { side: 'above', oy: -14 },
+    { side: 'right', oy: 0 },
+  ];
+
+  function eventLabelPos(x, y, R, cfg) {
+    const ox = cfg.ox || 0, oy = cfg.oy || 0;
+    switch (cfg.side) {
+      case 'right': return { x: x + R + 10 + ox, y: y + oy, align: 'left' };
+      case 'left':  return { x: x - R - 10 + ox, y: y + oy, align: 'right' };
+      case 'below': return { x: x + ox, y: y + R + 14 + oy, align: 'center' };
+      default:      return { x: x + ox, y: y - R - 14 + oy, align: 'center' };
+    }
+  }
+
+  function redraw() {
+    const W = canvas.width / dpr, H = canvas.height / dpr;
+    CW = W - ML - MR; CH = H - MT - MB;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save(); ctx.scale(dpr, dpr);
+
+    // BG
+    ctx.fillStyle = '#0a0f1f'; ctx.fillRect(0, 0, W, H);
+
+    // Clip chart area
+    ctx.save(); ctx.beginPath(); ctx.rect(ML, MT, CW, CH); ctx.clip();
+
+    // Grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.045)'; ctx.lineWidth = 1;
+    [0.1,1,10,100,1000,10000,100000].forEach(t => {
+      const x = mX(t); ctx.beginPath(); ctx.moveTo(x, MT); ctx.lineTo(x, MT+CH); ctx.stroke();
+    });
+    [0,35,50,70,80,90,100,110,120,183].forEach(v => {
+      const y = mY(v); ctx.beginPath(); ctx.moveTo(ML, y); ctx.lineTo(ML+CW, y); ctx.stroke();
+    });
+
+    const lp = IL.map(([d,v]) => [mX(d), mY(v)]);
+    const lpSafe = IL_SAFE.map(([d,v]) => [mX(d), mY(v)]);
+    const up = IU.map(([d,v]) => [mX(d), mY(clipV(v))]);
+
+    // Upper danger zone — above ITIC upper envelope
+    if (upperDangerAlpha > 0) {
+      ctx.save(); ctx.globalAlpha = upperDangerAlpha;
+      ctx.beginPath();
+      ctx.moveTo(mX(0.1), MT);
+      ctx.lineTo(mX(100000), MT);
+      ctx.lineTo(up[up.length - 1][0], up[up.length - 1][1]);
+      for (let i = up.length - 1; i >= 0; i--) ctx.lineTo(up[i][0], up[i][1]);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(239,83,80,0.15)'; ctx.fill();
+      ctx.restore();
+    }
+
+    // Lower danger zone — below ITIC lower envelope
+    if (lowerDangerAlpha > 0) {
+      ctx.save(); ctx.globalAlpha = lowerDangerAlpha;
+      ctx.beginPath();
+      ctx.moveTo(mX(0.1), mY(0));
+      ctx.lineTo(mX(100000), mY(0));
+      ctx.lineTo(lp[lp.length - 1][0], lp[lp.length - 1][1]);
+      for (let i = lp.length - 1; i >= 0; i--) ctx.lineTo(lp[i][0], lp[i][1]);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(239,83,80,0.14)'; ctx.fill();
+      ctx.restore();
+    }
+
+    // ITIC safe zone fill (70% no-interruption lower bound — excludes 40% no-damage wedge)
+    if (safeFillAlpha > 0) {
+      ctx.save(); ctx.globalAlpha = safeFillAlpha;
+      ctx.beginPath();
+      ctx.moveTo(lpSafe[0][0], lpSafe[0][1]);
+      lpSafe.forEach(([x,y]) => ctx.lineTo(x, y));
+      ctx.lineTo(mX(100000), mY(iticLower(100000)));
+      ctx.lineTo(mX(100000), mY(clipV(iticUpper(100000))));
+      [...up].reverse().forEach(([x,y]) => ctx.lineTo(x, y));
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(34,198,240,0.09)'; ctx.fill();
+      ctx.restore();
+    }
+
+    // Compliance gap (ERCOT allows, ITIC does not)
+    if (gapAlpha > 0) {
+      const gp = GAP.map(([d,v]) => [mX(d), mY(v)]);
+      ctx.save(); ctx.globalAlpha = gapAlpha;
+      ctx.beginPath(); ctx.moveTo(gp[0][0], gp[0][1]);
+      gp.forEach(([x,y]) => ctx.lineTo(x, y));
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(239,83,80,0.20)'; ctx.fill();
+      ctx.strokeStyle = 'rgba(239,83,80,0.45)'; ctx.lineWidth = 1;
+      ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]);
+      ctx.restore();
+    }
+
+    // 100% reference + 183% surge arrester clamp (1.83 pu)
+    ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.lineWidth = 1;
+    ctx.setLineDash([3,4]); ctx.beginPath();
+    ctx.moveTo(mX(1), mY(100)); ctx.lineTo(mX(100000), mY(100)); ctx.stroke();
+    ctx.setLineDash([]); ctx.restore();
+    ctx.save(); ctx.strokeStyle = 'rgba(239,83,80,0.55)'; ctx.lineWidth = 1;
+    ctx.setLineDash([5,4]); ctx.beginPath();
+    ctx.moveTo(mX(0.1), mY(183)); ctx.lineTo(mX(100000), mY(183)); ctx.stroke();
+    ctx.setLineDash([]); ctx.restore();
+
+    ctx.restore(); // end clip
+
+    // Curve lines — ITIC first, then ERCOT
+    ctx.save(); ctx.beginPath(); ctx.rect(ML, MT, CW, CH); ctx.clip();
+    drawProgress(IL, iticLineProg, '#22c6f0', 2.5, null);
+    drawProgress(IU, iticLineProg, '#22c6f0', 2.5, null);
+    drawProgress(EL, ercotProg, '#FF9800', 2, [7,4]);
+    drawProgress(EU, ercotProg, '#FF9800', 2, [7,4]);
+    ctx.restore();
+
+    // Axes
+    ctx.save();
+    ctx.fillStyle = 'rgba(160,160,160,0.85)';
+    ctx.font = `${Math.max(10, Math.min(12, CW/70))}px Geist,system-ui,sans-serif`;
+    ctx.textAlign = 'center';
+    [[0.1,'0.1 ms'],[1,'1 ms'],[10,'10 ms'],[100,'100 ms'],[1000,'1 s'],[10000,'10 s'],[100000,'100 s']].forEach(([ms,l]) => {
+      ctx.fillText(l, mX(ms), MT+CH+17);
+    });
+    ctx.textAlign = 'right';
+    [[0,'0%'],[35,'35%'],[50,'50%'],[70,'70%'],[80,'80%'],[90,'90%'],[100,'100%'],[110,'110%'],[120,'120%'],[183,'183%']].forEach(([v,l]) => {
+      ctx.fillText(l, ML-6, mY(v)+4);
+    });
+    // Axis lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.14)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(ML, MT); ctx.lineTo(ML, MT+CH); ctx.lineTo(ML+CW, MT+CH); ctx.stroke();
+    ctx.restore();
+
+    // Ghost dots — faded previous positions during HIT comparison
+    ghostDots.forEach(g => {
+      if (g.alpha <= 0.01) return;
+      ctx.save();
+      ctx.globalAlpha = g.alpha;
+      ctx.beginPath(); ctx.arc(g.x, g.y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = g.col; ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+      ctx.lineWidth = 1; ctx.stroke();
+      ctx.restore();
+    });
+
+    // Event dots — fly in one by one, then respond to HIT toggle
+    const eventsDone = eventProg.every(p => p >= 1);
+    const t = eventsDone ? ease(transT) : 0;
+    const pendingLabels = [];
+    EW.forEach((ev, i) => {
+      const ep = eventProg[i];
+      if (ep <= 0) return;
+      const eh = EH[i];
+      const fly = ease(ep);
+      const tx = mX(ev.d);
+      const x = (ML - 28) + (tx - (ML - 28)) * fly;
+      const y = mY(ev.v) + (eventsDone ? t * (mY(eh.v) - mY(ev.v)) : 0);
+      const dotCol = dotColor(i, eventsDone ? t : 0);
+      const isHovered = storyComplete && hoveredDot === i;
+      const baseR = 7 * (0.25 + 0.75 * fly);
+      const R = isHovered ? baseR + 2 : baseR;
+      ctx.save();
+      ctx.globalAlpha = fly;
+      ctx.shadowColor = dotCol;
+      ctx.shadowBlur = isHovered ? 18 : 10;
+      ctx.beginPath(); ctx.arc(x, y, R, 0, Math.PI * 2);
+      ctx.fillStyle = dotCol; ctx.fill();
+      ctx.restore();
+      ctx.save(); ctx.globalAlpha = fly;
+      ctx.beginPath(); ctx.arc(x, y, R, 0, Math.PI * 2);
+      ctx.strokeStyle = isHovered ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.5)';
+      ctx.lineWidth = isHovered ? 2 : 1.5;
+      ctx.stroke();
+      if (isHovered) {
+        ctx.globalAlpha = 0.35 * fly;
+        ctx.beginPath(); ctx.arc(x, y, R + 5, 0, Math.PI * 2);
+        ctx.strokeStyle = dotCol;
+        ctx.lineWidth = 1.5; ctx.stroke();
+      }
+      const showLbl = eventsDone && (t < 0.15 || t > 0.85) && !isHovered && fly > 0.85;
+      if (showLbl) {
+        const evSrc = t < 0.5 ? ev : eh;
+        const pos = eventLabelPos(x, y, R, EV_LABEL[i]);
+        pendingLabels.push({ text: evSrc.l, alpha: fly, ...pos });
+      }
+      ctx.restore();
+    });
+
+    // Event labels first (scenario bubbles)
+    for (let pass = 0; pass < 4; pass++) {
+      for (let i = 0; i < pendingLabels.length; i++) {
+        for (let j = i + 1; j < pendingLabels.length; j++) {
+          const a = pendingLabels[i], b = pendingLabels[j];
+          if (Math.hypot(b.x - a.x, b.y - a.y) < 52) b.y -= 12;
+        }
+      }
+    }
+    pendingLabels.forEach(lbl => {
+      drawTextPill(lbl.text, lbl.x, lbl.y, lbl.align, lbl.alpha, { color: 'rgba(255,255,255,0.9)' });
+    });
+
+    // Zone labels — drawn after events, positioned clear of scenario dots
+    if (safeFillAlpha > 0.4) {
+      const a = Math.min(1, (safeFillAlpha - 0.4) / 0.6);
+      drawTextPillBlock(['No Interruption', 'in Function'], mX(25000), mY(97), a, 10, '#22c6f0', 'bold',
+        { border: 'rgba(34,198,240,0.35)' });
+    }
+    if (upperDangerAlpha > 0.4) {
+      const a = Math.min(1, (upperDangerAlpha - 0.4) / 0.6);
+      drawTextPill('Prohibited Region', mX(500), mY(168), 'center', a,
+        { fs: 10, color: '#ef9a9a', weight: 'bold' });
+    }
+    if (lowerDangerAlpha > 0.4) {
+      const a = Math.min(1, (lowerDangerAlpha - 0.4) / 0.6);
+      const nd = nudgeFromDots(mX(42000), mY(14), 44);
+      drawTextPillBlock(['No Damage', 'Region'], nd.x, nd.y, a, 10, '#e0e0e0', 'bold',
+        { border: 'rgba(200,200,200,0.3)' });
+    }
+    if (ercotProg > 0.65) {
+      const a = Math.min(1, (ercotProg - 0.65) / 0.35);
+      drawTextPill('ERCOT NOGRR-282 VRT', ML + CW - 8, mY(73), 'right', a, { color: '#FF9800', fs: 9 });
+    }
+    if (labelAlpha > 0) {
+      const cg = gapLabelAnchor();
+      drawTextPillBlock(['COMPLIANCE', 'GAP'], cg.x, cg.y, labelAlpha, 9, '#ef9a9a', 'bold',
+        { align: 'center', border: 'rgba(239,83,80,0.4)' });
+    }
+
+    ctx.restore();
+  }
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    const w = Math.floor(rect.width);
+    const h = Math.max(320, Math.round(w * 0.58));
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    redraw();
+  }
+
+  // Intersection observer: staged story on scroll into view
+  let entered = false;
+  const io = new IntersectionObserver(entries => {
+    if (!entered && entries[0].isIntersecting) {
+      entered = true;
+      runStory();
+    }
+  }, { threshold: 0.15 });
+  io.observe(canvas);
+
+  // Hover tooltip (after story completes)
+  const tip = document.getElementById('itic-tip');
+  canvas.addEventListener('mousemove', function(e) {
+    if (!storyComplete) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = (canvas.width / dpr) / rect.width;
+    const scaleY = (canvas.height / dpr) / rect.height;
+    const cx = (e.clientX - rect.left) * scaleX;
+    const cy = (e.clientY - rect.top) * scaleY;
+    const t = ease(transT);
+    let hit = null;
+    for (let i = 0; i < EW.length; i++) {
+      const ev = EW[i], eh = EH[i];
+      const x = mX(ev.d) + t * (mX(eh.d) - mX(ev.d));
+      const y = mY(ev.v) + t * (mY(eh.v) - mY(ev.v));
+      if (Math.hypot(cx - x, cy - y) <= 13) { hit = i; break; }
+    }
+    if (hit !== null) {
+      const evSrc = t < 0.5 ? EW[hit] : EH[hit];
+      tip.innerHTML = evSrc.tip || '';
+      const tx = Math.min(e.clientX + 16, window.innerWidth - 290);
+      const ty = Math.min(e.clientY - 12, window.innerHeight - 120);
+      tip.style.left = tx + 'px'; tip.style.top = ty + 'px';
+      tip.style.display = 'block';
+      canvas.style.cursor = 'pointer';
+      if (hoveredDot !== hit) { hoveredDot = hit; redraw(); }
+    } else {
+      tip.style.display = 'none';
+      canvas.style.cursor = '';
+      if (hoveredDot !== null) { hoveredDot = null; redraw(); }
+    }
+  });
+  canvas.addEventListener('mouseleave', function() {
+    tip.style.display = 'none';
+    canvas.style.cursor = '';
+    if (hoveredDot !== null) { hoveredDot = null; redraw(); }
+  });
+
+  // Toggle — enabled after story + auto-demo finish
+  window.setHITMode = async function(mode) {
+    if (!storyComplete) return;
+    const target = mode === 'with' ? 1 : 0;
+    if (Math.abs(transT - target) < 0.02) return;
+    if (hoveredDot !== null) { tip.style.display = 'none'; hoveredDot = null; }
+    await animateTransition(transT, target, 950);
+    setModeUI(mode);
+    await fadeGhosts();
+  };
+
+  const ro = new ResizeObserver(resize);
+  ro.observe(canvas.parentElement);
+  setTimeout(resize, 0);
+})();
+
+
+function openSim() {
+  const frame = document.getElementById('sim-frame');
+  if (!frame.getAttribute('data-loaded')) {
+    frame.src = 'dll_mqt.html';
+    frame.setAttribute('data-loaded', '1');
+  }
+  document.getElementById('sim-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSim() {
+  document.getElementById('sim-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeSim();
+});
+</script>
+
+<!-- ── Simulation overlay ─────────────────────────────────────── -->
+<div class="sim-overlay" id="sim-overlay" role="dialog" aria-modal="true" aria-label="HIT simulation environment">
+  <div class="sim-header">
+    <div class="sim-header-left">
+      <svg width="100" height="17" viewBox="0 0 164 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.76058 2.93931C8.60556 4.02273 7.67379 4.85556 6.5475 4.85556C5.31274 4.85556 4.31177 3.85459 4.31177 2.61983C4.31177 1.38507 5.31274 0.384094 6.5475 0.384094C7.67385 0.384094 8.60567 1.21702 8.76061 2.30053H15.5304C15.7154 1.38943 16.521 0.703681 17.4867 0.703681C18.5891 0.703681 19.4829 1.59741 19.4829 2.69987C19.4829 3.6656 18.7971 4.47116 17.886 4.65613V11.5986C18.5259 11.7439 19.0037 12.3163 19.0037 13.0002C19.0037 13.794 18.3602 14.4375 17.5664 14.4375C16.7727 14.4375 16.1292 13.794 16.1292 13.0002C16.1292 12.3162 16.6071 11.7437 17.2472 11.5985V4.68184C16.3361 4.57291 15.6136 3.85036 15.5047 2.93931H8.76058ZM22.517 9.46393C21.4335 9.30893 20.6007 8.37715 20.6007 7.25085C20.6007 6.01609 21.6017 5.01511 22.8364 5.01511C24.0712 5.01511 25.0722 6.01609 25.0722 7.25085C25.0722 8.37719 24.2393 9.309 23.1558 9.46395V16.2336C24.0669 16.4186 24.7526 17.2241 24.7526 18.1898C24.7526 19.2923 23.8589 20.186 22.7564 20.186C21.7906 20.186 20.985 19.5002 20.8001 18.5889H13.8577C13.7124 19.2289 13.14 19.7067 12.4561 19.7067C11.6623 19.7067 11.0188 19.0632 11.0188 18.2694C11.0188 17.4756 11.6623 16.8322 12.4561 16.8322C13.1401 16.8322 13.7126 17.31 13.8578 17.9501L20.7745 17.9501C20.8835 17.0392 21.606 16.3168 22.517 16.2079V9.46393ZM18.5247 21.1443C17.3984 21.1443 16.4666 21.9772 16.3116 23.0606H9.56737C9.45846 22.1496 8.73594 21.427 7.8249 21.3181L7.82489 14.4014C8.46501 14.2562 8.94288 13.6838 8.94288 12.9997C8.94288 12.2059 8.2994 11.5625 7.50562 11.5625C6.71185 11.5625 6.06836 12.2059 6.06836 12.9997C6.06836 13.6837 6.54612 14.2561 7.18611 14.4013L7.18611 21.3438C6.27498 21.5288 5.5892 22.3343 5.5892 23.3001C5.5892 24.4025 6.48292 25.2962 7.58539 25.2962C8.5511 25.2962 9.35664 24.6105 9.54163 23.6994H16.3116C16.4665 24.7829 17.3983 25.6158 18.5247 25.6158C19.7594 25.6158 20.7604 24.6148 20.7604 23.3801C20.7604 22.1453 19.7594 21.1443 18.5247 21.1443ZM2.55508 16.5359C3.63857 16.6909 4.47147 17.6227 4.47147 18.749C4.47147 19.9838 3.4705 20.9848 2.23573 20.9848C1.00097 20.9848 0 19.9838 0 18.749C0 17.6227 0.832853 16.6909 1.9163 16.5359L1.9163 9.76633C1.00519 9.58133 0.319447 8.77579 0.319447 7.81009C0.319447 6.70762 1.21317 5.8139 2.31564 5.8139C3.28143 5.8139 4.08703 6.49977 4.27193 7.411L11.2144 7.411C11.3596 6.77101 11.932 6.29325 12.616 6.29325C13.4098 6.29325 14.0532 6.93674 14.0532 7.73051C14.0532 8.52429 13.4098 9.16777 12.616 9.16777C11.9319 9.16777 11.3595 8.6899 11.2143 8.04979L4.29759 8.04979C4.18857 8.96074 3.46606 9.68317 2.55508 9.79207L2.55508 16.5359Z" fill="url(#ng3)"/>
+        <path d="M32.0912 20.8843V5.98939H42.7637V8.68405H34.8919V12.8003H42.3393V15.3889H34.8919V20.8843H32.0912ZM49.5169 10.1693C52.8693 10.1693 55.0335 12.673 55.0335 15.6647C55.0335 18.7201 52.9542 21.1813 49.5381 21.1813C46.1221 21.1813 44.064 18.7201 44.064 15.6647C44.064 12.673 46.1857 10.1693 49.5169 10.1693ZM49.5381 12.5669C47.671 12.5669 46.695 14.0946 46.695 15.6647C46.695 17.2348 47.6498 18.7625 49.5381 18.7625C51.4265 18.7625 52.3813 17.2348 52.3813 15.6647C52.3813 14.0946 51.278 12.5669 49.5381 12.5669ZM59.5733 10.4239V16.0254C59.5733 17.6167 60.4433 18.8262 62.0982 18.8262C63.7108 18.8262 64.7717 17.4894 64.7717 15.8981V10.4239H67.339V20.9267H65.0263L64.8566 19.6112C63.7744 20.6933 62.7772 21.1813 61.3132 21.1813C58.8307 21.1813 56.9848 19.2717 56.9848 16.0466V10.4239H59.5733ZM77.912 20.8843V15.3464C77.912 13.7551 77.0208 12.5457 75.387 12.5457C73.7745 12.5457 72.7136 13.8824 72.7136 15.4737V20.8843H70.1463V10.4239H72.459L72.6287 11.7606C73.7108 10.5937 74.7293 10.1905 76.066 10.1905C78.5273 10.1905 80.5005 12.0365 80.5005 15.3252V20.8843H77.912ZM93.8949 6.05304V20.8843H91.4761L91.3064 19.4415C90.4789 20.7994 89.2058 21.1813 87.9327 21.1813C84.8774 21.1813 82.5434 19.0808 82.5434 15.6435C82.5434 12.0365 84.8137 10.1693 87.8691 10.1693C88.9724 10.1693 90.6698 10.7422 91.3064 11.8455V6.05304H93.8949ZM88.1025 12.5881C86.4687 12.5881 85.132 13.7551 85.132 15.6435C85.132 17.4894 86.4475 18.7413 88.1025 18.7413C89.7362 18.7413 91.1366 17.5531 91.1366 15.6435C91.1366 13.84 89.7362 12.5881 88.1025 12.5881Z" fill="white"/>
+        <path d="M102.885 6.03183C108.041 6.03183 110.311 9.74494 110.311 13.4793C110.311 17.1924 108.02 20.8843 102.885 20.8843H97.0499V6.03183H102.885ZM99.8294 18.1896H102.885C106.195 18.1896 107.531 15.8344 107.531 13.4793C107.531 11.1029 106.174 8.68405 102.885 8.68405H99.8294V18.1896ZM112.245 7.47464C112.245 6.4774 113.009 5.96817 113.773 5.96817C114.536 5.96817 115.3 6.4774 115.3 7.47464C115.3 8.49309 114.536 8.9811 113.773 8.9811C113.009 8.9811 112.245 8.49309 112.245 7.47464ZM115.067 10.3815V20.8843H112.478V10.3815H115.067ZM126.841 9.36302L128.75 10.8058L127.435 12.3335C128.347 13.4156 128.644 14.3704 128.644 15.4525C128.644 17.3197 127.774 18.5928 126.056 19.3778C128.262 20.1629 128.644 21.7542 128.644 22.7727C128.644 25.7432 125.737 27.186 122.937 27.186C119.308 27.186 117.187 25.3612 117.293 22.3695H119.86C119.754 23.8123 121.303 24.6823 122.937 24.6823C124.379 24.6823 125.95 24.0669 125.95 22.7727C125.95 21.4996 124.931 20.7145 122.979 20.7145C119.521 20.7145 117.25 18.7413 117.25 15.4525C117.25 11.9304 120.051 10.1481 122.979 10.1481C123.785 10.1481 124.952 10.3178 125.674 10.8058L126.841 9.36302ZM122.979 12.5457C121.282 12.5457 119.839 13.5005 119.839 15.4525C119.839 17.2773 121.282 18.3381 122.979 18.3381C124.676 18.3381 126.056 17.2348 126.056 15.4525C126.056 13.6702 124.676 12.5457 122.979 12.5457ZM130.728 7.47464C130.728 6.4774 131.491 5.96817 132.255 5.96817C133.019 5.96817 133.783 6.4774 133.783 7.47464C133.783 8.49309 133.019 8.9811 132.255 8.9811C131.491 8.9811 130.728 8.49309 130.728 7.47464ZM133.549 10.3815V20.8843H130.961V10.3815H133.549ZM140.104 7.47464V10.4876H142.989V12.7154H140.083V17.3197C140.083 18.3169 140.613 18.8049 141.441 18.8049C141.844 18.8049 142.289 18.6776 142.692 18.4867L143.414 20.6933C142.607 21.0328 141.95 21.1389 141.059 21.1389C138.894 21.1389 137.515 19.8658 137.515 17.3197V12.7154H135.563V10.4876H137.515V7.75047L140.104 7.47464ZM153.408 10.4239H155.891V20.8843H153.451L153.323 19.3566C152.708 20.5872 151.117 21.2025 149.928 21.2025C146.809 21.2025 144.539 19.3142 144.539 15.6435C144.539 11.994 146.937 10.1693 149.992 10.1693C151.414 10.1693 152.729 10.827 153.323 11.8667L153.408 10.4239ZM150.225 12.482C148.507 12.482 147.128 13.649 147.128 15.6435C147.128 17.638 148.507 18.8262 150.225 18.8262C152.262 18.8262 153.281 17.2348 153.281 15.6435C153.281 14.0734 152.262 12.482 150.225 12.482ZM161.316 6.05304V20.8843H158.749V6.05304H161.316Z" fill="#22C6F0"/>
+        <defs><linearGradient id="ng3" x1="8.46" y1="5.73" x2="19.64" y2="23.62" gradientUnits="userSpaceOnUse"><stop stop-color="#22C6F0"/><stop offset="1" stop-color="white"/></linearGradient></defs>
+      </svg>
+      <span class="sim-header-title">HIT Simulation: ERCOT MQT Voltage Ride-Through · Reference Design June 2026 v1</span>
+    </div>
+    <button class="sim-close" onclick="closeSim()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <line x1="1.5" y1="1.5" x2="12.5" y2="12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="12.5" y1="1.5" x2="1.5" y2="12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      Back to document
+    </button>
+  </div>
+  <iframe id="sim-frame" src="" title="HIT DLL simulation: ERCOT MQT profile" allow="fullscreen"></iframe>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+(function() {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Hero entrance (on load) ────────────────────────────────────────────────
+  gsap.timeline({ delay: 0.12 })
+    .from('.hero-kicker',  { opacity:0, y:14, duration:0.55, ease:'power3.out' })
+    .from('.hero h1',      { opacity:0, y:30, duration:0.70, ease:'power3.out' }, '-=0.32')
+    .from('.hero-sub',     { opacity:0, y:16, duration:0.55, ease:'power3.out' }, '-=0.38')
+    .from('.hero-diagram', { opacity:0, y:22, scale:0.984, duration:0.70,
+                             ease:'power3.out', clearProps:'scale,transform' }, '-=0.30');
+
+  // ── Series nav subtle reveal ───────────────────────────────────────────────
+  gsap.from('.series-nav', { opacity:0, y:-6, duration:0.5, delay:0.08, ease:'power2.out' });
+
+  // ── Helper: single element reveal ─────────────────────────────────────────
+  function revealEl(selector, props, stOpts) {
+    document.querySelectorAll(selector).forEach(el => {
+      gsap.from(el, Object.assign({ duration:0.65, ease:'power3.out',
+        scrollTrigger: Object.assign({ trigger:el, start:'top 89%', once:true }, stOpts)
+      }, props));
+    });
+  }
+
+  // Section headings
+  revealEl('.sect-label', { opacity:0, x:-10, y:0, duration:0.5 });
+  revealEl('.sect h2',    { opacity:0, y:22 });
+  revealEl('.sect-lede',  { opacity:0, y:16, duration:0.55 });
+
+  // Body copy paragraphs
+  revealEl('.col-text p',  { opacity:0, y:12, duration:0.5 });
+  revealEl('.itic-body p', { opacity:0, y:12, duration:0.5 });
+  revealEl('.callout',     { opacity:0, x:-14, duration:0.5 });
+
+  // ── Challenge stat cards ───────────────────────────────────────────────────
+  gsap.from('.stat-card', {
+    opacity:0, y:30, scale:0.94,
+    duration:0.5, stagger:0.1, ease:'back.out(1.5)',
+    scrollTrigger:{ trigger:'.stat-grid', start:'top 87%', once:true }
+  });
+
+  // ── Why-this-matters causal chain ─────────────────────────────────────────
+  gsap.from('.wf-step', {
+    opacity:0, x:-16,
+    duration:0.5, stagger:0.14, ease:'power2.out',
+    scrollTrigger:{ trigger:'.why-flow', start:'top 85%', once:true }
+  });
+  gsap.from('.design-band', {
+    opacity:0, y:24, duration:0.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'.design-band', start:'top 87%', once:true }
+  });
+  gsap.from('.db-item', {
+    opacity:0, y:16,
+    duration:0.45, stagger:0.11, ease:'power2.out',
+    scrollTrigger:{ trigger:'.design-band', start:'top 85%', once:true }
+  });
+
+  // ── ITIC zone tiers ────────────────────────────────────────────────────────
+  gsap.from('.zone', {
+    opacity:0, x:-14,
+    duration:0.4, stagger:0.075, ease:'power2.out',
+    scrollTrigger:{ trigger:'.zone-diagram', start:'top 86%', once:true }
+  });
+
+  // ── Compliance gap cards ───────────────────────────────────────────────────
+  gsap.from('.gap-card', {
+    opacity:0, y:28, scale:0.95,
+    duration:0.5, stagger:0.12, ease:'back.out(1.5)',
+    scrollTrigger:{ trigger:'.gap-row', start:'top 88%', once:true }
+  });
+
+  // ── Architecture diagram ───────────────────────────────────────────────────
+  gsap.from('.arch-wrap', {
+    opacity:0, y:18, duration:0.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'.arch-wrap', start:'top 86%', once:true }
+  });
+
+  // ── Spec cards ─────────────────────────────────────────────────────────────
+  gsap.from('.spec-card', {
+    opacity:0, y:24, scale:0.95,
+    duration:0.45, stagger:0.09, ease:'back.out(1.5)',
+    scrollTrigger:{ trigger:'.spec-grid', start:'top 86%', once:true }
+  });
+
+  // ── Evidence section ───────────────────────────────────────────────────────
+  gsap.from('.chart-toggle', {
+    opacity:0, y:12, duration:0.45, ease:'power2.out',
+    scrollTrigger:{ trigger:'.chart-toggle', start:'top 90%', once:true }
+  });
+  gsap.from('.canvas-wrap', {
+    opacity:0, y:20, duration:0.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'.canvas-wrap', start:'top 88%', once:true }
+  });
+  gsap.from('.chart-legend', {
+    opacity:0, y:10, duration:0.45, ease:'power2.out',
+    scrollTrigger:{ trigger:'.chart-legend', start:'top 92%', once:true }
+  });
+  gsap.from('.chart-summary', {
+    opacity:0, y:10, duration:0.4, ease:'power2.out',
+    scrollTrigger:{ trigger:'.chart-summary', start:'top 93%', once:true }
+  });
+  gsap.from('.sim-launch-wrap', {
+    opacity:0, y:20, duration:0.6, ease:'power3.out',
+    scrollTrigger:{ trigger:'.sim-launch-wrap', start:'top 88%', once:true }
+  });
+
+  // ── Scope tally cards + counter animation ─────────────────────────────────
+  gsap.from('.tally-card', {
+    opacity:0, y:28, scale:0.94,
+    duration:0.5, stagger:0.12, ease:'back.out(1.5)',
+    scrollTrigger:{ trigger:'.scope-tally', start:'top 86%', once:true }
+  });
+  document.querySelectorAll('.tally-num').forEach(function(el, i) {
+    const target = parseInt(el.textContent, 10);
+    if (isNaN(target)) return;
+    const proxy = { val: 0 };
+    el.textContent = '0';
+    gsap.to(proxy, {
+      val: target, duration: 0.7, delay: i * 0.13, ease: 'power2.out',
+      onUpdate: function() { el.textContent = Math.round(proxy.val); },
+      scrollTrigger: { trigger: '.scope-tally', start: 'top 86%', once: true }
+    });
+  });
+
+  // ── MQT table rows ─────────────────────────────────────────────────────────
+  gsap.from('.mqt-table tbody tr', {
+    opacity:0, x:-18,
+    duration:0.38, stagger:0.055, ease:'power2.out',
+    scrollTrigger:{ trigger:'.mqt-wrap', start:'top 86%', once:true }
+  });
+  gsap.from('.scope-caveats', {
+    opacity:0, y:12, duration:0.5, ease:'power2.out',
+    scrollTrigger:{ trigger:'.scope-caveats', start:'top 91%', once:true }
+  });
+
+  // ── Capability cards ───────────────────────────────────────────────────────
+  gsap.from('.ep-card', {
+    opacity:0, y:22,
+    duration:0.45, stagger:0.1, ease:'back.out(1.3)',
+    scrollTrigger:{ trigger:'.ep-grid', start:'top 86%', once:true }
+  });
+
+  // ── Hero parallax ─────────────────────────────────────────────────────────
+  gsap.to('.hero-inner', {
+    y: 55, ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true
+    }
+  });
+
+  // ── Section border-top draw-in lines ──────────────────────────────────────
+  // Inject a thin ::before line that scales from 0 width on scroll
+  document.querySelectorAll('.sect + .sect').forEach(function(sect) {
+    var line = document.createElement('div');
+    line.style.cssText = 'position:absolute;top:0;left:0;height:1px;width:100%;' +
+      'background:linear-gradient(90deg,rgba(34,198,240,0.18) 0%,transparent 80%);' +
+      'transform-origin:left;transform:scaleX(0);pointer-events:none;';
+    sect.style.position = 'relative';
+    sect.insertBefore(line, sect.firstChild);
+    gsap.to(line, {
+      scaleX: 1, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: sect, start: 'top 88%', once: true }
+    });
+    // Hide the CSS border-top on this element since the line div replaces it
+    sect.style.borderTop = 'none';
+  });
+
+})();
+</script>
+
+<script>
+/* ── Voltage Regulation canvas animation v2 ── */
+(function(){
+  var cv=document.getElementById('xp-vr-cv');
+  if(!cv) return;
+  var ctx=cv.getContext('2d');
+  var t=0;
+  var FREQ=(2*Math.PI)/88;
+  var SPEED=0.055;
+
+  /* Sag event profile: env 1.0 → 0.60 → 1.0
+     40% amplitude drop makes the sag immediately obvious.
+     Offset +18 puts the ramp-down about 2 s after page load. */
+  var SAG_CYCLE=100;
+  function getEnv(){
+    var sp=((t+18)%SAG_CYCLE)/SAG_CYCLE;
+    if(sp<0.18) return 1.0;
+    if(sp<0.30) return 1.0-0.40*((sp-0.18)/0.12);
+    if(sp<0.55) return 0.60;
+    if(sp<0.68) return 0.60+0.40*((sp-0.55)/0.13);
+    return 1.0;
+  }
+
+  function wire(x0,y0,x1,y1){
+    ctx.beginPath();ctx.strokeStyle='rgba(46,58,92,0.55)';
+    ctx.lineWidth=1;ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);ctx.stroke();
+  }
+  function box(cx,cy,w,h,txt,border,fg){
+    ctx.fillStyle='#0b1126';
+    ctx.strokeStyle=border||'rgba(46,58,92,0.8)';ctx.lineWidth=1.5;
+    ctx.fillRect(cx-w/2,cy-h/2,w,h);ctx.strokeRect(cx-w/2,cy-h/2,w,h);
+    ctx.fillStyle=fg||'rgba(232,236,244,0.65)';
+    ctx.font='700 9px Geist,"Segoe UI",sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(txt,cx,cy);
+  }
+  function dot(x,y,col){
+    ctx.fillStyle=col||'rgba(232,236,244,0.45)';
+    ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+  }
+  function lbl(txt,x,y,col,sz,align,base){
+    ctx.fillStyle=col||'rgba(232,236,244,0.35)';
+    ctx.font=(sz||9)+'px Geist,"Segoe UI",sans-serif';
+    ctx.textAlign=align||'center';ctx.textBaseline=base||'top';
+    ctx.fillText(txt,x,y);
+  }
+  function hwave(x0,x1,cy,fn,col,amp,lw){
+    ctx.beginPath();ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.setLineDash([]);
+    var first=true;
+    for(var px=x0;px<=x1;px+=1.5){
+      var py=cy-fn(t*SPEED-px*FREQ)*amp;
+      if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+  }
+  /* Thin dotted reference at the nominal (1.0 pu) peak level */
+  function refLine(x0,x1,cy,AMP,col){
+    ctx.strokeStyle=col;ctx.lineWidth=1;ctx.setLineDash([2,6]);
+    ctx.beginPath();ctx.moveTo(x0,cy-AMP);ctx.lineTo(x1,cy-AMP);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x0,cy+AMP);ctx.lineTo(x1,cy+AMP);ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  /* Shade the "voltage deficit" band between nominal and actual amplitude */
+  function fillBand(x0,x1,cy,env,AMP,col){
+    if(env>=1.0) return;
+    ctx.fillStyle=col;
+    ctx.fillRect(x0,cy-AMP,x1-x0,AMP*(1-env));      /* top deficit */
+    ctx.fillRect(x0,cy+env*AMP,x1-x0,AMP*(1-env));   /* bottom deficit */
+  }
+  /* Prominent envelope boundary lines: dashed if sagging, solid if regulated */
+  function envLines(x0,x1,cy,env,AMP,col,solid){
+    ctx.strokeStyle=col;ctx.lineWidth=solid?2.8:2;
+    ctx.setLineDash(solid?[]:[6,4]);
+    ctx.beginPath();ctx.moveTo(x0,cy-env*AMP);ctx.lineTo(x1,cy-env*AMP);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x0,cy+env*AMP);ctx.lineTo(x1,cy+env*AMP);ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function draw(){
+    var step=cv.closest?cv.closest('.xp-step'):null;
+    if(step&&step.hasAttribute('hidden')){t+=SPEED;requestAnimationFrame(draw);return;}
+
+    var W=cv.width,H=cv.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#070c1a';ctx.fillRect(0,0,W,H);
+
+    var L0=0,L1=318,R0=350,R1=W;
+    var GAP=(L1+R0)/2;
+    ctx.fillStyle='rgba(50,8,8,0.20)';ctx.fillRect(L0,0,L1-L0,H);
+    ctx.fillStyle='rgba(8,30,16,0.20)';ctx.fillRect(R0,0,R1-R0,H);
+    ctx.save();ctx.strokeStyle='rgba(100,120,180,0.3)';ctx.lineWidth=1;ctx.setLineDash([3,6]);
+    ctx.beginPath();ctx.moveTo(GAP,8);ctx.lineTo(GAP,H-8);ctx.stroke();ctx.restore();
+
+    var CY=95, AMP=35;
+    var env=getEnv();
+
+    /* ═══════════ LEFT — Without HIT ═══════════ */
+    var lG=L0+24, lTX=L0+142, lLD=L1-18;
+
+    ctx.fillStyle='rgba(230,70,70,0.92)';
+    ctx.font='bold 11px Geist,"Segoe UI",sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='top';
+    ctx.fillText('WITHOUT HIT',(L0+L1)/2,7);
+
+    refLine(lG,lLD,CY,AMP,'rgba(232,236,244,0.13)');
+    fillBand(lG,lLD,CY,env,AMP,'rgba(232,64,64,0.13)');
+    wire(lG,CY,lTX-20,CY);wire(lTX+20,CY,lLD,CY);
+    box(lTX,CY,40,30,'TX','rgba(200,210,240,0.55)','rgba(200,210,240,0.85)');
+    dot(lG,CY,'rgba(220,225,244,0.7)');
+    dot(lLD,CY,'rgba(232,80,80,0.85)');
+    hwave(lG+3,lTX-22,CY,function(p){return env*Math.sin(p);},'#e84040',AMP,1.5);
+    hwave(lTX+22,lLD-3,CY,function(p){return env*Math.sin(p);},'#e84040',AMP,1.5);
+    envLines(lG,lLD,CY,env,AMP,'rgba(232,80,80,0.90)',false);
+
+    lbl('V_source = V_load  (sag propagates unchanged)',(L0+L1)/2,CY-AMP-13,'rgba(232,80,80,0.82)',8.5);
+    lbl('Grid',lG,CY+AMP+7,'rgba(220,225,244,0.85)',9);
+    lbl('Load',lLD,CY+AMP+7,'rgba(232,80,80,0.78)',9);
+    lbl('Sag reaches load — ITIC tolerance at risk',(L0+L1)/2,CY+AMP+20,'rgba(220,70,70,0.58)',8);
+
+    /* ═══════════ RIGHT — With HIT ═══════════ */
+    var RW=R1-R0;
+    var rG=R0+16, rHIT=R0+180, rLD=R1-16;
+
+    ctx.fillStyle='rgba(60,210,112,0.92)';
+    ctx.font='bold 11px Geist,"Segoe UI",sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='top';
+    ctx.fillText('WITH HIT',R0+RW/2,7);
+
+    refLine(rG,rLD,CY,AMP,'rgba(232,236,244,0.13)');
+    /* Source-side: show the voltage deficit */
+    fillBand(rG,rHIT-26,CY,env,AMP,'rgba(240,130,0,0.11)');
+    /* Load-side: no fill — voltage is maintained */
+    wire(rG,CY,rHIT-26,CY);wire(rHIT+26,CY,rLD,CY);
+    box(rHIT,CY,52,34,'HIT','#22c6f0','#22c6f0');
+    dot(rG,CY,'rgba(220,225,244,0.7)');
+    dot(rLD,CY,'rgba(70,210,120,0.85)');
+    hwave(rG+3,rHIT-28,CY,function(p){return env*Math.sin(p);},'#f0a020',AMP,1.5);
+    hwave(rHIT+28,rLD-3,CY,function(p){return Math.sin(p);},'#40c870',AMP,1.8);
+    /* Source: dashed dipping envelope | Load: solid flat envelope */
+    envLines(rG,rHIT-26,CY,env,AMP,'rgba(240,160,32,0.85)',false);
+    envLines(rHIT+26,rLD,CY,1.0,AMP,'rgba(64,200,112,0.96)',true);
+
+    lbl('V_source (sagged)',(rG+rHIT)/2,CY-AMP-13,'rgba(240,160,32,0.84)',8.5);
+    lbl('V_load = 1.0 pu  (regulated)',(rHIT+rLD)/2,CY-AMP-13,'rgba(60,210,120,0.94)',8.5);
+    lbl('Grid',rG,CY+AMP+7,'rgba(220,225,244,0.85)',9);
+    lbl('Load',rLD,CY+AMP+7,'rgba(70,210,120,0.78)',9);
+    lbl('series injection',rHIT,CY+AMP+7,'rgba(34,198,240,0.85)',8);
+    lbl('Source sags  —  load is held at nominal by HIT',R0+RW/2,CY+AMP+20,'rgba(70,210,120,0.62)',8);
+
+    t+=SPEED;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Modal navigation ── */
+(function(){
+  var intro=document.getElementById('xp-intro');
+  var steps=intro.querySelectorAll('.xp-step');
+  var dots=intro.querySelectorAll('.xp-dot');
+  var back=document.getElementById('xp-back');
+  var next=document.getElementById('xp-next');
+  var step=1, total=steps.length;
+  function setStep(n){
+    step=n;
+    steps.forEach(function(el){
+      if(+el.getAttribute('data-step')===n) el.removeAttribute('hidden');
+      else el.setAttribute('hidden','');
+    });
+    dots.forEach(function(d,i){ d.classList.toggle('on',i===n-1); });
+    back.disabled=(n===1);
+    next.textContent=(n===total)?'Start exploring':'Next';
+  }
+  next.addEventListener('click',function(){
+    if(step<total) setStep(step+1); else intro.setAttribute('hidden','');
+  });
+  back.addEventListener('click',function(){ if(step>1) setStep(step-1); });
+  document.querySelectorAll('[data-close]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.getElementById(btn.getAttribute('data-close')).setAttribute('hidden','');
+    });
+  });
+  document.querySelectorAll('[data-show]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.getAttribute('data-show'));
+      if(el) el.removeAttribute('hidden');
+    });
+  });
+  intro.addEventListener('click',function(e){ if(e.target===intro) intro.setAttribute('hidden',''); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') intro.setAttribute('hidden',''); });
+})();
+</script>
+
+</body>
+</html>
