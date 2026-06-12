@@ -35,6 +35,12 @@ Applied to `episode0_grid_codes.html` and future HIT Technology Series episodes.
 - Frame outcomes as **simulation results**, **evaluated in study**, or **may** / **within ±20% range** — not proven, guaranteed, or compliance demonstrated unless citing an accepted interconnection filing.
 - Distinguish **facility LV bus** functions from **point of interconnection (PCC)** grid-support functions.
 
+## Index page disclaimer
+
+- State **demonstration purposes only**; technology not yet commercially mature.
+- Direct performance criteria, validation, and readiness questions to the **OEM (Ionate)**.
+- Note that modelled limits and simulation assumptions are **OEM design-dependent** and subject to change.
+
 - APR wording: **at least 90% of pre-fault active power**, never **full power draw**.
 - Incident examples: cite **NERC LLTF (2025)** for July 2024 Dominion-area disconnections; do not attribute to ESIG unless the full report states the event.
 - Illustrative chart tiers (e.g. 0.35 pu / 250 ms) must be labelled as representative of operator test profiles, not universal limits.

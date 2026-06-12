@@ -64,6 +64,23 @@ body{background:var(--navy);color:var(--white);
 .idx-card-desc{font-size:.78rem;color:var(--muted);line-height:1.6;flex:1}
 .idx-card-cta{font-size:.74rem;color:rgba(34,198,240,0.7);font-weight:500;margin-top:4px}
 
+/* ── Disclaimer ── */
+.idx-disclaimer{
+  max-width:1060px;margin:0 auto 28px;padding:0 32px;
+}
+.idx-disclaimer-inner{
+  border:1px solid rgba(255,255,255,0.1);border-radius:12px;
+  background:rgba(22,28,56,0.55);padding:18px 22px;
+}
+.idx-disclaimer-kicker{
+  font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(232,236,244,0.45);font-weight:600;margin-bottom:.55rem;
+}
+.idx-disclaimer p{
+  font-size:.78rem;line-height:1.65;color:rgba(232,236,244,0.58);margin:0;
+}
+.idx-disclaimer p + p{margin-top:.55rem}
+
 /* ── Footer ── */
 .idx-footer{text-align:center;padding:28px 32px 40px;
   font-size:.7rem;color:rgba(232,236,244,0.2);line-height:1.7}
@@ -127,6 +144,14 @@ body{background:var(--navy);color:var(--white);
 </header>
 
 <main class="idx-wrap">
+  <aside class="idx-disclaimer" aria-label="Important notice">
+    <div class="idx-disclaimer-inner">
+      <div class="idx-disclaimer-kicker">Important notice</div>
+      <p>This site is for <strong style="color:rgba(232,236,244,0.82);font-weight:500">demonstration purposes only</strong>. The Hybrid Intelligent Transformer is under development and the technology is not yet commercially mature. Do not treat any result shown here as a technology performance guarantee, compliance commitment, or basis for procurement or design decisions.</p>
+      <p>Simulations use the OEM Reference Design June 2026 v1 firmware and model assumptions. Modelled limits, ratings, and outcomes may change as the OEM finalises hardware and control design. Questions on performance criteria, validation status, and product readiness should be directed to the OEM (Ionate).</p>
+    </div>
+  </aside>
+
   <div class="idx-grid">
     
     <a href="episode0_grid_codes.html" class="idx-card">
