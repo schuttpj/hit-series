@@ -37,9 +37,10 @@ Applied to `episode0_grid_codes.html` and future HIT Technology Series episodes.
 
 ## Index page disclaimer
 
-- State **demonstration purposes only**; technology not yet commercially mature.
-- Direct performance criteria, validation, and readiness questions to the **OEM (Ionate)**.
-- Note that modelled limits and simulation assumptions are **OEM design-dependent** and subject to change.
+- One short paragraph at the **footer**. Do not use a prominent boxed notice above the episode grid.
+- State **demonstration purposes only** and that results reflect **this simulation setup**, not product performance criteria.
+- Note modelled limits follow the **OEM Reference Design** and may change with design decisions.
+- Direct detailed validation questions to **Ionate**. Do not describe the product as immature, pre-commercial, or not field-validated on the index page.
 
 - APR wording: **at least 90% of pre-fault active power**, never **full power draw**.
 - Incident examples: cite **NERC LLTF (2025)** for July 2024 Dominion-area disconnections; do not attribute to ESIG unless the full report states the event.
