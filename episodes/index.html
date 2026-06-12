@@ -4,105 +4,167 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HIT Technology Series | FoundDigital DS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Vollkorn:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#10152e;--navy2:#161c38;--cyan:#22c6f0;--white:#e8ecf4;--muted:rgba(232,236,244,0.5)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#10152e;
+  --surface:rgba(255,255,255,0.03);
+  --border:rgba(34,198,240,0.12);
+  --border-hover:rgba(34,198,240,0.32);
+  --cyan:#22c6f0;
+  --text:#ffffff;
+  --text-secondary:rgba(255,255,255,0.68);
+  --text-muted:rgba(255,255,255,0.45);
+  --text-faint:rgba(255,255,255,0.28);
+}
 html{scrollbar-color:#2e3a5c var(--navy);scrollbar-width:thin}
-body{background:var(--navy);color:var(--white);
-  font-family:Geist,'Segoe UI',system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased;
-  min-height:100vh}
+body{
+  background:var(--navy);color:var(--text);
+  font-family:Geist,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  min-height:100vh;line-height:1.65;
+}
+
+/* ── Nav ── */
+.sn{
+  position:sticky;top:0;z-index:500;
+  background:rgba(16,21,46,0.92);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;height:50px;
+  display:flex;align-items:center;gap:12px;font-size:.8rem;
+}
+.sn-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;opacity:.9;transition:opacity .18s}
+.sn-logo:hover{opacity:1}
+.sn-sep{color:rgba(255,255,255,0.14);flex-shrink:0}
+.sn-eps{display:flex;gap:2px;flex:1;justify-content:center}
+.sn-ep{
+  display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;
+  text-decoration:none;color:var(--text-muted);font-size:.74rem;font-weight:500;
+  transition:color .18s,background .18s;white-space:nowrap;
+}
+.sn-ep .sn-ep-long{display:none}
+.sn-ep:hover{color:var(--text-secondary);background:rgba(255,255,255,0.04)}
+.sn-ep.sn-cur{color:var(--cyan);background:rgba(34,198,240,0.08);font-weight:600}
+.sn-ep-badge{font-size:.68rem;opacity:.75}
+.sn-arrows{display:flex;gap:6px;flex-shrink:0}
+.sn-arr{
+  padding:5px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;
+  color:var(--text-muted);text-decoration:none;font-size:.74rem;
+  white-space:nowrap;transition:all .18s;
+}
+.sn-arr:hover{color:var(--text);border-color:rgba(255,255,255,0.22);background:rgba(255,255,255,0.04)}
+@media(min-width:640px){.sn-ep .sn-ep-long{display:inline;opacity:.65;font-weight:400;margin-left:1px}}
+@media(max-width:480px){.sn-arrows .sn-arr:not(.sn-home){display:none}}
 
 /* ── Hero ── */
 .hero{
-  min-height:44vh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:80px 32px 52px;position:relative;overflow:hidden;
+  position:relative;padding:72px 32px 64px;overflow:hidden;
 }
 .hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 900px 600px at 20% 60%,rgba(34,198,240,0.06) 0%,transparent 70%);
+  content:'';position:absolute;top:-120px;left:-80px;width:640px;height:640px;
+  pointer-events:none;
+  background:radial-gradient(ellipse,rgba(34,198,240,0.07) 0%,transparent 68%);
 }
-.hero-inner{max-width:1060px;margin:0 auto;width:100%}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  pointer-events:none;
+}
+.hero-inner{position:relative;max-width:1060px;margin:0 auto}
 .hero-kicker{
-  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--cyan);font-weight:600;margin-bottom:.9rem;opacity:.85
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:.85rem;
 }
-.hero-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;line-height:1.18;margin-bottom:.7rem}
-.hero-title strong{font-weight:600;color:#fff}
-.hero-sub{font-size:.92rem;color:var(--muted);max-width:580px;line-height:1.65}
+.hero-title{
+  font-size:clamp(2rem,4.5vw,3.2rem);font-weight:500;line-height:1.1;
+  letter-spacing:-.02em;margin-bottom:.85rem;max-width:720px;
+}
+.hero-title strong{font-weight:600}
+.hero-sub{
+  font-family:Vollkorn,Georgia,serif;font-style:italic;
+  font-size:clamp(1rem,1.6vw,1.2rem);color:var(--text-secondary);
+  max-width:560px;line-height:1.55;
+}
 
-/* ── Grid ── */
-.idx-wrap{max-width:1060px;margin:0 auto;padding:0 32px 80px}
-.idx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:-24px}
+/* ── Episodes section ── */
+.idx-wrap{max-width:1060px;margin:0 auto;padding:48px 32px 64px}
+.idx-head{margin-bottom:28px}
+.idx-label{
+  display:inline-block;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:.5rem;
+}
+.idx-head h2{
+  font-size:clamp(1.25rem,2vw,1.5rem);font-weight:500;
+  color:var(--text-secondary);letter-spacing:-.01em;
+}
+.idx-grid{
+  display:grid;grid-template-columns:1fr;gap:14px;
+}
+@media(min-width:560px){.idx-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(min-width:960px){.idx-grid{gap:18px}}
 
 /* ── Cards ── */
 .idx-card{
-  display:flex;flex-direction:column;gap:10px;
-  background:var(--navy2);border:1px solid rgba(46,58,92,0.6);border-radius:14px;
-  padding:22px 22px 18px;text-decoration:none;color:inherit;
-  transition:border-color .22s,transform .22s,box-shadow .22s;
-  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:0;
+  background:var(--surface);
+  border:1px solid var(--border);border-radius:14px;
+  padding:22px 22px 20px;text-decoration:none;color:inherit;
+  min-height:196px;
+  transition:border-color .22s,background .22s,transform .22s,box-shadow .22s;
 }
-.idx-card::before{
-  content:'';position:absolute;inset:0;border-radius:14px;pointer-events:none;
-  background:radial-gradient(ellipse 200px 100px at 50% 0%,rgba(34,198,240,0.04) 0%,transparent 80%);
-  opacity:0;transition:opacity .22s;
+.idx-card:hover,.idx-card:focus-visible{
+  border-color:var(--border-hover);
+  background:rgba(255,255,255,0.045);
+  transform:translateY(-2px);
+  box-shadow:0 10px 32px rgba(0,0,0,0.28);
+  outline:none;
 }
-.idx-card:hover{border-color:rgba(34,198,240,0.35);transform:translateY(-2px);
-  box-shadow:0 12px 40px rgba(0,0,0,0.35)}
-.idx-card:hover::before{opacity:1}
-.idx-card-dim{pointer-events:none;opacity:.45}
-.idx-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.idx-ep-num{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--cyan);font-weight:700;opacity:.8}
-.idx-badge{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;
-  padding:3px 8px;border-radius:20px;font-weight:600}
-.idx-avail{background:rgba(34,198,240,0.12);color:var(--cyan);border:1px solid rgba(34,198,240,0.25)}
-.idx-coming{background:rgba(255,255,255,0.05);color:rgba(232,236,244,0.4);
-  border:1px solid rgba(255,255,255,0.1)}
-.idx-card-title{font-size:1rem;font-weight:600;color:#fff;line-height:1.3}
-.idx-card-sub{font-size:.72rem;color:var(--cyan);opacity:.75;line-height:1.4}
-.idx-card-desc{font-size:.78rem;color:var(--muted);line-height:1.6;flex:1}
-.idx-card-cta{font-size:.74rem;color:rgba(34,198,240,0.7);font-weight:500;margin-top:4px}
+.idx-card-top{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-bottom:14px;
+}
+.idx-ep-num{
+  font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-muted);font-weight:600;
+}
+.idx-badge{
+  font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:20px;font-weight:600;
+  background:rgba(34,198,240,0.08);color:var(--cyan);
+  border:1px solid rgba(34,198,240,0.2);
+}
+.idx-card-title{
+  font-size:1.05rem;font-weight:600;color:var(--text);
+  line-height:1.3;margin-bottom:6px;
+}
+.idx-card-sub{
+  font-size:.74rem;color:var(--text-muted);line-height:1.4;
+  margin-bottom:10px;
+}
+.idx-card-desc{
+  font-size:.8rem;color:var(--text-secondary);line-height:1.6;
+  flex:1;margin-bottom:16px;
+}
+.idx-card-cta{
+  font-size:.74rem;color:var(--cyan);font-weight:500;
+  opacity:.75;transition:opacity .18s;
+}
+.idx-card:hover .idx-card-cta,.idx-card:focus-visible .idx-card-cta{opacity:1}
 
 /* ── Footer ── */
-.idx-footer{max-width:1060px;margin:0 auto;text-align:center;padding:36px 32px 48px}
-.idx-notice{
-  font-size:.74rem;line-height:1.65;color:rgba(232,236,244,0.42);
-  max-width:640px;margin:0 auto 16px;
+.idx-footer{
+  max-width:1060px;margin:0 auto;text-align:center;
+  padding:0 32px 48px;
+  border-top:1px solid rgba(255,255,255,0.06);
 }
-.idx-footer-meta{font-size:.7rem;color:rgba(232,236,244,0.2);line-height:1.7}
-
-/* ── Nav ── */
-
-/* ── Series navigation bar ── */
-.sn{position:sticky;top:0;z-index:500;
-  background:rgba(10,15,31,0.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(34,198,240,0.14);
-  padding:0 20px;height:50px;
-  display:flex;align-items:center;gap:12px;
-  font-family:Geist,'Segoe UI',system-ui,Arial,sans-serif;font-size:.8rem}
-.sn-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;opacity:.9;transition:opacity .18s}
-.sn-logo:hover{opacity:1}
-.sn-sep{color:rgba(255,255,255,0.16);flex-shrink:0;font-size:1em;padding:0 2px}
-.sn-eps{display:flex;gap:2px;flex:1;justify-content:center}
-.sn-ep{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;
-  text-decoration:none;color:rgba(232,236,244,0.4);font-size:.74rem;
-  font-weight:500;transition:all .18s;white-space:nowrap}
-.sn-ep .sn-ep-long{display:none}
-.sn-ep:hover{color:rgba(232,236,244,0.8);background:rgba(255,255,255,0.05)}
-.sn-ep.sn-cur{color:#22c6f0;background:rgba(34,198,240,0.1);font-weight:600}
-.sn-ep.sn-cur .sn-ep-badge{color:#22c6f0}
-.sn-ep-badge{font-size:.68rem;opacity:.7}
-.sn-arrows{display:flex;gap:6px;flex-shrink:0}
-.sn-arr{padding:5px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;
-  color:rgba(232,236,244,0.5);text-decoration:none;font-size:.74rem;
-  white-space:nowrap;transition:all .18s}
-.sn-arr:hover{color:#e8ecf4;border-color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.04)}
-.sn-arr.sn-home{border-color:rgba(34,198,240,0.2);color:rgba(34,198,240,0.6)}
-.sn-arr.sn-home:hover{border-color:rgba(34,198,240,0.5);color:#22c6f0}
-@media(min-width:640px){.sn-ep .sn-ep-long{display:inline;opacity:.6;font-weight:400;margin-left:1px}}
-@media(max-width:480px){.sn-arrows .sn-arr:not(.sn-home){display:none}}
-
+.idx-notice{
+  font-size:.74rem;line-height:1.65;color:var(--text-muted);
+  max-width:600px;margin:32px auto 14px;
+}
+.idx-footer-meta{font-size:.7rem;color:var(--text-faint);line-height:1.7;padding-bottom:8px}
 </style>
 <link rel="stylesheet" href="auth.css">
 </head>
@@ -117,7 +179,7 @@ body{background:var(--navy);color:var(--white);
   </div>
   <div class="sn-arrows">
     <span class="sn-arr" style="opacity:.3;cursor:default">← Prev</span>
-    <span class="sn-arr sn-home" style="opacity:.3;cursor:default">⊞ All</span>
+    <span class="sn-arr" style="opacity:.3;cursor:default">⊞ All</span>
     <span class="sn-arr" style="opacity:.3;cursor:default">Next →</span>
   </div>
 </nav>
@@ -131,54 +193,58 @@ body{background:var(--navy);color:var(--white);
 </header>
 
 <main class="idx-wrap">
+  <div class="idx-head">
+    <div class="idx-label">Series</div>
+    <h2>Four interactive studies</h2>
+  </div>
+
   <div class="idx-grid">
-    
     <a href="episode0_grid_codes.html" class="idx-card">
       <div class="idx-card-top">
         <span class="idx-ep-num">Ep 0</span>
-        <span class="idx-badge idx-avail">Available</span>
+        <span class="idx-badge">Available</span>
       </div>
       <div class="idx-card-title">Grid Code Compliance</div>
       <div class="idx-card-sub">Why the rules changed for data centres</div>
       <div class="idx-card-desc">Regulatory context: ERCOT NOGRR-282, NERC Level 3 Alert, and large-load ride-through requirements.</div>
-      <div class="idx-card-cta">Open →</div>
+      <div class="idx-card-cta">Open episode →</div>
     </a>
     <a href="hit_episode1.html" class="idx-card">
       <div class="idx-card-top">
         <span class="idx-ep-num">Ep 1</span>
-        <span class="idx-badge idx-avail">Available</span>
+        <span class="idx-badge">Available</span>
       </div>
       <div class="idx-card-title">Load Voltage Regulation</div>
       <div class="idx-card-sub">Series compensation · ERCOT MQT</div>
       <div class="idx-card-desc">Load-side voltage regulation within the ±20% compensation range. 20 kHz firmware-in-the-loop against the ERCOT Model Quality Test profile.</div>
-      <div class="idx-card-cta">Open →</div>
+      <div class="idx-card-cta">Open episode →</div>
     </a>
     <a href="dll_harmonics.html" class="idx-card">
       <div class="idx-card-top">
         <span class="idx-ep-num">Ep 2</span>
-        <span class="idx-badge idx-avail">Available</span>
+        <span class="idx-badge">Available</span>
       </div>
       <div class="idx-card-title">Harmonic Mitigation</div>
       <div class="idx-card-sub">IEEE 519-2022 · Four scenarios</div>
       <div class="idx-card-desc">HIT shunt path in simulation. Four load architectures against IEEE 519-2022 TDD limits.</div>
-      <div class="idx-card-cta">Open →</div>
+      <div class="idx-card-cta">Open episode →</div>
     </a>
     <a href="dll_mqt.html" class="idx-card">
       <div class="idx-card-top">
         <span class="idx-ep-num">MQT</span>
-        <span class="idx-badge idx-avail">Available</span>
+        <span class="idx-badge">Available</span>
       </div>
       <div class="idx-card-title">ERCOT MQT Dashboard</div>
       <div class="idx-card-sub">Reference Design June 2026 v1 · OEM firmware</div>
       <div class="idx-card-desc">Interactive 25-second ERCOT Model Quality Test viewer. OEM controller firmware at 20 kHz.</div>
-      <div class="idx-card-cta">Open →</div>
+      <div class="idx-card-cta">Open viewer →</div>
     </a>
   </div>
 </main>
 
 <footer class="idx-footer">
   <p class="idx-notice">For demonstration purposes only. Results reflect this simulation setup and do not define product performance criteria. Modelled limits are based on the OEM Reference Design and may change with design decisions; detailed validation questions should be directed to Ionate.</p>
-  <p class="idx-footer-meta">Reference Design June 2026 v1 &nbsp;·&nbsp; FoundDigital DS</p>
+  <p class="idx-footer-meta">Reference Design June 2026 v1 · FoundDigital DS</p>
 </footer>
 
 </body>
