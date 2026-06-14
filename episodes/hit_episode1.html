@@ -62,12 +62,11 @@ body{
   font-size:clamp(1.05rem,1.8vw,1.35rem);
   color:rgba(255,255,255,0.68);max-width:560px;margin-bottom:3rem;
 }
-.hero-logo{
-  position:absolute;top:90px;right:30px;
-  display:block;opacity:.72;transition:opacity .2s;z-index:1;
-}
+.hero-head{display:flex;align-items:center;justify-content:space-between;gap:48px;margin-bottom:2.5rem}
+.hero-text{flex:1;min-width:0}
+.hero-logo{flex-shrink:0;opacity:.88;transition:opacity .2s}
 .hero-logo:hover{opacity:1}
-.hero-logo img{display:block;width:108px;height:auto}
+.hero-logo img{display:block;width:120px;height:auto}
 @media(max-width:700px){.hero-logo{display:none}}
 .hero-diagram{
   background:rgba(255,255,255,0.02);
@@ -611,13 +610,17 @@ body{
 
 <!-- ── Hero ──────────────────────────────────────────────────── -->
 <section class="hero">
-  <a class="hero-logo" href="https://www.ionate.energy/" target="_blank" rel="noopener" aria-label="Ionate website">
-    <img src="ionate-logo.png" alt="Ionate" width="164" height="116">
-  </a>
   <div class="hero-inner">
-    <div class="hero-kicker">Hybrid Intelligent Transformer (HIT) Technology Series</div>
-    <h1>Load Voltage<br>Regulation</h1>
-    <p class="hero-sub">How active series compensation regulates load-side voltage during grid disturbances within the ±20% compensation range, and where energy storage is additionally required.</p>
+    <div class="hero-head">
+      <div class="hero-text">
+        <div class="hero-kicker">Hybrid Intelligent Transformer (HIT) Technology Series</div>
+        <h1>Load Voltage<br>Regulation</h1>
+        <p class="hero-sub">How active series compensation regulates load-side voltage during grid disturbances within the ±20% compensation range, and where energy storage is additionally required.</p>
+      </div>
+      <a class="hero-logo" href="https://www.ionate.energy/" target="_blank" rel="noopener" aria-label="Ionate website">
+        <img src="ionate-logo.png" alt="Ionate" width="164" height="116">
+      </a>
+    </div>
     <div class="hero-diagram">
       <svg class="arch-svg" viewBox="0 0 860 148" xmlns="http://www.w3.org/2000/svg" aria-label="Architecture diagram: Grid to HIT to Load">
         <defs>
