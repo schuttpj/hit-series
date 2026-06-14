@@ -74,6 +74,13 @@ body{
   font-size:clamp(1rem,1.7vw,1.25rem);
   color:rgba(255,255,255,0.65);max-width:560px;
 }
+.hero-logo{
+  position:absolute;top:90px;right:30px;
+  display:block;opacity:.72;transition:opacity .2s;z-index:1;
+}
+.hero-logo:hover{opacity:1}
+.hero-logo img{display:block;width:108px;height:auto}
+@media(max-width:700px){.hero-logo{display:none}}
 
 /* ── Sections ── */
 .page-body{width:100%;max-width:1060px;margin:0 auto;padding:0 30px}
@@ -224,6 +231,9 @@ body{
 
 <!-- ── Hero ── -->
 <section class="hero">
+  <a class="hero-logo" href="https://www.ionate.energy/" target="_blank" rel="noopener" aria-label="Ionate website">
+    <img src="ionate-logo.png" alt="Ionate" width="164" height="116">
+  </a>
   <div class="hero-inner">
     <div class="hero-kicker">Episode 2 · HIT Technology Series</div>
     <h1>Current harmonics<br>in grid-connected<br>data centres</h1>
