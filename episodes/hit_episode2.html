@@ -382,15 +382,17 @@ body{
     </div>
     <button class="sim-close" onclick="closeSim()">&#x2715; &nbsp;Close</button>
   </div>
-  <iframe id="sim-frame" src="" title="Harmonic mitigation simulation"></iframe>
+  <iframe id="sim-frame" title="Harmonic mitigation simulation"></iframe>
 </div>
 
 <script>
 function openSim(){
-  var o=document.getElementById('sim-overlay');
   var f=document.getElementById('sim-frame');
-  if(!f.src||f.src==='about:blank'||f.src==='') f.src='dll_harmonics.html';
-  o.classList.add('open');
+  if(!f.getAttribute('data-loaded')){
+    f.src='dll_harmonics.html';
+    f.setAttribute('data-loaded','1');
+  }
+  document.getElementById('sim-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
 function closeSim(){
