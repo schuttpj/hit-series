@@ -227,7 +227,7 @@ body{
   <div class="hero-inner">
     <div class="hero-kicker">Episode 2 · HIT Technology Series</div>
     <h1>Current harmonics<br>in grid-connected<br>data centres</h1>
-    <p class="hero-sub">Power electronic loads draw non-sinusoidal currents. The resulting harmonic distortion at the point of common coupling must meet IEEE 519-2022 limits — or the facility is non-compliant at the meter.</p>
+    <p class="hero-sub">Nonlinear loads draw nonsinusoidal currents from the grid. The harmonic content of those currents at the point of common coupling is subject to limits under IEEE 519-2022. Facilities that exceed those limits are non-compliant at the meter.</p>
   </div>
 </section>
 
@@ -237,36 +237,39 @@ body{
 <section class="sect" id="source">
   <div class="sect-label">The Problem</div>
   <h2>Where harmonics come from</h2>
-  <p class="sect-lede">Switching power supplies, UPS rectifiers, and variable-frequency drives all draw current in pulses rather than continuously. That pulsed waveform is a distorted sinusoid — mathematically equivalent to a sum of the fundamental plus higher-frequency components at integer multiples of 60 Hz.</p>
+  <p class="sect-lede">Harmonics are created when nonlinear loads draw nonsinusoidal current from a sinusoidal voltage source. The distorted current waveform can be decomposed by Fourier analysis into a fundamental component and a series of harmonic components at integer multiples of the supply frequency.</p>
 
   <div class="two-col">
     <div class="col-text">
-      <p>A six-pulse rectifier — the topology found in most UPS systems — draws current in two pulses per half-cycle. By Fourier decomposition, its line current contains a fundamental component plus characteristic harmonics at orders <strong>h = 6k ± 1</strong> (k = 1, 2, 3, …): the 5th, 7th, 11th, 13th, 17th, 19th, and so on.</p>
-      <p>Under the idealised assumption of rectangular current pulses and no commutation overlap (Mohan, <em>Power Electronics</em>), the amplitude of each harmonic is <strong>I<sub>h</sub> = I<sub>1</sub> / h</strong>, giving a theoretical total harmonic distortion of approximately 29% relative to the fundamental.</p>
-      <p>Real installations exceed this when multiple loads operate simultaneously. Harmonic currents from different rectifiers can add coherently depending on phase angle, increasing distortion at the common bus.</p>
+      <p>A six-pulse rectifier, the topology used in most UPS systems and the front end of many adjustable speed drives, draws a quasi-square wave line current rather than a sinusoidal one. For an ideal six-pulse rectifier with a large load inductance approximating a current source, the line current has a <strong>total harmonic distortion of 31%</strong> and contains no triplen harmonics. The characteristic harmonic orders present are <strong>h = 6k &plusmn; 1</strong> (k = 1, 2, 3, …): the 5th, 7th, 11th, 13th, 17th, 19th, and so on.</p>
+      <p>Under the assumption of a current-source load, the amplitude of each characteristic harmonic relative to the fundamental is <strong>I<sub>h</sub> / I<sub>1</sub> = 1/h</strong>. In practice, finite line inductance and commutation overlap reduce the higher-order amplitudes below the 1/h envelope.</p>
+      <p>Variable-frequency drives add further harmonic content through their own six-pulse input rectifier stages. The combined loading of multiple nonlinear loads in a data centre determines the total harmonic current presented to the utility at the point of common coupling (PCC).</p>
+      <p style="font-size:.78em;color:rgba(255,255,255,0.32);margin-top:1rem;line-height:1.5">
+        Source: Kusko &amp; Thompson, <em>Power Quality in Electrical Systems</em>, McGraw-Hill, 2007, Ch. 5.
+      </p>
     </div>
     <div>
       <div class="harm-table-wrap">
         <table class="harm-table">
           <thead>
             <tr>
-              <th>Harmonic order h</th>
+              <th>Order h</th>
               <th>Frequency (60 Hz base)</th>
-              <th>Ideal amplitude I<sub>h</sub> / I<sub>1</sub></th>
+              <th>I<sub>h</sub> / I<sub>1</sub> (ideal)</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td class="h-order">5</td><td>300 Hz</td><td class="h-amp">20.0 %</td></tr>
-            <tr><td class="h-order">7</td><td>420 Hz</td><td class="h-amp">14.3 %</td></tr>
-            <tr><td class="h-order">11</td><td>660 Hz</td><td class="h-amp">9.1 %</td></tr>
-            <tr><td class="h-order">13</td><td>780 Hz</td><td class="h-amp">7.7 %</td></tr>
-            <tr><td class="h-order">17</td><td>1 020 Hz</td><td class="h-amp">5.9 %</td></tr>
-            <tr><td class="h-order">19</td><td>1 140 Hz</td><td class="h-amp">5.3 %</td></tr>
+            <tr><td class="h-order">5</td><td>300 Hz</td><td class="h-amp">20.0%</td></tr>
+            <tr><td class="h-order">7</td><td>420 Hz</td><td class="h-amp">14.3%</td></tr>
+            <tr><td class="h-order">11</td><td>660 Hz</td><td class="h-amp">9.1%</td></tr>
+            <tr><td class="h-order">13</td><td>780 Hz</td><td class="h-amp">7.7%</td></tr>
+            <tr><td class="h-order">17</td><td>1 020 Hz</td><td class="h-amp">5.9%</td></tr>
+            <tr><td class="h-order">19</td><td>1 140 Hz</td><td class="h-amp">5.3%</td></tr>
           </tbody>
         </table>
       </div>
       <p style="font-size:.74em;color:rgba(255,255,255,0.32);margin-top:10px;line-height:1.5">
-        Six-pulse rectifier characteristic harmonic spectrum. Source: Mohan, Undeland &amp; Robbins, <em>Power Electronics</em>; IEEE Std 519-2022 Annex A.
+        Characteristic harmonic orders of the six-pulse rectifier. Amplitudes are for the ideal current-source load case (I<sub>h</sub>/I<sub>1</sub> = 1/h). Triplen orders are absent. Source: Kusko &amp; Thompson Ch. 5; Erickson &amp; Maksimovic, <em>Fundamentals of Power Electronics</em>.
       </p>
     </div>
   </div>
@@ -275,35 +278,38 @@ body{
 <!-- ── 2. IEEE 519-2022 ── -->
 <section class="sect" id="standard">
   <div class="sect-label">Compliance Limit</div>
-  <h2>IEEE 519-2022: the applicable standard</h2>
-  <p class="sect-lede">IEEE 519-2022 sets harmonic current limits at the point of common coupling (PCC) — the metering boundary between the utility and the customer. Limits are indexed by the short-circuit ratio I<sub>SC</sub> / I<sub>L</sub>, which reflects the relative stiffness of the supply.</p>
+  <h2>IEEE 519-2022: harmonic current limits at the PCC</h2>
+  <p class="sect-lede">IEEE 519 sets limits on the harmonic currents that a customer may inject into the utility system at the point of common coupling. The limits are indexed by the short-circuit ratio I<sub>SC</sub> / I<sub>L</sub>, which is the ratio of the maximum short-circuit current available at the PCC to the maximum demand load current at the fundamental frequency.</p>
 
   <div class="two-col">
     <div class="col-text">
-      <p>The relevant metric is <strong>Total Demand Distortion (TDD)</strong> — the rms harmonic current (orders 2 through 50) normalised to the maximum demand load current I<sub>L</sub> at the PCC, expressed as a percentage:</p>
-      <p style="text-align:center;font-size:1.05em;color:var(--white);padding:10px 0;letter-spacing:.01em">
-        TDD = √(Σ I<sub>h</sub>²) / I<sub>L</sub> × 100 %
+      <p>The measure of compliance is <strong>Total Demand Distortion (TDD)</strong>: the root-sum-square of all harmonic current components from order 2 to 50, expressed as a percentage of the maximum demand load current I<sub>L</sub> at the PCC.</p>
+      <p style="text-align:center;font-size:1.05em;color:var(--white);padding:10px 0">
+        TDD = &radic;(&Sigma; I<sub>h</sub><sup>2</sup>) / I<sub>L</sub> &times; 100%
       </p>
-      <p>For the ERCOT reference design (I<sub>SC</sub> / I<sub>L</sub> ≈ 17, tier &lt; 20), the limit is <strong>TDD ≤ 5 %</strong>. Individual harmonic limits apply on top of this: 4 % for orders below the 11th, 2 % for orders 11–16, and 1.5 % for orders 17–22.</p>
-      <p>Compliance is assessed over 10-minute demand intervals and applies continuously during normal operation, not only at peak load.</p>
+      <p>TDD differs from Total Harmonic Distortion (THD). THD normalises to the fundamental component I<sub>1</sub>. TDD normalises to the maximum demand current I<sub>L</sub>. At part load, I<sub>L</sub> remains fixed at its maximum demand value, so TDD is lower than THD for the same harmonic amplitudes.</p>
+      <p>For the ERCOT reference design simulation (I<sub>SC</sub> / I<sub>L</sub> = 17.4, tier I<sub>SC</sub>/I<sub>L</sub> &lt; 20), the applicable limits are: TDD &le; 5%, with individual order limits of 4.0% for h &lt; 11, 2.0% for 11 &le; h &lt; 17, and 1.5% for 17 &le; h &lt; 23.</p>
+      <p style="font-size:.78em;color:rgba(255,255,255,0.32);margin-top:1rem;line-height:1.5">
+        Source: Kusko &amp; Thompson Ch. 6, Table 10.3 (IEEE Std. 519-1992); IEEE Std. 519-2022 maintains equivalent limit structure.
+      </p>
     </div>
     <div>
       <div class="stat-grid">
         <div class="stat-card">
-          <div class="stat-val">5 %</div>
-          <div class="stat-lbl">TDD limit at PCC<br>IEEE 519-2022, tier I<sub>SC</sub>/I<sub>L</sub> &lt; 20</div>
+          <div class="stat-val">5%</div>
+          <div class="stat-lbl">TDD limit at PCC. IEEE 519, tier I<sub>SC</sub>/I<sub>L</sub> &lt; 20</div>
         </div>
         <div class="stat-card">
-          <div class="stat-val">≈ 29 %</div>
-          <div class="stat-lbl">THD of an unfiltered six-pulse rectifier (theoretical)</div>
+          <div class="stat-val">31%</div>
+          <div class="stat-lbl">THD of an unfiltered six-pulse rectifier with current-source load (theoretical)</div>
         </div>
         <div class="stat-card">
           <div class="stat-val">17.4</div>
-          <div class="stat-lbl">I<sub>SC</sub> / I<sub>L</sub> ratio in the ERCOT reference design simulation</div>
+          <div class="stat-lbl">I<sub>SC</sub> / I<sub>L</sub> in the ERCOT reference design simulation</div>
         </div>
       </div>
       <div class="callout" style="margin-top:1.6rem">
-        <p>TDD differs from THD. TDD normalises to maximum demand current I<sub>L</sub>, not to the fundamental I<sub>1</sub>. At part load, the denominator stays fixed, so TDD can be lower than THD even with identical harmonic content. IEEE 519-2022 uses TDD exclusively.</p>
+        <p>The short-circuit ratio I<sub>SC</sub> / I<sub>L</sub> characterises the stiffness of the supply relative to the load. A lower ratio indicates a larger load relative to the available fault current, so tighter harmonic limits apply. For I<sub>SC</sub>/I<sub>L</sub> &lt; 20, the 5% TDD limit represents the most restrictive tier in the standard.</p>
       </div>
     </div>
   </div>
@@ -312,39 +318,40 @@ body{
 <!-- ── 3. HIT Response ── -->
 <section class="sect" id="mitigation">
   <div class="sect-label">HIT Response</div>
-  <h2>Active harmonic filtering via the HIT shunt converter</h2>
-  <p class="sect-lede">The HIT shunt converter (VSC2) operates as an active harmonic filter connected in parallel at the node between the series HIT transformer and the load. It cancels harmonic currents before they propagate to the PCC.</p>
+  <h2>Harmonic current compensation via the HIT shunt converter</h2>
+  <p class="sect-lede">The HIT shunt converter (VSC2) injects a compensation current into the circuit node between the series HIT transformer and the load. That injected current cancels the harmonic content of the load current before it reaches the PCC.</p>
 
   <div class="two-col">
     <div class="col-text">
-      <p>The load draws distorted current containing fundamental plus harmonic components. The shunt converter measures this current, computes the harmonic content in real time via the OEM firmware running at 20 kHz, and injects an equal and opposite compensating current:</p>
+      <p>The nonlinear load draws a distorted current containing a fundamental component and harmonic components. VSC2, connected in shunt at the load node, measures the load current and injects a compensation current equal and opposite to the harmonic content:</p>
       <p style="text-align:center;font-size:1em;color:var(--white);padding:8px 0">
-        <strong>i<sub>comp</sub> = − i<sub>harm</sub></strong>
+        <strong>i<sub>comp</sub> = &minus; i<sub>harm</sub></strong>
       </p>
-      <p>The grid-side current through the HIT series path then contains only the fundamental component. The PCC sees a clean sinusoidal current, and TDD at the meter drops to near zero — bounded in practice by the converter's current rating and control bandwidth.</p>
-      <p>In the Reference Design June 2026 v1, the shunt current reference is rated to <strong>±1 530 A peak</strong>, set by the power electronics dimensioning of the OEM build.</p>
+      <p>The harmonic content and the compensation current cancel at the shunt node. The current in the series HIT path toward the PCC then contains only the fundamental component. This is the mechanism described in Kusko &amp; Thompson (p. 96): "The active compensator senses the harmonic current and injects a compensation current, I<sub>c</sub>, which cancels the harmonic current. The net supply current contains only the fundamental."</p>
+      <p>In the HDT topology described by Doff-Sotta et al., VSC2 is the load-side converter that "manages shunt current injection." Harmonic mitigation is one of several ancillary services VSC2 can provide alongside reactive power compensation and load phase balancing.</p>
+      <p>In the Reference Design June 2026 v1, the shunt current reference output of the OEM firmware is rated to <strong>&plusmn;1 530 A peak</strong>, set by the power electronics dimensioning of the build.</p>
     </div>
     <div>
       <div class="step-flow">
         <div class="sf-step">
           <div class="sf-dot">1</div>
-          <div class="sf-head">Load draws distorted current</div>
-          <p>Six-pulse rectifiers and VFDs produce harmonic currents at h = 5, 7, 11, 13, … superimposed on the 60 Hz fundamental.</p>
+          <div class="sf-head">Nonlinear load draws distorted current</div>
+          <p>The load current contains the fundamental at 60 Hz plus harmonic components at h = 5, 7, 11, 13, … with amplitudes following approximately the 1/h envelope for the six-pulse topology.</p>
         </div>
         <div class="sf-step">
           <div class="sf-dot">2</div>
-          <div class="sf-head">Firmware computes harmonic content</div>
-          <p>The OEM controller samples load current at <strong>20 kHz</strong> and extracts the harmonic reference signal in real time.</p>
+          <div class="sf-head">OEM firmware extracts the harmonic reference</div>
+          <p>The OEM controller, running at <strong>20 kHz</strong>, samples the load current and computes the harmonic current reference signal i<sub>harm</sub> that VSC2 must cancel.</p>
         </div>
         <div class="sf-step">
           <div class="sf-dot">3</div>
-          <div class="sf-head">Shunt injects compensating current</div>
-          <p>VSC2 injects <strong>i<sub>comp</sub> = −i<sub>harm</sub></strong> at the shunt node. Harmonic and compensating currents cancel; only the fundamental flows toward the PCC.</p>
+          <div class="sf-head">VSC2 injects the compensation current</div>
+          <p>VSC2 injects <strong>i<sub>comp</sub> = &minus;i<sub>harm</sub></strong> at the shunt node. The harmonic components in the load current and the injected compensation current cancel. Only the fundamental current continues toward the PCC through the series HIT path.</p>
         </div>
         <div class="sf-step">
           <div class="sf-dot">4</div>
-          <div class="sf-head">PCC current meets IEEE 519-2022</div>
-          <p>TDD at the metering point is reduced from ~29 % (unfiltered six-pulse) to within the <strong>5 % limit</strong> for the applicable tier.</p>
+          <div class="sf-head">PCC current meets the IEEE 519 limit</div>
+          <p>TDD at the metering point is reduced from the uncompensated value toward the <strong>5% limit</strong>. How close the result comes to zero TDD depends on the current rating and control bandwidth of VSC2.</p>
         </div>
       </div>
     </div>
@@ -354,7 +361,7 @@ body{
     <div class="sim-launch-info">
       <div class="sim-launch-label">Reference Design June 2026 v1 · OEM Firmware · 20 kHz · IEEE 519-2022</div>
       <h3>Explore the harmonic mitigation simulation</h3>
-      <p>The Reference Design controller DLL was run against four facility load architectures — from six-pulse UPS to BESS with low-harmonic VFDs. Inspect the harmonic spectrum, waveform, and TDD result for each case against the IEEE 519-2022 limit.</p>
+      <p>The Reference Design controller DLL was run against four facility load architectures: six-pulse UPS, active front-end UPS with measured harmonic data, BESS with 40% VFD cooling load, and BESS with 23% VFD cooling load. Inspect the harmonic spectrum, current waveform, and TDD result for each case against the IEEE 519-2022 limit.</p>
     </div>
     <button class="sim-btn" onclick="openSim()">Explore simulation →</button>
   </div>
@@ -373,7 +380,7 @@ body{
     <div class="sim-header-left">
       <div class="sim-header-title">HIT Harmonic Mitigation · IEEE 519-2022 · Reference Design June 2026 v1</div>
     </div>
-    <button class="sim-close" onclick="closeSim()">✕ &nbsp;Close</button>
+    <button class="sim-close" onclick="closeSim()">&#x2715; &nbsp;Close</button>
   </div>
   <iframe id="sim-frame" src="" title="Harmonic mitigation simulation"></iframe>
 </div>
