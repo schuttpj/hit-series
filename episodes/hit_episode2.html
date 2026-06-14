@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Harmonics: HIT Technology Series · FoundDigital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#10152e;--dark:#0a0f1f;--cyan:#22c6f0;--white:#ffffff;
+  --grey:#f4f4f4;--muted:#a0a0a0;--red:#EF5350;--amber:#FF9800;--green:#4CAF50;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Geist',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--navy);color:var(--white);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  line-height:1.65;overflow-x:hidden;
+}
+
+/* ── Series Nav ── */
+.series-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,15,31,0.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(34,198,240,0.14);
+  padding:11px 28px;
+  display:flex;align-items:center;gap:10px;
+  font-size:0.83em;
+}
+.series-nav .logo svg{display:block}
+.sep{color:rgba(255,255,255,0.18);font-size:1.1em}
+.series-title{color:var(--muted)}
+.ep-name{color:var(--white);font-weight:500}
+.sn-eps{display:flex;gap:2px;flex:1;justify-content:center}
+.sn-ep{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;
+  color:rgba(232,236,244,0.55);text-decoration:none;font-size:.82rem;transition:color .15s,background .15s}
+.sn-ep .sn-ep-long{display:none}
+.sn-ep:hover{color:rgba(232,236,244,0.8);background:rgba(255,255,255,0.05)}
+.sn-ep.sn-cur{color:#22c6f0;background:rgba(34,198,240,0.1);font-weight:600}
+.sn-ep.sn-cur .sn-ep-badge{color:#22c6f0}
+.sn-ep-badge{font-size:.68rem;opacity:.7}
+.sn-arr{color:rgba(232,236,244,0.45);text-decoration:none;font-size:.82rem;
+  padding:5px 10px;border-radius:6px;transition:color .15s}
+.sn-arr:hover{color:var(--white)}
+@media(min-width:640px){.sn-ep .sn-ep-long{display:inline;opacity:.6;font-weight:400;margin-left:1px}}
+
+/* ── Hero ── */
+.hero{
+  min-height:72vh;display:flex;flex-direction:column;justify-content:center;
+  padding:110px 30px 80px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-200px;right:-100px;
+  width:700px;height:700px;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(34,198,240,0.06) 0%,transparent 68%);
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:160px;
+  background:linear-gradient(transparent,var(--navy));pointer-events:none;
+}
+.hero-inner{max-width:1060px;margin:0 auto;width:100%}
+.hero-kicker{
+  font-size:0.76em;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1.1rem;font-weight:500;
+}
+.hero h1{
+  font-size:clamp(2.4rem,5.5vw,4.4rem);font-weight:500;line-height:1.08;
+  letter-spacing:-.02em;margin-bottom:1.1rem;
+}
+.hero-sub{
+  font-family:'Vollkorn',serif;font-style:italic;
+  font-size:clamp(1rem,1.7vw,1.25rem);
+  color:rgba(255,255,255,0.65);max-width:560px;
+}
+
+/* ── Sections ── */
+.page-body{width:100%;max-width:1060px;margin:0 auto;padding:0 30px}
+.sect{padding:72px 0}
+.sect+.sect{border-top:1px solid rgba(34,198,240,0.08)}
+.sect-label{
+  display:inline-block;font-size:0.72em;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:.8rem;
+}
+.sect h2{
+  font-size:clamp(1.4rem,2.6vw,2rem);font-weight:500;line-height:1.2;
+  margin-bottom:1rem;letter-spacing:-.01em;
+}
+.sect-lede{font-size:1rem;color:rgba(255,255,255,0.68);max-width:680px;margin-bottom:2rem}
+
+/* ── Two-col ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.col-text p{color:rgba(255,255,255,0.68);margin-bottom:.9rem;font-size:.95em}
+.col-text p:last-child{margin-bottom:0}
+.col-text strong{color:var(--white)}
+@media(max-width:768px){.two-col{grid-template-columns:1fr;gap:32px}}
+
+/* ── Harmonic order table ── */
+.harm-table-wrap{overflow-x:auto;border-radius:1rem;border:1px solid rgba(34,198,240,0.12)}
+.harm-table{width:100%;border-collapse:collapse;font-size:.875em}
+.harm-table th{
+  text-align:left;padding:10px 16px;
+  font-size:.7em;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);border-bottom:1px solid rgba(34,198,240,0.1);
+  font-weight:500;background:rgba(34,198,240,0.03);
+}
+.harm-table td{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.75)}
+.harm-table tbody tr:last-child td{border-bottom:none}
+.harm-table .h-order{color:var(--white);font-weight:500;font-variant-numeric:tabular-nums}
+.harm-table .h-amp{color:var(--cyan);font-variant-numeric:tabular-nums}
+
+/* ── Stat cards ── */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:1.8rem}
+.stat-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(34,198,240,0.12);
+  border-radius:1rem;padding:20px;
+}
+.stat-val{font-size:1.75rem;font-weight:500;color:var(--cyan);letter-spacing:-.02em;line-height:1;margin-bottom:5px}
+.stat-lbl{font-size:.8em;color:var(--muted);line-height:1.4}
+@media(max-width:640px){.stat-grid{grid-template-columns:1fr 1fr}}
+
+/* ── Callout ── */
+.callout{
+  border-left:3px solid var(--cyan);background:rgba(34,198,240,0.06);
+  padding:13px 17px;border-radius:0 .6rem .6rem 0;margin:1.4rem 0;
+}
+.callout p{margin:0;font-size:.9em;color:rgba(255,255,255,0.78);line-height:1.6}
+
+/* ── Step flow ── */
+.step-flow{margin-top:1.8rem;display:flex;flex-direction:column;gap:0}
+.sf-step{position:relative;padding:0 0 22px 36px}
+.sf-step::before{
+  content:'';position:absolute;left:10px;top:24px;bottom:0;
+  width:1px;background:rgba(34,198,240,0.18);
+}
+.sf-step:last-child::before{display:none}
+.sf-dot{
+  position:absolute;left:0;top:2px;
+  width:21px;height:21px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.62rem;font-weight:600;
+  background:rgba(34,198,240,0.1);border:1px solid rgba(34,198,240,0.4);color:var(--cyan);
+}
+.sf-head{font-size:.9em;font-weight:500;color:var(--white);margin-bottom:4px}
+.sf-step p{font-size:.82em;color:rgba(255,255,255,0.58);line-height:1.6;margin:0}
+.sf-step p strong{color:rgba(255,255,255,0.82);font-weight:500}
+
+/* ── Simulation launch ── */
+.sim-launch-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:28px;margin-top:2.5rem;
+  background:rgba(34,198,240,0.04);border:1px solid rgba(34,198,240,0.14);
+  border-radius:1.2rem;padding:28px 32px;
+}
+.sim-launch-label{
+  font-size:.72rem;letter-spacing:.09em;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:.45rem;
+}
+.sim-launch-wrap h3{font-size:1.05rem;font-weight:500;color:var(--white);margin:0 0 .45rem}
+.sim-launch-wrap p{font-size:.875rem;color:var(--muted);line-height:1.55;margin:0}
+.sim-launch-info{flex:1}
+.sim-btn{
+  flex-shrink:0;background:var(--cyan);color:var(--dark);
+  border:none;padding:12px 22px;border-radius:.7rem;
+  font-size:.9rem;font-weight:600;cursor:pointer;
+  font-family:Geist,system-ui,sans-serif;
+  white-space:nowrap;transition:opacity .18s;
+}
+.sim-btn:hover{opacity:.88}
+@media(max-width:700px){
+  .sim-launch-wrap{flex-direction:column;align-items:flex-start}
+  .sim-btn{width:100%;text-align:center;padding:14px}
+}
+
+/* ── Simulation overlay ── */
+.sim-overlay{
+  display:none;position:fixed;inset:0;z-index:900;
+  background:var(--dark);flex-direction:column;
+}
+.sim-overlay.open{display:flex}
+.sim-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px;background:#0a0f1f;
+  border-bottom:1px solid rgba(34,198,240,0.15);flex-shrink:0;
+}
+.sim-header-left{display:flex;align-items:center;gap:10px}
+.sim-header-title{font-size:.82rem;color:rgba(255,255,255,0.65);font-family:Geist,system-ui,sans-serif;letter-spacing:.01em}
+.sim-close{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(34,198,240,0.08);border:1px solid rgba(34,198,240,0.22);
+  color:rgba(255,255,255,0.75);padding:6px 14px;border-radius:6px;
+  cursor:pointer;font-size:.8rem;font-family:Geist,system-ui,sans-serif;
+  transition:background .18s,color .18s;line-height:1;
+}
+.sim-close:hover{background:rgba(34,198,240,0.18);color:#fff}
+#sim-frame{flex:1;border:none;width:100%;background:#0a0f1f}
+
+/* ── Footer ── */
+.page-footer{
+  border-top:1px solid rgba(34,198,240,0.1);
+  padding:38px 30px;max-width:1060px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.footer-note{font-size:.76em;color:rgba(255,255,255,0.28);max-width:580px;line-height:1.55}
+</style>
+<link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+<div id="hit-auth-gate"></div>
+<script src="auth.js"></script>
+
+<!-- ── Series Nav ── -->
+<nav class="series-nav">
+  <div class="sn-eps">
+    <a class="sn-ep" href="episode0_grid_codes.html"><span class="sn-ep-badge">Ep 0</span><span class="sn-ep-long">Grid Codes</span></a>
+    <a class="sn-ep" href="hit_episode1.html"><span class="sn-ep-badge">Ep 1</span><span class="sn-ep-long">Voltage Reg</span></a>
+    <a class="sn-ep sn-cur" href="hit_episode2.html"><span class="sn-ep-badge">Ep 2</span><span class="sn-ep-long">Harmonics</span></a>
+    <a class="sn-ep" href="dll_mqt.html"><span class="sn-ep-badge">MQT</span><span class="sn-ep-long">MQT Viewer</span></a>
+  </div>
+  <a class="sn-arr" href="dll_harmonics.html">Sim →</a>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Episode 2 · HIT Technology Series</div>
+    <h1>Current harmonics<br>in grid-connected<br>data centres</h1>
+    <p class="hero-sub">Power electronic loads draw non-sinusoidal currents. The resulting harmonic distortion at the point of common coupling must meet IEEE 519-2022 limits — or the facility is non-compliant at the meter.</p>
+  </div>
+</section>
+
+<div class="page-body">
+
+<!-- ── 1. The Source ── -->
+<section class="sect" id="source">
+  <div class="sect-label">The Problem</div>
+  <h2>Where harmonics come from</h2>
+  <p class="sect-lede">Switching power supplies, UPS rectifiers, and variable-frequency drives all draw current in pulses rather than continuously. That pulsed waveform is a distorted sinusoid — mathematically equivalent to a sum of the fundamental plus higher-frequency components at integer multiples of 60 Hz.</p>
+
+  <div class="two-col">
+    <div class="col-text">
+      <p>A six-pulse rectifier — the topology found in most UPS systems — draws current in two pulses per half-cycle. By Fourier decomposition, its line current contains a fundamental component plus characteristic harmonics at orders <strong>h = 6k ± 1</strong> (k = 1, 2, 3, …): the 5th, 7th, 11th, 13th, 17th, 19th, and so on.</p>
+      <p>Under the idealised assumption of rectangular current pulses and no commutation overlap (Mohan, <em>Power Electronics</em>), the amplitude of each harmonic is <strong>I<sub>h</sub> = I<sub>1</sub> / h</strong>, giving a theoretical total harmonic distortion of approximately 29% relative to the fundamental.</p>
+      <p>Real installations exceed this when multiple loads operate simultaneously. Harmonic currents from different rectifiers can add coherently depending on phase angle, increasing distortion at the common bus.</p>
+    </div>
+    <div>
+      <div class="harm-table-wrap">
+        <table class="harm-table">
+          <thead>
+            <tr>
+              <th>Harmonic order h</th>
+              <th>Frequency (60 Hz base)</th>
+              <th>Ideal amplitude I<sub>h</sub> / I<sub>1</sub></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="h-order">5</td><td>300 Hz</td><td class="h-amp">20.0 %</td></tr>
+            <tr><td class="h-order">7</td><td>420 Hz</td><td class="h-amp">14.3 %</td></tr>
+            <tr><td class="h-order">11</td><td>660 Hz</td><td class="h-amp">9.1 %</td></tr>
+            <tr><td class="h-order">13</td><td>780 Hz</td><td class="h-amp">7.7 %</td></tr>
+            <tr><td class="h-order">17</td><td>1 020 Hz</td><td class="h-amp">5.9 %</td></tr>
+            <tr><td class="h-order">19</td><td>1 140 Hz</td><td class="h-amp">5.3 %</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.74em;color:rgba(255,255,255,0.32);margin-top:10px;line-height:1.5">
+        Six-pulse rectifier characteristic harmonic spectrum. Source: Mohan, Undeland &amp; Robbins, <em>Power Electronics</em>; IEEE Std 519-2022 Annex A.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 2. IEEE 519-2022 ── -->
+<section class="sect" id="standard">
+  <div class="sect-label">Compliance Limit</div>
+  <h2>IEEE 519-2022: the applicable standard</h2>
+  <p class="sect-lede">IEEE 519-2022 sets harmonic current limits at the point of common coupling (PCC) — the metering boundary between the utility and the customer. Limits are indexed by the short-circuit ratio I<sub>SC</sub> / I<sub>L</sub>, which reflects the relative stiffness of the supply.</p>
+
+  <div class="two-col">
+    <div class="col-text">
+      <p>The relevant metric is <strong>Total Demand Distortion (TDD)</strong> — the rms harmonic current (orders 2 through 50) normalised to the maximum demand load current I<sub>L</sub> at the PCC, expressed as a percentage:</p>
+      <p style="text-align:center;font-size:1.05em;color:var(--white);padding:10px 0;letter-spacing:.01em">
+        TDD = √(Σ I<sub>h</sub>²) / I<sub>L</sub> × 100 %
+      </p>
+      <p>For the ERCOT reference design (I<sub>SC</sub> / I<sub>L</sub> ≈ 17, tier &lt; 20), the limit is <strong>TDD ≤ 5 %</strong>. Individual harmonic limits apply on top of this: 4 % for orders below the 11th, 2 % for orders 11–16, and 1.5 % for orders 17–22.</p>
+      <p>Compliance is assessed over 10-minute demand intervals and applies continuously during normal operation, not only at peak load.</p>
+    </div>
+    <div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-val">5 %</div>
+          <div class="stat-lbl">TDD limit at PCC<br>IEEE 519-2022, tier I<sub>SC</sub>/I<sub>L</sub> &lt; 20</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">≈ 29 %</div>
+          <div class="stat-lbl">THD of an unfiltered six-pulse rectifier (theoretical)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">17.4</div>
+          <div class="stat-lbl">I<sub>SC</sub> / I<sub>L</sub> ratio in the ERCOT reference design simulation</div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.6rem">
+        <p>TDD differs from THD. TDD normalises to maximum demand current I<sub>L</sub>, not to the fundamental I<sub>1</sub>. At part load, the denominator stays fixed, so TDD can be lower than THD even with identical harmonic content. IEEE 519-2022 uses TDD exclusively.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. HIT Response ── -->
+<section class="sect" id="mitigation">
+  <div class="sect-label">HIT Response</div>
+  <h2>Active harmonic filtering via the HIT shunt converter</h2>
+  <p class="sect-lede">The HIT shunt converter (VSC2) operates as an active harmonic filter connected in parallel at the node between the series HIT transformer and the load. It cancels harmonic currents before they propagate to the PCC.</p>
+
+  <div class="two-col">
+    <div class="col-text">
+      <p>The load draws distorted current containing fundamental plus harmonic components. The shunt converter measures this current, computes the harmonic content in real time via the OEM firmware running at 20 kHz, and injects an equal and opposite compensating current:</p>
+      <p style="text-align:center;font-size:1em;color:var(--white);padding:8px 0">
+        <strong>i<sub>comp</sub> = − i<sub>harm</sub></strong>
+      </p>
+      <p>The grid-side current through the HIT series path then contains only the fundamental component. The PCC sees a clean sinusoidal current, and TDD at the meter drops to near zero — bounded in practice by the converter's current rating and control bandwidth.</p>
+      <p>In the Reference Design June 2026 v1, the shunt current reference is rated to <strong>±1 530 A peak</strong>, set by the power electronics dimensioning of the OEM build.</p>
+    </div>
+    <div>
+      <div class="step-flow">
+        <div class="sf-step">
+          <div class="sf-dot">1</div>
+          <div class="sf-head">Load draws distorted current</div>
+          <p>Six-pulse rectifiers and VFDs produce harmonic currents at h = 5, 7, 11, 13, … superimposed on the 60 Hz fundamental.</p>
+        </div>
+        <div class="sf-step">
+          <div class="sf-dot">2</div>
+          <div class="sf-head">Firmware computes harmonic content</div>
+          <p>The OEM controller samples load current at <strong>20 kHz</strong> and extracts the harmonic reference signal in real time.</p>
+        </div>
+        <div class="sf-step">
+          <div class="sf-dot">3</div>
+          <div class="sf-head">Shunt injects compensating current</div>
+          <p>VSC2 injects <strong>i<sub>comp</sub> = −i<sub>harm</sub></strong> at the shunt node. Harmonic and compensating currents cancel; only the fundamental flows toward the PCC.</p>
+        </div>
+        <div class="sf-step">
+          <div class="sf-dot">4</div>
+          <div class="sf-head">PCC current meets IEEE 519-2022</div>
+          <p>TDD at the metering point is reduced from ~29 % (unfiltered six-pulse) to within the <strong>5 % limit</strong> for the applicable tier.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sim-launch-wrap">
+    <div class="sim-launch-info">
+      <div class="sim-launch-label">Reference Design June 2026 v1 · OEM Firmware · 20 kHz · IEEE 519-2022</div>
+      <h3>Explore the harmonic mitigation simulation</h3>
+      <p>The Reference Design controller DLL was run against four facility load architectures — from six-pulse UPS to BESS with low-harmonic VFDs. Inspect the harmonic spectrum, waveform, and TDD result for each case against the IEEE 519-2022 limit.</p>
+    </div>
+    <button class="sim-btn" onclick="openSim()">Explore simulation →</button>
+  </div>
+</section>
+
+</div><!-- /page-body -->
+
+<!-- ── Footer ── -->
+<footer class="page-footer">
+  <p class="footer-note">Reference Design June 2026 v1 · Firmware-in-the-loop simulation · Not lab- or production-validated · FoundDigital DS confidential</p>
+</footer>
+
+<!-- ── Simulation overlay ── -->
+<div class="sim-overlay" id="sim-overlay">
+  <div class="sim-header">
+    <div class="sim-header-left">
+      <div class="sim-header-title">HIT Harmonic Mitigation · IEEE 519-2022 · Reference Design June 2026 v1</div>
+    </div>
+    <button class="sim-close" onclick="closeSim()">✕ &nbsp;Close</button>
+  </div>
+  <iframe id="sim-frame" src="" title="Harmonic mitigation simulation"></iframe>
+</div>
+
+<script>
+function openSim(){
+  var o=document.getElementById('sim-overlay');
+  var f=document.getElementById('sim-frame');
+  if(!f.src||f.src==='about:blank'||f.src==='') f.src='dll_harmonics.html';
+  o.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSim(){
+  document.getElementById('sim-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape') closeSim();});
+</script>
+</body>
+</html>
