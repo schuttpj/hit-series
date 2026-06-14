@@ -392,7 +392,7 @@ body{margin:0;background:#10152e;color:#e8ecf4;
 
     /* ═══════════ RIGHT — With HIT ═══════════ */
     var RW=R1-R0;
-    var rG=R0+16, rTX=R0+100, rN=R0+210, rLD=R1-16;
+    var rG=R0+16, rTX=R0+180, rLD=R1-16;
     var rHY=CY+98;  /* Shunt box centre y */
 
     ctx.fillStyle='rgba(60,210,112,0.92)';
@@ -410,26 +410,25 @@ body{margin:0;background:#10152e;color:#e8ecf4;
     ctx.setLineDash([]);
     ctx.restore();
 
-    wire(rG,CY,rTX-26,CY); wire(rTX+26,CY,rN,CY);
-    wire(rN,CY,rLD,CY); wire(rTX,CY+18,rTX,rHY-18);
+    wire(rG,CY,rTX-26,CY); wire(rTX+26,CY,rLD,CY);
+    wire(rTX,CY+18,rTX,rHY-18);
 
     box(rTX,CY,52,36,'HIT','rgba(34,198,240,0.35)','#22c6f0');
     box(rTX,rHY,60,32,'Shunt','#22c6f0','#22c6f0');
     dot(rG,CY,'rgba(220,225,244,0.7)');
-    dot(rN,CY,'rgba(34,198,240,0.85)');
+    dot(rTX,CY,'rgba(34,198,240,0.85)');
     dot(rLD,CY,'rgba(70,210,120,0.85)');
 
     hwave(rG+3, rTX-28, CY, fund, '#40c870', 12, 2.2);
-    hwave(rTX+28, rN-3,  CY, fund, '#40c870', 12, 2.2);
-    hwave(rN+3, rLD-3,  CY, dist, '#f0a020', 12, 2.0);
+    hwave(rTX+28, rLD-3, CY, dist, '#f0a020', 12, 2.0);
     vwave(rTX, CY+19, rHY-20, comp, '#22c6f0', 11, 2.0);
 
     lbl('PCC', rG+2, CY+11, 'rgba(220,225,244,0.85)', 11, 'left');
     lbl('(compliance point)', rG+2, CY+24, 'rgba(220,225,244,0.45)', 9, 'left');
     lbl('Load', rLD-2, CY+11, 'rgba(70,210,120,0.75)', 11, 'right');
     lbl('Iₛ = clean fundamental',
-        (rG+rTX)/2+10, CY-40, 'rgba(60,210,120,0.85)', 10.5);
-    lbl('I_load = distorted', (rN+rLD)/2, CY-42, 'rgba(240,160,32,0.75)', 10);
+        (rG+rTX)/2, CY-40, 'rgba(60,210,120,0.85)', 10.5);
+    lbl('I_load = distorted', (rTX+rLD)/2, CY-42, 'rgba(240,160,32,0.75)', 10);
     lbl('VSC2 injects −I_harm',
         rTX, rHY+24, 'rgba(34,198,240,0.85)', 10.5);
     lbl('Shunt injects compensating current — PCC sees clean fundamental',
